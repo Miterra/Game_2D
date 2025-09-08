@@ -45,7 +45,7 @@ offset_bottom = 561.0
 script = SubResource("GDScript_8gbba")
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Instagram" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Instagram" to="." method="_on_instagram_pressed"]
+[connection signal="pressed" from="Instagram" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

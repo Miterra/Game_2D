@@ -1,3 +1,162 @@
-[gd_scene format=3 uid="uid://dlb3hrc5bfxli"]
+[gd_scene load_steps=16 format=3 uid="uid://dlb3hrc5bfxli"]
+
+[ext_resource type="Script" uid="uid://dan1w685iuc5m" path="res://Scripts/baker_work.gd" id="1_4e2d3"]
+[ext_resource type="Texture2D" uid="uid://b5orc0gcqyoyx" path="res://Sprites/Game/Baker_renovation.png" id="1_vvm77"]
+[ext_resource type="Shader" uid="uid://byj7gcheymugw" path="res://Scenes/game_easy/baker_work.gdshader" id="2_4qmsk"]
+[ext_resource type="Texture2D" uid="uid://c7voav88iri58" path="res://Sprites/Game/super-sonic.png" id="3_4e2d3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sjl0f"]
+shader = ExtResource("2_4qmsk")
+shader_parameter/key_color1 = Color(0, 0.721569, 0.188235, 1)
+shader_parameter/key_color2 = Color(1, 0.498039, 0.152941, 1)
+shader_parameter/key_color3 = Color(0.0745098, 0.4, 0.172549, 1)
+shader_parameter/tolerance = 0.1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4e2d3"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(0, 0, 34, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2h00"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(33, 0, 34, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vxu1"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(0, 48, 33, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb8xh"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(33, 48, 33, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mryyk"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(132, 48, 33, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sjl0f"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(164, 48, 35, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ui1i"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(206, 48, 33, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vc24w"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(238, 48, 35, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xne2t"]
+atlas = ExtResource("3_4e2d3")
+region = Rect2(278, 48, 37, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0ui1i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4e2d3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2h00")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vxu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb8xh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mryyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjl0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ui1i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc24w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xne2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xne2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xne2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xne2t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vc24w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sjl0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mryyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb8xh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vxu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb8xh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vxu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb8xh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vxu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb8xh")
+}],
+"loop": true,
+"name": &"pouce bleu",
+"speed": 10.0
+}]
 
 [node name="Baker_work" type="Node2D"]
+script = ExtResource("1_4e2d3")
+
+[node name="BakerRenovation" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.75, 0.632813)
+texture = ExtResource("1_vvm77")
+
+[node name="Super_Sonic" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_sjl0f")
+position = Vector2(884, 392)
+scale = Vector2(7.46603, 7.13889)
+sprite_frames = SubResource("SpriteFrames_0ui1i")
+animation = &"idle"
+
+[node name="Super_Sonic2" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_sjl0f")
+position = Vector2(888, 388)
+scale = Vector2(7.46603, 7.13889)
+sprite_frames = SubResource("SpriteFrames_0ui1i")
+animation = &"pouce bleu"
+frame = 14
+
+[node name="Back" type="Button" parent="."]
+offset_left = 39.0
+offset_top = 557.0
+offset_right = 165.0
+offset_bottom = 600.0
+text = "Go Back"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
