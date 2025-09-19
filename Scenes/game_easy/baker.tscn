@@ -372,7 +372,6 @@ position = Vector2(926, 484)
 scale = Vector2(7.45238, 6.63333)
 sprite_frames = SubResource("SpriteFrames_1qhlq")
 autoplay = "default"
-frame = 43
 flip_h = true
 
 [node name="Gestion2" type="AnimatedSprite2D" parent="."]
