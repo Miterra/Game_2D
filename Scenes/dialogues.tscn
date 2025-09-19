@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://bac6s2hbo5m1w"]
+
+[ext_resource type="Texture2D" uid="uid://ch86rors44yn0" path="res://Sprites/DIalogues/Station.png" id="2_in4j7"]
+
+[sub_resource type="GDScript" id="GDScript_yfpkt"]
+script/source = "extends Node2D
+
+@onready var sprite = $Station
+
+func _ready():
+	var mat = sprite.material as ShaderMaterial
+	mat.set_shader_parameter(\"radius\", 0.0)
+
+	var tween = create_tween()
+	tween.tween_property(mat, \"shader_parameter/radius\", 10.0, 1.0)
+
+
+
+func _on_revenir_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/main.tscn\")
+"
+
+[sub_resource type="Shader" id="Shader_uve4t"]
+code = "shader_type canvas_item;
+
+uniform sampler2D my_tex;
+uniform float radius : hint_range(0.0, 10.0) = 0.0;
+
+void fragment() {
+    vec2 pixel_size = 1.0 / vec2(textureSize(my_tex, 0));
+    vec4 col = vec4(0.0);
+    float count = 0.0;
+
+    for (float x = -radius; x <= radius; x++) {
+        for (float y = -radius; y <= radius; y++) {
+            col += texture(my_tex, UV + vec2(x, y) * pixel_size);
+            count++;
+        }
+    }
+
+    COLOR = col / count;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17r0m"]
+shader = SubResource("Shader_uve4t")
+shader_parameter/my_tex = ExtResource("2_in4j7")
+shader_parameter/radius = 10.0
+
+[node name="Dialogues" type="Node2D"]
+script = SubResource("GDScript_yfpkt")
+
+[node name="Station" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_17r0m")
+position = Vector2(576, 324.00003)
+scale = Vector2(0.9616026, 0.8140704)
+texture = ExtResource("2_in4j7")
+
+[node name="revenir" type="Button" parent="."]
+offset_left = 935.0
+offset_top = 19.0
+offset_right = 1136.0
+offset_bottom = 128.0
+text = "revenir"
+
+[connection signal="pressed" from="revenir" to="." method="_on_revenir_pressed"]

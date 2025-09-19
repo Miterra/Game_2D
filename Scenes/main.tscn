@@ -44,8 +44,17 @@ offset_right = 711.0
 offset_bottom = 561.0
 script = SubResource("GDScript_8gbba")
 
+[node name="TEST" type="Button" parent="."]
+offset_left = 43.0
+offset_top = 321.0
+offset_right = 313.0
+offset_bottom = 394.0
+text = "TEST"
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Instagram" to="." method="_on_instagram_pressed"]
 [connection signal="pressed" from="Instagram" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="TEST" to="." method="_on_test_pressed"]
+[connection signal="pressed" from="TEST" to="." method="_on_play_pressed"]
