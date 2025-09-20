@@ -20,5 +20,10 @@ func _on_quit_pressed() -> void:
 
 
 
+
 func _on_instagram_pressed() -> void:
-	OS.shell_open("https://instagram.com/halxl_")  # remplace par ton @
+	OS.shell_open("https://instagram.com/halxl_")
+
+
+func _on_test_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/dialogues.tscn")

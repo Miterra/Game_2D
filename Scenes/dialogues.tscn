@@ -1,0 +1,327 @@
+[gd_scene load_steps=20 format=3 uid="uid://dpv3kdx55ti0w"]
+
+[ext_resource type="Shader" uid="uid://cgmw2nhesqkiq" path="res://Scenes/game_easy/shader/baker.gdshader" id="2_7abj2"]
+[ext_resource type="Shader" uid="uid://c4nffjp86nq0v" path="res://Sprites/DIalogues/dialogues.gdshader" id="2_17r0m"]
+[ext_resource type="Texture2D" uid="uid://ch86rors44yn0" path="res://Sprites/DIalogues/Station.png" id="2_in4j7"]
+[ext_resource type="Texture2D" uid="uid://cevfv5arm3fw7" path="res://Sprites/DIalogues/fleche_dialogue.jpg" id="3_5adu3"]
+[ext_resource type="Texture2D" uid="uid://draabrdxu6hpi" path="res://Sprites/DIalogues/neige_sol.jpg" id="3_g7vqu"]
+[ext_resource type="Texture2D" uid="uid://dgeqc05bd6ord" path="res://Sprites/DIalogues/manchot.png" id="6_gp4mg"]
+
+[sub_resource type="GDScript" id="GDScript_yfpkt"]
+script/source = "extends Node2D
+
+@onready var sprite = $Station
+@onready var neigesol = $CanvasLayer/NeigeSol
+@onready var manchot = $CanvasLayer/manchot
+@onready var btn_before = $CanvasLayer/btn_fleche_before
+@onready var btn_next = $CanvasLayer/btn_fleche_next
+@onready var dialogue_label = $CanvasLayer/Text
+const Dialogues = preload(\"res://Scripts/dialogues_textes.gd\")  # adapte le chemin !
+
+
+var current_index = 1  # on commence sur le texte 1
+
+func _ready():
+	btn_before.visible = false
+	btn_next.visible = false
+	dialogue_label.visible = false
+
+	var mat = sprite.material as ShaderMaterial
+	mat.set_shader_parameter(\"radius\", 0.0)
+
+	var tween = create_tween()
+	tween.tween_property(mat, \"shader_parameter/radius\", 10.0, 1.0)
+
+	# Position de départ en bas
+	neigesol.position = Vector2(575, 800)
+
+	# Animation qui fait monter
+	var tween2 = create_tween()
+	tween2.tween_property(neigesol, \"position\", Vector2(575, 379), 1.5)
+
+	# Anim manchot
+	manchot.play(\"nager\")
+	await get_tree().create_timer(6).timeout
+	manchot.play(\"marche\")
+	await get_tree().create_timer(2).timeout
+
+	manchot.animation = \"marche\"
+	manchot.frame = 2
+	manchot.stop()
+
+	# activer les boutons + texte après l’anim
+	btn_next.visible = true
+	dialogue_label.visible = true
+
+	# afficher le premier texte
+	dialogue_label.text = Dialogues.text[current_index]
+
+	# connecter les boutons
+	btn_next.pressed.connect(_on_btn_next_pressed)
+	btn_before.pressed.connect(_on_btn_before_pressed)
+
+
+func _on_btn_next_pressed():
+	if current_index < Dialogues.text.size():
+		current_index += 1
+		dialogue_label.text = Dialogues.text[current_index]
+		btn_before.visible = true
+
+	if current_index == Dialogues.text.size():
+		btn_next.visible = false
+
+
+func _on_btn_before_pressed():
+	if current_index > 1:
+		current_index -= 1
+		dialogue_label.text = Dialogues.text[current_index]
+		if current_index == 1:
+			btn_before.visible = false
+
+	btn_next.visible = true
+
+
+func _on_revenir_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/main.tscn\")
+"
+
+[sub_resource type="Shader" id="Shader_uve4t"]
+code = "shader_type canvas_item;
+
+uniform sampler2D my_tex;
+uniform float radius : hint_range(0.0, 10.0) = 0.0;
+
+void fragment() {
+    vec2 pixel_size = 1.0 / vec2(textureSize(my_tex, 0));
+    vec4 col = vec4(0.0);
+    float count = 0.0;
+
+    for (float x = -radius; x <= radius; x++) {
+        for (float y = -radius; y <= radius; y++) {
+            col += texture(my_tex, UV + vec2(x, y) * pixel_size);
+            count++;
+        }
+    }
+
+    COLOR = col / count;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17r0m"]
+resource_local_to_scene = true
+shader = SubResource("Shader_uve4t")
+shader_parameter/my_tex = ExtResource("2_in4j7")
+shader_parameter/radius = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2qk2"]
+shader = ExtResource("2_7abj2")
+shader_parameter/key_color1 = Color(0.003921569, 0.003921569, 0.003921569, 1)
+shader_parameter/key_color2 = Color(0.078431375, 0.078431375, 0.078431375, 1)
+shader_parameter/tolerance = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7abj2"]
+shader = ExtResource("2_17r0m")
+shader_parameter/key_color1 = Color(1, 1, 1, 1)
+shader_parameter/tolerance = 0.1
+
+[sub_resource type="Animation" id="Animation_7abj2"]
+resource_name = "manchot"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("manchot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 3.14, 3.58, 4.12, 4.81, 6, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1229, 572.00006), Vector2(981.05, 575.705), Vector2(878, 571), Vector2(780, 601), Vector2(638.00006, 570), Vector2(356.00003, 612.00006), Vector2(180.00002, 548)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("manchot:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(6, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2664528, 1.249925), Vector2(4, 3.949)]
+}
+
+[sub_resource type="Animation" id="Animation_g7vqu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("manchot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1229, 572.00006)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("manchot:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2664528, 1.249925)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gp4mg"]
+_data = {
+&"RESET": SubResource("Animation_g7vqu"),
+&"manchot": SubResource("Animation_7abj2")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7abj2"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(625, 432, 57, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7vqu"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(568, 432, 57, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1xo8"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(390, 833, 106, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56ig0"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(797, 833, 104, 49)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_in4j7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7abj2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7vqu")
+}],
+"loop": true,
+"name": &"marche",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1xo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_56ig0")
+}],
+"loop": true,
+"name": &"nager",
+"speed": 5.0
+}]
+
+[node name="Dialogues" type="Node2D"]
+script = SubResource("GDScript_yfpkt")
+
+[node name="Station" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_17r0m")
+position = Vector2(576, 324.00003)
+scale = Vector2(0.9616026, 0.8140704)
+texture = ExtResource("2_in4j7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="NeigeSol" type="Sprite2D" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_y2qk2")
+position = Vector2(575, 378.99994)
+scale = Vector2(1.882353, 1.8517442)
+texture = ExtResource("3_g7vqu")
+
+[node name="FlecheBefore" type="Sprite2D" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_7abj2")
+position = Vector2(1028, 622.00006)
+scale = Vector2(0.10459184, 0.121428564)
+texture = ExtResource("3_5adu3")
+flip_h = true
+
+[node name="FlecheNext" type="Sprite2D" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_7abj2")
+position = Vector2(1095, 622.00006)
+scale = Vector2(0.10459184, 0.121428564)
+texture = ExtResource("3_5adu3")
+
+[node name="btn_fleche_before" type="Button" parent="CanvasLayer"]
+visibility_layer = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 418.0
+offset_top = 274.0
+offset_right = 486.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="btn_fleche_next" type="Button" parent="CanvasLayer"]
+visibility_layer = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 486.0
+offset_top = 274.0
+offset_right = 554.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="revenir" type="Button" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -201.0
+offset_bottom = 109.0
+grow_horizontal = 0
+text = "revenir"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_gp4mg")
+}
+autoplay = "manchot"
+
+[node name="manchot" type="AnimatedSprite2D" parent="CanvasLayer"]
+texture_filter = 5
+position = Vector2(1229, 572.00006)
+scale = Vector2(1.2664528, 1.249925)
+sprite_frames = SubResource("SpriteFrames_in4j7")
+animation = &"marche"
+
+[node name="Text" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.0
+offset_top = 126.0
+offset_right = 440.0
+offset_bottom = 268.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 32
+
+[connection signal="pressed" from="CanvasLayer/revenir" to="." method="_on_revenir_pressed"]

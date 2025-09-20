@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dan1w685iuc5m" path="res://Scripts/baker_work.gd" id="1_4e2d3"]
 [ext_resource type="Texture2D" uid="uid://b5orc0gcqyoyx" path="res://Sprites/Game/Baker_renovation.png" id="1_vvm77"]
-[ext_resource type="Shader" uid="uid://byj7gcheymugw" path="res://Scenes/game_easy/baker_work.gdshader" id="2_4qmsk"]
+[ext_resource type="Shader" uid="uid://byj7gcheymugw" path="res://Scenes/game_easy/shader/baker_work.gdshader" id="2_4qmsk"]
 [ext_resource type="Texture2D" uid="uid://c7voav88iri58" path="res://Sprites/Game/super-sonic.png" id="3_4e2d3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sjl0f"]
@@ -60,6 +60,17 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vxu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb8xh")
+}],
+"loop": true,
+"name": &"idle2",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -150,6 +161,11 @@ position = Vector2(888, 388)
 scale = Vector2(7.46603, 7.13889)
 sprite_frames = SubResource("SpriteFrames_0ui1i")
 animation = &"pouce bleu"
+<<<<<<< HEAD
+=======
+frame = 4
+frame_progress = 0.655839
+>>>>>>> f7e5c3010db1b7467ad181736b29688d7ec29c22
 
 [node name="Back" type="Button" parent="."]
 offset_left = 39.0

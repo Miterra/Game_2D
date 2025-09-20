@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dx0ck3s768ycs" path="res://Scripts/baker.gd" id="1_vmos5"]
 [ext_resource type="Texture2D" uid="uid://dypua0ce5qx8x" path="res://Sprites/Game/Baker.png" id="2_vmos5"]
-[ext_resource type="Shader" uid="uid://cgmw2nhesqkiq" path="res://Scenes/game_easy/baker.gdshader" id="3_ksmub"]
+[ext_resource type="Shader" uid="uid://cgmw2nhesqkiq" path="res://Scenes/game_easy/shader/baker.gdshader" id="3_ksmub"]
 [ext_resource type="Texture2D" uid="uid://b1sifw2n5kqpr" path="res://Sprites/Game/sonic_ultime.png" id="4_u4wqa"]
 [ext_resource type="Texture2D" uid="uid://cgelhjak5nsig" path="res://Sprites/Game/bouton_Gestion.png" id="5_u4wqa"]
 

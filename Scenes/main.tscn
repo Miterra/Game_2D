@@ -1,11 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dosri68swpiyn"]
+[gd_scene load_steps=3 format=3 uid="uid://dosri68swpiyn"]
 
 [ext_resource type="Script" uid="uid://cuveqiydci504" path="res://Scripts/main.gd" id="1_bo1nx"]
 [ext_resource type="Texture2D" uid="uid://cc1k22q5sevuf" path="res://Sprites/Menu/Main_Menu.png" id="2_bo1nx"]
-
-[sub_resource type="GDScript" id="GDScript_8gbba"]
-script/source = "extends Button
-"
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bo1nx")
@@ -42,10 +38,17 @@ offset_left = 441.0
 offset_top = 488.0
 offset_right = 711.0
 offset_bottom = 561.0
-script = SubResource("GDScript_8gbba")
+
+[node name="test" type="Button" parent="."]
+offset_left = 46.0
+offset_top = 216.0
+offset_right = 184.0
+offset_bottom = 278.0
+text = "test"
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Instagram" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Instagram" to="." method="_on_instagram_pressed"]
+[connection signal="pressed" from="Instagram" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="test" to="." method="_on_test_pressed"]

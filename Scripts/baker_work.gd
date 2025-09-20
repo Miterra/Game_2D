@@ -11,14 +11,19 @@ func _ready():
 	# Lancer l'animation "idle"
 	super_sonic.flip_h = false
 	super_sonic.play("idle")
-	
-	# Après 2 secondes → passer à pouce bleu et activer flip H
+
+	# Après 0.25s → passer à pouce bleu et activer flip H
 	await get_tree().create_timer(0.25).timeout
 	super_sonic.visible = false
 	super_sonic2.visible = true
 
 	super_sonic2.flip_h = true
 	super_sonic2.play("pouce bleu")
+	await super_sonic2.animation_finished
+	super_sonic2.play("idle2")
+
+
+
 
 
 
