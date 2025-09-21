@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dpv3kdx55ti0w"]
+[gd_scene load_steps=23 format=3 uid="uid://dpv3kdx55ti0w"]
 
 [ext_resource type="Shader" uid="uid://cgmw2nhesqkiq" path="res://Scenes/game_easy/shader/baker.gdshader" id="2_7abj2"]
 [ext_resource type="Shader" uid="uid://c4nffjp86nq0v" path="res://Sprites/DIalogues/dialogues.gdshader" id="2_17r0m"]
@@ -16,7 +16,6 @@ script/source = "extends Node2D
 @onready var btn_before = $CanvasLayer/btn_fleche_before
 @onready var btn_next = $CanvasLayer/btn_fleche_next
 @onready var dialogue_label = $CanvasLayer/Text
-const Dialogues = preload(\"res://Scripts/dialogues_textes.gd\")  # adapte le chemin !
 
 
 var current_index = 1  # on commence sur le texte 1
@@ -32,7 +31,7 @@ func _ready():
 	var tween = create_tween()
 	tween.tween_property(mat, \"shader_parameter/radius\", 10.0, 1.0)
 
-	# Position de départ en bas
+	# Position de départ en bas	
 	neigesol.position = Vector2(575, 800)
 
 	# Animation qui fait monter
@@ -45,9 +44,9 @@ func _ready():
 	manchot.play(\"marche\")
 	await get_tree().create_timer(2).timeout
 
-	manchot.animation = \"marche\"
-	manchot.frame = 2
+	manchot.animation = \"Dialogues\"
 	manchot.stop()
+	manchot.frame = 0
 
 	# activer les boutons + texte après l’anim
 	btn_next.visible = true
@@ -65,7 +64,9 @@ func _on_btn_next_pressed():
 	if current_index < Dialogues.text.size():
 		current_index += 1
 		dialogue_label.text = Dialogues.text[current_index]
+		manchot.frame = current_index-1
 		btn_before.visible = true
+
 
 	if current_index == Dialogues.text.size():
 		btn_next.visible = false
@@ -75,6 +76,7 @@ func _on_btn_before_pressed():
 	if current_index > 1:
 		current_index -= 1
 		dialogue_label.text = Dialogues.text[current_index]
+		manchot.frame = current_index-1
 		if current_index == 1:
 			btn_before.visible = false
 
@@ -124,6 +126,33 @@ shader = ExtResource("2_17r0m")
 shader_parameter/key_color1 = Color(1, 1, 1, 1)
 shader_parameter/tolerance = 0.1
 
+[sub_resource type="Animation" id="Animation_g7vqu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("manchot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1229, 572.00006)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("manchot:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2664528, 1.249925)]
+}
+
 [sub_resource type="Animation" id="Animation_7abj2"]
 resource_name = "manchot"
 length = 8.0
@@ -152,38 +181,23 @@ tracks/1/keys = {
 "values": [Vector2(1.2664528, 1.249925), Vector2(4, 3.949)]
 }
 
-[sub_resource type="Animation" id="Animation_g7vqu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("manchot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1229, 572.00006)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("manchot:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1.2664528, 1.249925)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gp4mg"]
 _data = {
 &"RESET": SubResource("Animation_g7vqu"),
 &"manchot": SubResource("Animation_7abj2")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2qk2"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(67, 337, 87, 98)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp4mg"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(232, 234, 52, 98)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtk4h"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(0, 337, 66, 98)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7abj2"]
 atlas = ExtResource("6_gp4mg")
@@ -203,6 +217,20 @@ region = Rect2(797, 833, 104, 49)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_in4j7"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2qk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gp4mg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtk4h")
+}],
+"loop": true,
+"name": &"Dialogues",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7abj2")
@@ -256,6 +284,21 @@ position = Vector2(1095, 622.00006)
 scale = Vector2(0.10459184, 0.121428564)
 texture = ExtResource("3_5adu3")
 
+[node name="Text" type="RichTextLabel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.0
+offset_top = 187.0
+offset_right = 486.0
+offset_bottom = 329.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+
 [node name="btn_fleche_before" type="Button" parent="CanvasLayer"]
 visibility_layer = 0
 anchors_preset = 8
@@ -308,20 +351,6 @@ texture_filter = 5
 position = Vector2(1229, 572.00006)
 scale = Vector2(1.2664528, 1.249925)
 sprite_frames = SubResource("SpriteFrames_in4j7")
-animation = &"marche"
-
-[node name="Text" type="RichTextLabel" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -282.0
-offset_top = 126.0
-offset_right = 440.0
-offset_bottom = 268.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/normal_font_size = 32
+animation = &"Dialogues"
 
 [connection signal="pressed" from="CanvasLayer/revenir" to="." method="_on_revenir_pressed"]
