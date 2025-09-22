@@ -102,6 +102,10 @@ func _on_terminer_pressed() -> void:
 	img_flecheBefore.visible = false
 	img_flecheNext.visible = false
 	manchot.play(\"outro\")
+
+	# Animation qui fait descendre le manchot
+	var tween3 = create_tween()
+	tween3.tween_property(manchot, \"position\", Vector2(180.0, 790.0), 0.5)	
 "
 
 [sub_resource type="Shader" id="Shader_uve4t"]
@@ -301,7 +305,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"outro",
-"speed": 7.0
+"speed": 9.0
 }]
 
 [node name="Dialogues" type="Node2D"]
@@ -401,7 +405,8 @@ texture_filter = 5
 position = Vector2(1229, 572.00006)
 scale = Vector2(1.2664528, 1.249925)
 sprite_frames = SubResource("SpriteFrames_in4j7")
-animation = &"nager"
+animation = &"outro"
+frame = 3
 
 [node name="Terminer" type="Button" parent="CanvasLayer"]
 anchors_preset = 3
