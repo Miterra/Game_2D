@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dpv3kdx55ti0w"]
+[gd_scene load_steps=27 format=3 uid="uid://dpv3kdx55ti0w"]
 
 [ext_resource type="Shader" uid="uid://cgmw2nhesqkiq" path="res://Scenes/game_easy/shader/baker.gdshader" id="2_7abj2"]
 [ext_resource type="Shader" uid="uid://c4nffjp86nq0v" path="res://Sprites/DIalogues/dialogues.gdshader" id="2_17r0m"]
@@ -16,7 +16,9 @@ script/source = "extends Node2D
 @onready var btn_before = $CanvasLayer/btn_fleche_before
 @onready var btn_next = $CanvasLayer/btn_fleche_next
 @onready var dialogue_label = $CanvasLayer/Text
-
+@onready var terminer = $CanvasLayer/Terminer
+@onready var img_flecheBefore = $CanvasLayer/FlecheBefore
+@onready var img_flecheNext = $CanvasLayer/FlecheNext
 
 var current_index = 1  # on commence sur le texte 1
 
@@ -24,6 +26,7 @@ func _ready():
 	btn_before.visible = false
 	btn_next.visible = false
 	dialogue_label.visible = false
+	terminer.visible = false
 
 	var mat = sprite.material as ShaderMaterial
 	mat.set_shader_parameter(\"radius\", 0.0)
@@ -70,6 +73,7 @@ func _on_btn_next_pressed():
 
 	if current_index == Dialogues.text.size():
 		btn_next.visible = false
+		terminer.visible = true
 
 
 func _on_btn_before_pressed():
@@ -81,10 +85,23 @@ func _on_btn_before_pressed():
 			btn_before.visible = false
 
 	btn_next.visible = true
+	terminer.visible = false
+
+
 
 
 func _on_revenir_pressed() -> void:
 	get_tree().change_scene_to_file(\"res://Scenes/main.tscn\")
+
+
+func _on_terminer_pressed() -> void:
+	dialogue_label.visible = false
+	terminer.visible = false
+	btn_before.visible = false
+	btn_next.visible = false
+	img_flecheBefore.visible = false
+	img_flecheNext.visible = false
+	manchot.play(\"outro\")
 "
 
 [sub_resource type="Shader" id="Shader_uve4t"]
@@ -215,6 +232,22 @@ region = Rect2(390, 833, 106, 49)
 atlas = ExtResource("6_gp4mg")
 region = Rect2(797, 833, 104, 49)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnr8o"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(0, 619, 68, 84)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj4il"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(0, 528, 83, 91)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0k3e"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(70, 619, 83, 85)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8f78"]
+atlas = ExtResource("6_gp4mg")
+region = Rect2(156, 702, 96, 74)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_in4j7"]
 animations = [{
 "frames": [{
@@ -252,6 +285,23 @@ animations = [{
 "loop": true,
 "name": &"nager",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnr8o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj4il")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0k3e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8f78")
+}],
+"loop": false,
+"name": &"outro",
+"speed": 7.0
 }]
 
 [node name="Dialogues" type="Node2D"]
@@ -351,6 +401,21 @@ texture_filter = 5
 position = Vector2(1229, 572.00006)
 scale = Vector2(1.2664528, 1.249925)
 sprite_frames = SubResource("SpriteFrames_in4j7")
-animation = &"Dialogues"
+animation = &"nager"
+
+[node name="Terminer" type="Button" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -111.0
+offset_right = -28.0
+offset_bottom = -56.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Terminer"
 
 [connection signal="pressed" from="CanvasLayer/revenir" to="." method="_on_revenir_pressed"]
+[connection signal="pressed" from="CanvasLayer/Terminer" to="." method="_on_terminer_pressed"]
