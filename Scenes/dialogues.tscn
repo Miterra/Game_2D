@@ -99,13 +99,34 @@ func _on_terminer_pressed() -> void:
 	terminer.visible = false
 	btn_before.visible = false
 	btn_next.visible = false
-	img_flecheBefore.visible = false
-	img_flecheNext.visible = false
 	manchot.play(\"outro\")
 
 	# Animation qui fait descendre le manchot
 	var tween3 = create_tween()
-	tween3.tween_property(manchot, \"position\", Vector2(180.0, 790.0), 0.5)	
+	tween3.tween_property(manchot, \"position\", Vector2(180.0, 790.0), 0.5)
+
+	# Animation qui fait descendre la neige
+	var tween2 = create_tween()
+	tween2.tween_property(neigesol, \"position\", Vector2(575, 800), 1.5)
+
+	# Animation qui fait descendre la fleche before
+	var tween1 = create_tween()
+	tween1.tween_property(img_flecheBefore, \"position\", Vector2(1028.0, 670.0), 1.5)
+
+	# Animation qui fait descendre la fleche next
+	var tween = create_tween()
+	tween.tween_property(img_flecheNext, \"position\", Vector2(1095.0, 670.0), 1.5)
+	
+	var mat = sprite.material as ShaderMaterial
+	mat.set_shader_parameter(\"radius\", 10.0)
+
+	var tween4 = create_tween()
+	tween4.tween_property(mat, \"shader_parameter/radius\", 0.0, 1.0)
+	
+	await get_tree().create_timer(1.5).timeout
+	
+	img_flecheBefore.visible = false
+	img_flecheNext.visible = false
 "
 
 [sub_resource type="Shader" id="Shader_uve4t"]
@@ -327,7 +348,7 @@ texture = ExtResource("3_g7vqu")
 
 [node name="FlecheBefore" type="Sprite2D" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_7abj2")
-position = Vector2(1028, 622.00006)
+position = Vector2(1028, 622)
 scale = Vector2(0.10459184, 0.121428564)
 texture = ExtResource("3_5adu3")
 flip_h = true
