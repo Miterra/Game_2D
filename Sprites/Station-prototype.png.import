@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dypua0ce5qx8x"
-path="res://.godot/imported/Baker.png-7f3e1687443bac1a23cc1ae1551f01db.ctex"
+uid="uid://qcgjaxfg4sry"
+path="res://.godot/imported/Station-prototype.png-fb9e8b2cc087822a866d80d25703fbb0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Game/Baker.png"
-dest_files=["res://.godot/imported/Baker.png-7f3e1687443bac1a23cc1ae1551f01db.ctex"]
+source_file="res://Sprites/Station-prototype.png"
+dest_files=["res://.godot/imported/Station-prototype.png-fb9e8b2cc087822a866d80d25703fbb0.ctex"]
 
 [params]
 

@@ -4,7 +4,7 @@ extends Node2D
 
 
 func _on_play_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/select_difficulty.tscn")
+	get_tree().change_scene_to_file("res://Scenes/dialogues.tscn")
 
 
 
@@ -23,7 +23,3 @@ func _on_quit_pressed() -> void:
 
 func _on_instagram_pressed() -> void:
 	OS.shell_open("https://instagram.com/halxl_")
-
-
-func _on_test_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/dialogues.tscn")

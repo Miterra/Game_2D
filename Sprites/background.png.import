@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1sifw2n5kqpr"
-path="res://.godot/imported/sonic_ultime.png-aeab86e6dcbd7689f67e9b8a25eab7ba.ctex"
+uid="uid://grya0vkmihfu"
+path="res://.godot/imported/background.png-4fa92766cad903a1a79b587b09bd47c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Game/sonic_ultime.png"
-dest_files=["res://.godot/imported/sonic_ultime.png-aeab86e6dcbd7689f67e9b8a25eab7ba.ctex"]
+source_file="res://Sprites/background.png"
+dest_files=["res://.godot/imported/background.png-4fa92766cad903a1a79b587b09bd47c5.ctex"]
 
 [params]
 
