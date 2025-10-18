@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Test_2D"
+config/name="T3"
 run/main_scene="uid://dosri68swpiyn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
@@ -22,3 +22,7 @@ AudioMenu="*res://Audio/audio_menu.tscn"
 [display]
 
 window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="Test_2D"

@@ -1,25 +1,9 @@
-extends Node2D
+extends Node
+@onready var game = preload("res://Scenes/dialogues.tscn");
 
-
-
-
-func _on_play_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/dialogues.tscn")
-
-
-
-
-func _on_settings_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/options.tscn")
-
-
-
-
-func _on_quit_pressed() -> void:
+func _on_btn_exit_pressed() -> void:
 	get_tree().quit()
 
 
-
-
-func _on_instagram_pressed() -> void:
-	OS.shell_open("https://instagram.com/halxl_")
+func _on_btn_play_pressed() -> void:
+	get_tree().change_scene_to_packed(game)
