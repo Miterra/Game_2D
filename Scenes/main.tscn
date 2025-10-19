@@ -9,8 +9,8 @@
 script = ExtResource("1_bo1nx")
 
 [node name="MainBackground" type="Sprite2D" parent="."]
-position = Vector2(578.5, 326.00003)
-scale = Vector2(11.51, 9.787879)
+position = Vector2(576, 324)
+scale = Vector2(11.52, 9.818182)
 texture = ExtResource("2_jjvhh")
 
 [node name="btnPlay" type="TextureButton" parent="."]
@@ -35,7 +35,7 @@ offset_bottom = 82.0
 
 [node name="OverlaySettings" type="ColorRect" parent="."]
 visible = false
-anchors_preset = -1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0

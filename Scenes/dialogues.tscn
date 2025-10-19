@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://dpv3kdx55ti0w"]
+[gd_scene load_steps=27 format=3 uid="uid://dpv3kdx55ti0w"]
 
 [ext_resource type="Shader" uid="uid://c4nffjp86nq0v" path="res://Sprites/DIalogues/dialogues.gdshader" id="2_17r0m"]
 [ext_resource type="Texture2D" uid="uid://ch86rors44yn0" path="res://Sprites/DIalogues/Station.png" id="2_in4j7"]
 [ext_resource type="Texture2D" uid="uid://cevfv5arm3fw7" path="res://Sprites/DIalogues/fleche_dialogue.jpg" id="3_5adu3"]
 [ext_resource type="Texture2D" uid="uid://draabrdxu6hpi" path="res://Sprites/DIalogues/neige_sol.jpg" id="3_g7vqu"]
+[ext_resource type="Texture2D" uid="uid://hlpc104jlw16" path="res://Sprites/Menu/main_background.png" id="4_7abj2"]
 [ext_resource type="Texture2D" uid="uid://dgeqc05bd6ord" path="res://Sprites/DIalogues/manchot.png" id="6_gp4mg"]
 
 [sub_resource type="GDScript" id="GDScript_yfpkt"]
@@ -155,7 +156,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_17r0m"]
 resource_local_to_scene = true
 shader = SubResource("Shader_uve4t")
-shader_parameter/my_tex = ExtResource("2_in4j7")
+shader_parameter/my_tex = ExtResource("4_7abj2")
 shader_parameter/radius = 10.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y2qk2"]
