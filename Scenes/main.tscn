@@ -1,16 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dosri68swpiyn"]
+[gd_scene load_steps=9 format=3 uid="uid://dosri68swpiyn"]
 
 [ext_resource type="Script" uid="uid://cuveqiydci504" path="res://Scripts/main.gd" id="1_bo1nx"]
 [ext_resource type="Texture2D" uid="uid://hlpc104jlw16" path="res://Sprites/Menu/main_background.png" id="2_jjvhh"]
 [ext_resource type="Texture2D" uid="uid://cvf3uviyi18nv" path="res://Sprites/Menu/Sprite_btn_Play.png" id="3_8gbba"]
 [ext_resource type="Texture2D" uid="uid://nhs4s1nmh0j2" path="res://Sprites/Menu/Sprite_btn_exit.png" id="4_kry3j"]
+[ext_resource type="Texture2D" uid="uid://brv7gurb7pjkx" path="res://Sprites/Menu/Sprite_SettingsBtn.png" id="5_21xkr"]
+[ext_resource type="Script" uid="uid://ehayt6cb0vmr" path="res://Scripts/overlay_settings.gd" id="5_kry3j"]
+[ext_resource type="Theme" uid="uid://76dwdbes0e8e" path="res://theme/theme_hslider.tres" id="7_6bp64"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_21xkr"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bo1nx")
 
 [node name="MainBackground" type="Sprite2D" parent="."]
-position = Vector2(576, 324)
-scale = Vector2(11.52, 9.818182)
+position = Vector2(576.75006, 325.67813)
+scale = Vector2(5.7675004, 4.9124527)
 texture = ExtResource("2_jjvhh")
 
 [node name="btnPlay" type="TextureButton" parent="."]
@@ -28,10 +33,11 @@ offset_bottom = 579.0
 texture_normal = ExtResource("4_kry3j")
 
 [node name="btnSettings" type="TextureButton" parent="."]
-offset_left = 1079.0
-offset_top = 42.0
-offset_right = 1119.0
-offset_bottom = 82.0
+offset_left = 1045.0
+offset_top = 4.0
+offset_right = 1145.0
+offset_bottom = 104.0
+texture_normal = ExtResource("5_21xkr")
 
 [node name="OverlaySettings" type="ColorRect" parent="."]
 visible = false
@@ -43,9 +49,11 @@ anchor_bottom = 1.0
 offset_top = -1.0
 offset_right = 1155.0
 offset_bottom = 652.0
-color = Color(0, 0, 0, 0.78039217)
+color = Color(0, 0, 0, 0.42352942)
+script = ExtResource("5_kry3j")
 
 [node name="Panel" type="Panel" parent="OverlaySettings"]
+material = SubResource("CanvasItemMaterial_21xkr")
 custom_minimum_size = Vector2(800, 400)
 layout_mode = 1
 anchors_preset = 8
@@ -53,10 +61,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
+offset_left = -441.5
+offset_top = -234.5
+offset_right = 466.5
+offset_bottom = 269.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -67,30 +75,35 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -8.0
-offset_right = 4.0
-offset_bottom = 8.0
+offset_left = -288.0
+offset_top = -135.0
+offset_right = 296.0
+offset_bottom = -119.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("7_6bp64")
 
 [node name="VolumeLabel" type="Label" parent="OverlaySettings/Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -54.5
-offset_right = 54.5
-offset_bottom = 23.0
+offset_left = -299.0
+offset_top = 81.0
+offset_right = -190.0
+offset_bottom = 104.0
 grow_horizontal = 2
 text = "Music Volume"
 
 [node name="btnClose" type="TextureButton" parent="OverlaySettings/Panel"]
 layout_mode = 0
-offset_left = 1067.0
-offset_top = 41.0
-offset_right = 1107.0
-offset_bottom = 81.0
+offset_left = 849.0
+offset_top = 13.0
+offset_right = 889.0
+offset_bottom = 69.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [connection signal="pressed" from="btnPlay" to="." method="_on_btn_play_pressed"]
 [connection signal="pressed" from="btnExit" to="." method="_on_btn_exit_pressed"]
+[connection signal="pressed" from="btnSettings" to="." method="_on_btn_settings_pressed"]
