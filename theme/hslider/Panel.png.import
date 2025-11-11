@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://p8j6pw82cjbt"
-path="res://.godot/imported/Grabber_Normal.png-1a88947690d6321aa972042bfe4d760c.ctex"
+uid="uid://dbq7cybahfl3k"
+path="res://.godot/imported/Panel.png-56212c4c3eb65953ebc706c0723ecd16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://theme/hslider/Grabber_Normal.png"
-dest_files=["res://.godot/imported/Grabber_Normal.png-1a88947690d6321aa972042bfe4d760c.ctex"]
+source_file="res://theme/hslider/Panel.png"
+dest_files=["res://.godot/imported/Panel.png-56212c4c3eb65953ebc706c0723ecd16.ctex"]
 
 [params]
 
@@ -36,5 +36,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=300
+process/size_limit=0
 detect_3d/compress_to=1
