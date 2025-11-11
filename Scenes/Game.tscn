@@ -22,4 +22,53 @@ offset_bottom = -360.78784
 grow_horizontal = 0
 text = "revenir"
 
+[node name="bat_Principal" type="Button" parent="."]
+offset_left = 480.0
+offset_top = 370.0
+offset_right = 682.0
+offset_bottom = 482.0
+
+[node name="bat_rech_pousse" type="Button" parent="."]
+offset_left = 104.0
+offset_top = 422.0
+offset_right = 274.0
+offset_bottom = 542.0
+
+[node name="bat_rech_pousse2" type="Button" parent="."]
+offset_left = 873.0
+offset_top = 482.0
+offset_right = 1048.0
+offset_bottom = 586.0
+
+[node name="Antenne_market" type="Button" parent="."]
+offset_left = 284.0
+offset_top = 349.0
+offset_right = 408.0
+offset_bottom = 454.0
+
+[node name="bat_infirmerie" type="Button" parent="."]
+offset_left = 361.99997
+offset_top = 530.0
+offset_right = 487.99997
+offset_bottom = 605.7754
+rotation = 0.34906584
+
+[node name="bat_restauration" type="Button" parent="."]
+offset_left = 595.0
+offset_top = 485.0
+offset_right = 771.0
+offset_bottom = 606.0
+
+[node name="bat_stockage" type="Button" parent="."]
+offset_left = 863.0
+offset_top = 403.0
+offset_right = 959.0
+offset_bottom = 471.0
+
+[node name="bat_temps_market" type="Button" parent="."]
+offset_left = 757.0
+offset_top = 306.0
+offset_right = 821.0
+offset_bottom = 475.0
+
 [connection signal="pressed" from="StationsMaison/revenir" to="." method="_on_revenir_pressed"]
