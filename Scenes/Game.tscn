@@ -14,17 +14,6 @@ position = Vector2(575.74744, 323.991)
 scale = Vector2(0.6210356, 0.6208386)
 texture = ExtResource("1_iukft")
 
-[node name="revenir" type="Button" parent="StationsMaison"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -1214.5079
-offset_top = -520.2496
-offset_right = -932.9972
-offset_bottom = -360.78784
-grow_horizontal = 0
-text = "revenir"
-
 [node name="bat_Principal" type="Button" parent="."]
 offset_left = 480.0
 offset_top = 370.0
@@ -77,7 +66,30 @@ offset_top = 306.0
 offset_right = 821.0
 offset_bottom = 475.0
 
+[node name="all" type="Button" parent="."]
+visible = false
+visibility_layer = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = 1152.0001
+offset_bottom = 647.99994
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="revenir" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 871.0
+offset_right = 1152.5107
+offset_bottom = 159.46173
+grow_horizontal = 0
+text = "revenir"
+
 [node name="bat_PrincipalWindows" type="PanelContainer" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_kldst")
 custom_minimum_size = Vector2(800, 400)
 anchors_preset = 8
@@ -117,6 +129,8 @@ modulate = Color(0, 0.98039216, 0.98039216, 1)
 layout_mode = 2
 text = "Fermer"
 
-[connection signal="pressed" from="StationsMaison/revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]
+[connection signal="pressed" from="all" to="." method="_on_bat_principal_pressed"]
+[connection signal="pressed" from="revenir" to="." method="_on_revenir_pressed"]
+[connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/fermer" to="bat_PrincipalWindows" method="_on_fermer_pressed"]

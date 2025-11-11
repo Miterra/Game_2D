@@ -7,6 +7,7 @@ extends PanelContainer
 @export var volume_slider : NodePath
 @export var volume_label : NodePath
 
+
 func _ready():
 	visible = false  # Cache l’overlay au démarrage
 
