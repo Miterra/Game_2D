@@ -1,5 +1,4 @@
 [gd_scene load_steps=8 format=3 uid="uid://dosri68swpiyn"]
-[gd_scene load_steps=8 format=3 uid="uid://dosri68swpiyn"]
 
 [ext_resource type="Script" uid="uid://cuveqiydci504" path="res://Scripts/main.gd" id="1_bo1nx"]
 [ext_resource type="Texture2D" uid="uid://hlpc104jlw16" path="res://Sprites/Menu/main_background.png" id="2_jjvhh"]
@@ -56,7 +55,7 @@ offset_bottom = 603.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_21xkr")
-volume_slider = NodePath("VolumeSlider")
+volume_slider = NodePath("VBoxContainer/VolumeSlider")
 volume_label = NodePath("VBoxContainer/VolumeLabel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingsWindows"]
@@ -66,7 +65,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Music Volume"
 
-[node name="VolumeSlider" type="HSlider" parent="SettingsWindows"]
+[node name="VolumeSlider" type="HSlider" parent="SettingsWindows/VBoxContainer"]
 layout_mode = 2
 
 [connection signal="pressed" from="btnPlay" to="." method="_on_btn_play_pressed"]
