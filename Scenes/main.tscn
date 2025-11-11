@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cvf3uviyi18nv" path="res://Sprites/Menu/Sprite_btn_Play.png" id="3_8gbba"]
 [ext_resource type="Texture2D" uid="uid://nhs4s1nmh0j2" path="res://Sprites/Menu/Sprite_btn_exit.png" id="4_kry3j"]
 [ext_resource type="Texture2D" uid="uid://brv7gurb7pjkx" path="res://Sprites/Menu/Sprite_SettingsBtn.png" id="5_21xkr"]
-[ext_resource type="Script" uid="uid://c15vhbcnckso5" path="res://Scenes/settings_windows.gd" id="6_21xkr"]
+[ext_resource type="Script" uid="uid://c15vhbcnckso5" path="res://Scripts/settings_windows.gd" id="6_21xkr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_21xkr"]
 
