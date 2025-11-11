@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blgk4omxngpfq"
-path="res://.godot/imported/ChatGPT Image Sep 9, 2025, 02_33_28 PM.png-f233894b9e380b62c7675836c98cc329.ctex"
+uid="uid://detqaknji2182"
+path="res://.godot/imported/MAP.png-e7e502282363c9b1b5d68d0da53defd4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/ChatGPT Image Sep 9, 2025, 02_33_28 PM.png"
-dest_files=["res://.godot/imported/ChatGPT Image Sep 9, 2025, 02_33_28 PM.png-f233894b9e380b62c7675836c98cc329.ctex"]
+source_file="res://Sprites/Game/MAP.png"
+dest_files=["res://.godot/imported/MAP.png-e7e502282363c9b1b5d68d0da53defd4.ctex"]
 
 [params]
 

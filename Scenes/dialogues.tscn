@@ -1,16 +1,16 @@
-[gd_scene load_steps=27 format=3 uid="uid://dpv3kdx55ti0w"]
+[gd_scene load_steps=26 format=3 uid="uid://dpv3kdx55ti0w"]
 
+[ext_resource type="Texture2D" uid="uid://detqaknji2182" path="res://Sprites/Game/MAP.png" id="2_7abj2"]
 [ext_resource type="Shader" uid="uid://c4nffjp86nq0v" path="res://Sprites/DIalogues/dialogues.gdshader" id="2_17r0m"]
-[ext_resource type="Texture2D" uid="uid://ch86rors44yn0" path="res://Sprites/DIalogues/Station.png" id="2_in4j7"]
 [ext_resource type="Texture2D" uid="uid://cevfv5arm3fw7" path="res://Sprites/DIalogues/fleche_dialogue.jpg" id="3_5adu3"]
 [ext_resource type="Texture2D" uid="uid://draabrdxu6hpi" path="res://Sprites/DIalogues/neige_sol.jpg" id="3_g7vqu"]
-[ext_resource type="Texture2D" uid="uid://hlpc104jlw16" path="res://Sprites/Menu/main_background.png" id="4_7abj2"]
+[ext_resource type="Shader" uid="uid://i6rrf626yf5l" path="res://Scenes/dialogues_Background.gdshader" id="3_gp4mg"]
 [ext_resource type="Texture2D" uid="uid://dgeqc05bd6ord" path="res://Sprites/DIalogues/manchot.png" id="6_gp4mg"]
 
 [sub_resource type="GDScript" id="GDScript_yfpkt"]
 script/source = "extends Node2D
 
-@onready var sprite = $Station
+@onready var sprite = $StationsMaison
 @onready var neigesol = $CanvasLayer/NeigeSol
 @onready var manchot = $CanvasLayer/manchot
 @onready var btn_before = $CanvasLayer/btn_fleche_before
@@ -19,6 +19,8 @@ script/source = "extends Node2D
 @onready var terminer = $CanvasLayer/Terminer
 @onready var img_flecheBefore = $CanvasLayer/FlecheBefore
 @onready var img_flecheNext = $CanvasLayer/FlecheNext
+@onready var Skip = $CanvasLayer/Button
+
 
 var current_index = 1  # on commence sur le texte 1
 
@@ -124,39 +126,24 @@ func _on_terminer_pressed() -> void:
 
 	var tween4 = create_tween()
 	tween4.tween_property(mat, \"shader_parameter/radius\", 0.0, 1.0)
+
 	
 	await get_tree().create_timer(1.5).timeout
 	
 	img_flecheBefore.visible = false
 	img_flecheNext.visible = false
+	Skip.visible = false
+	get_tree().change_scene_to_file(\"res://Scenes/Game.tscn\")
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/Game.tscn\")
 "
 
-[sub_resource type="Shader" id="Shader_uve4t"]
-code = "shader_type canvas_item;
-
-uniform sampler2D my_tex;
-uniform float radius : hint_range(0.0, 10.0) = 0.0;
-
-void fragment() {
-    vec2 pixel_size = 1.0 / vec2(textureSize(my_tex, 0));
-    vec4 col = vec4(0.0);
-    float count = 0.0;
-
-    for (float x = -radius; x <= radius; x++) {
-        for (float y = -radius; y <= radius; y++) {
-            col += texture(my_tex, UV + vec2(x, y) * pixel_size);
-            count++;
-        }
-    }
-
-    COLOR = col / count;
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_17r0m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7vqu"]
 resource_local_to_scene = true
-shader = SubResource("Shader_uve4t")
-shader_parameter/my_tex = ExtResource("4_7abj2")
+shader = ExtResource("3_gp4mg")
+shader_parameter/my_tex = ExtResource("2_7abj2")
 shader_parameter/radius = 10.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y2qk2"]
@@ -334,11 +321,11 @@ animations = [{
 [node name="Dialogues" type="Node2D"]
 script = SubResource("GDScript_yfpkt")
 
-[node name="Station" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_17r0m")
-position = Vector2(576, 324.00003)
-scale = Vector2(0.9616026, 0.8140704)
-texture = ExtResource("2_in4j7")
+[node name="StationsMaison" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_g7vqu")
+position = Vector2(575.74744, 323.991)
+scale = Vector2(0.6210356, 0.6208386)
+texture = ExtResource("2_7abj2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -445,5 +432,13 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Terminer"
 
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 1041.0
+offset_top = 503.0
+offset_right = 1083.0
+offset_bottom = 534.0
+text = "SKIP"
+
 [connection signal="pressed" from="CanvasLayer/revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="CanvasLayer/Terminer" to="." method="_on_terminer_pressed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3iueqnheek7"]
+
+[ext_resource type="Script" uid="uid://csw802whqe37j" path="res://Scripts/game.gd" id="1_gl6un"]
+[ext_resource type="Texture2D" uid="uid://detqaknji2182" path="res://Sprites/Game/MAP.png" id="1_iukft"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_gl6un")
+
+[node name="StationsMaison" type="Sprite2D" parent="."]
+position = Vector2(575.74744, 323.991)
+scale = Vector2(0.6210356, 0.6208386)
+texture = ExtResource("1_iukft")
+
+[node name="revenir" type="Button" parent="StationsMaison"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1214.5079
+offset_top = -520.2496
+offset_right = -932.9972
+offset_bottom = -360.78784
+grow_horizontal = 0
+text = "revenir"
+
+[connection signal="pressed" from="StationsMaison/revenir" to="." method="_on_revenir_pressed"]
