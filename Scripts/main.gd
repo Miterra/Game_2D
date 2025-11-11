@@ -10,4 +10,4 @@ func _on_btn_play_pressed() -> void:
 
 
 func _on_btn_settings_pressed() -> void:
-	$OverlaySettings.visible = true
+	$SettingsWindows.visible = !$SettingsWindows.visible

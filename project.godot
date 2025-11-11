@@ -26,3 +26,7 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="Test_2D"
+
+[gui]
+
+theme/custom="uid://b2jcrb45rokxr"
