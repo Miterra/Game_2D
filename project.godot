@@ -30,3 +30,4 @@ project/assembly_name="Test_2D"
 [gui]
 
 theme/custom="uid://b2jcrb45rokxr"
+theme/custom_font="uid://baq8qhyplur26"
