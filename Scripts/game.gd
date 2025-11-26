@@ -11,8 +11,8 @@ extends Node2D
 
 #Personnes
 
-var pers: int = 100
-var persDispo: int = 100
+var pers: int = 60
+var persDispo: int = 60
 
 #Batiments
 var bars := []
@@ -28,7 +28,17 @@ func _on_revenir_pressed() -> void:
 
 
 func _ready() -> void:
-	donnees_communes.text = "Donnees Communes : \n Personnes disponibles : " + str(persDispo) + "/" + str(pers)
+	$bat_Principal.modulate.a = 0
+	$bat_rech_pousse.modulate.a = 0
+	$bat_rech_pousse2.modulate.a = 0
+	$Antenne_market.modulate.a = 0
+	$bat_infirmerie.modulate.a = 0
+	$bat_restauration.modulate.a = 0
+	$bat_stockage.modulate.a = 0
+	$bat_temps_market.modulate.a = 0
+	
+	#bat_Principal
+	donnees_communes.text = "Donnees Communes : \nPersonnes disponibles : " + str(persDispo) + "/" + str(pers)
 	chercheurs.text = "Chercheurs : " + str(persPrincipal)
 	
 	win_bar.min_value = 0
@@ -38,7 +48,7 @@ func _ready() -> void:
 	all.visible = false
 	
 
-
+#Bat Principal--------------------------------------------------------------------------------------------------------
 func _on_bat_principal_pressed() -> void:
 	bat_principal.visible = true
 	all.visible = true
@@ -46,10 +56,6 @@ func _on_bat_principal_pressed() -> void:
 
 func _on_fermer_pressed() -> void:
 	all.visible = false
-
-
-func _on_passer_pressed() -> void:
-	etat_bat_principal.value -= 10
 
 
 func _on_ajouter_pressed() -> void:
@@ -62,8 +68,18 @@ func _on_ajouter_pressed() -> void:
 
 
 func _on_retirer_pressed() -> void:
-	if persDispo < 100 and persPrincipal > 0 :
+	if persDispo < 60 and persPrincipal > 0 :
 		persDispo += 1
 		persPrincipal -= 1
 		donnees_communes.text = "Donnees Communes : \n Personnes disponibles : " + str(persDispo) + "/" + str(pers)
 		chercheurs.text = "Chercheurs : " + str(persPrincipal)
+#--------------------------------------------------------------------------------------------------------------------
+
+
+func _on_passer_pressed() -> void:
+	#bat principal-------------------
+	if persPrincipal < 10 :
+		etat_bat_principal.value -= 10
+	if persPrincipal > 19 :
+		etat_bat_principal.value += 20
+	#-------------------bat principal

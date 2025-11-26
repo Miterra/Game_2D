@@ -17,7 +17,7 @@ texture = ExtResource("1_iukft")
 [node name="bat_Principal" type="Button" parent="."]
 offset_left = 480.0
 offset_top = 370.0
-offset_right = 682.0
+offset_right = 687.0
 offset_bottom = 486.0
 
 [node name="bat_rech_pousse" type="Button" parent="."]
@@ -38,7 +38,7 @@ rotation = -0.43633232
 offset_left = 284.0
 offset_top = 349.0
 offset_right = 408.0
-offset_bottom = 454.0
+offset_bottom = 459.0
 
 [node name="bat_infirmerie" type="Button" parent="."]
 offset_left = 361.99997
@@ -96,6 +96,7 @@ grow_horizontal = 0
 text = "revenir"
 
 [node name="bat_PrincipalWindows" type="PanelContainer" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_kldst")
 custom_minimum_size = Vector2(800, 400)
 anchors_preset = 8
@@ -164,8 +165,8 @@ size_flags_vertical = 2
 value = 35.0
 
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]
-[connection signal="pressed" from="Passer" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Passer" to="." method="_on_passer_pressed"]
+[connection signal="pressed" from="Passer" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="all" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
