@@ -62,7 +62,7 @@ func _on_ajouter_pressed() -> void:
 	if persDispo > 0 :
 		persDispo -= 1
 		persPrincipal += 1
-		donnees_communes.text = "Donnees Communes : \n Personnes disponibles : " + str(persDispo) + "/" + str(pers)
+		donnees_communes.text = "Donnees Communes : \nPersonnes disponibles : " + str(persDispo) + "/" + str(pers)
 		chercheurs.text = "Chercheurs : " + str(persPrincipal)
 
 
@@ -71,7 +71,7 @@ func _on_retirer_pressed() -> void:
 	if persDispo < 60 and persPrincipal > 0 :
 		persDispo += 1
 		persPrincipal -= 1
-		donnees_communes.text = "Donnees Communes : \n Personnes disponibles : " + str(persDispo) + "/" + str(pers)
+		donnees_communes.text = "Donnees Communes : \nPersonnes disponibles : " + str(persDispo) + "/" + str(pers)
 		chercheurs.text = "Chercheurs : " + str(persPrincipal)
 #--------------------------------------------------------------------------------------------------------------------
 
