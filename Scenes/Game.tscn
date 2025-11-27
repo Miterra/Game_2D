@@ -74,7 +74,6 @@ offset_bottom = 367.0
 text = "PASSER"
 
 [node name="all" type="Button" parent="."]
-visible = false
 visibility_layer = 0
 anchors_preset = 15
 anchor_right = 1.0
@@ -166,7 +165,6 @@ value = 35.0
 
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="Passer" to="." method="_on_passer_pressed"]
-[connection signal="pressed" from="Passer" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="all" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
