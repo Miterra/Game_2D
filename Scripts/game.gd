@@ -167,4 +167,4 @@ func _on_passer_pressed() -> void:
 			win_bar.value += 1
 	
 	if win_bar.value == 0 :
-		get_tree().change_scene_to_file("res://game_over.tscn")
+		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
