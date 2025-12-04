@@ -83,6 +83,7 @@ offset_bottom = 367.0
 text = "PASSER"
 
 [node name="all" type="Button" parent="."]
+visible = false
 visibility_layer = 0
 anchors_preset = 15
 anchor_right = 1.0
@@ -131,6 +132,8 @@ etat :"
 
 [node name="etat_bat_Principal" type="ProgressBar" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 value = 70.0
 
 [node name="Ajouter" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
@@ -139,7 +142,7 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
-[node name="Chercheurs" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
+[node name="Personnes" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
@@ -170,6 +173,8 @@ offset_right = 902.0
 offset_bottom = 89.0
 size_flags_horizontal = 6
 size_flags_vertical = 2
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0, 1)
+theme_override_font_sizes/font_size = 40
 value = 35.0
 
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]

@@ -27,7 +27,7 @@ var BtnBats := []
 @onready var bat_principal_windows: PanelContainer = $bat_PrincipalWindows
 @onready var etat_bat_principal: ProgressBar = $bat_PrincipalWindows/VBoxContainer/etat_bat_Principal
 @onready var Principal_donnees_communes: Label = $bat_PrincipalWindows/VBoxContainer/DonneesCommunes
-@onready var Principal_chercheurs: Label = $bat_PrincipalWindows/VBoxContainer/Chercheurs
+@onready var Principal_personnes: Label = $bat_PrincipalWindows/VBoxContainer/Personnes
 var persPrincipal: int = 0 #nombre de personne dans le bat
 
 
@@ -110,7 +110,7 @@ func _ready() -> void:
 	
 	#bat_Principal
 	Principal_donnees_communes.text = "Donnees Communes : \nPersonnes disponibles : " + str(persDispo) + "/" + str(pers)
-	Principal_chercheurs.text = "Chercheurs : " + str(persPrincipal)
+	Principal_personnes.text = "Personnes : " + str(persPrincipal)
 
 
 
@@ -133,7 +133,7 @@ func _on_ajouter_pressed() -> void:
 		#Données Principal
 		persDispo -= 1
 		persPrincipal += 1
-		Principal_chercheurs.text = "Chercheurs : " + str(persPrincipal)
+		Principal_personnes.text = "Personnes : " + str(persPrincipal)
 		#Données Communes
 		for donnees in donneesCommunes :
 			donnees.text = "Donnees Communes : \nPersonnes disponibles : " + str(persDispo) + "/" + str(pers)
@@ -144,7 +144,7 @@ func _on_retirer_pressed() -> void:
 	if persDispo < 60 and persPrincipal > 0 :
 		persDispo += 1
 		persPrincipal -= 1
-		Principal_chercheurs.text = "Chercheurs : " + str(persPrincipal)
+		Principal_personnes.text = "Personnes : " + str(persPrincipal)
 		for donnees in donneesCommunes :
 			donnees.text = "Donnees Communes : \nPersonnes disponibles : " + str(persDispo) + "/" + str(pers)
 #--------------------------------------------------------------------------------------------------------Bat Principal
