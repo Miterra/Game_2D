@@ -1,10 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3iueqnheek7"]
+[gd_scene load_steps=6 format=3 uid="uid://b3iueqnheek7"]
 
 [ext_resource type="Script" uid="uid://csw802whqe37j" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://detqaknji2182" path="res://Sprites/Game/MAP.png" id="1_iukft"]
-[ext_resource type="Script" uid="uid://14i0ih8m51xa" path="res://Scripts/bat_principal_windows.gd" id="3_j5yw3"]
+[ext_resource type="Script" uid="uid://b437ffv2g58hx" path="res://Scripts/fermer.gd" id="3_j5yw3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kldst"]
+
+[sub_resource type="GDScript" id="GDScript_gl6un"]
+script/source = "extends PanelContainer
+
+@export var PrincipalWindows : NodePath
+
+func _on_fermer_pressed() -> void:
+	visible = false
+"
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_gl6un")
@@ -95,7 +104,6 @@ grow_horizontal = 0
 text = "revenir"
 
 [node name="bat_PrincipalWindows" type="PanelContainer" parent="."]
-visible = false
 material = SubResource("CanvasItemMaterial_kldst")
 custom_minimum_size = Vector2(800, 400)
 anchors_preset = 8
@@ -109,7 +117,7 @@ offset_right = 1017.0
 offset_bottom = 603.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_j5yw3")
+script = SubResource("GDScript_gl6un")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="bat_PrincipalWindows"]
 layout_mode = 2
@@ -153,6 +161,7 @@ modulate = Color(0, 0.98039216, 0.98039216, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 23
 text = "Fermer"
+script = ExtResource("3_j5yw3")
 
 [node name="WinBar" type="ProgressBar" parent="."]
 offset_left = 276.0

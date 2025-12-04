@@ -16,6 +16,7 @@ var persDispo: int = 60
 
 
 #Batiments
+var panelBats := []
 var bars := []
 var donneesCommunes := []
 var persBats := []
@@ -102,7 +103,7 @@ func _ready() -> void:
 
 
 
-	
+	panelBats = [bat_principal_windows]
 	bars = [etat_bat_principal]
 	donneesCommunes = [Principal_donnees_communes]
 	persBats = [persPrincipal]
@@ -118,14 +119,13 @@ func _ready() -> void:
 
 #functions
 
+func _on_fermer_pressed() -> void:
+	all.visible = false
+
 #Bat Principal--------------------------------------------------------------------------------------------------------
 func _on_bat_principal_pressed() -> void:
 	bat_principal_windows.visible = true
 	all.visible = true
-
-
-func _on_fermer_pressed() -> void:
-	all.visible = false
 
 
 func _on_ajouter_pressed() -> void:
