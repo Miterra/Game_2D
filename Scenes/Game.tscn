@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://csw802whqe37j" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://detqaknji2182" path="res://Sprites/Game/MAP.png" id="1_iukft"]
-[ext_resource type="Script" uid="uid://b437ffv2g58hx" path="res://Scripts/fermer.gd" id="3_j5yw3"]
+[ext_resource type="Script" path="res://Scripts/fermer.gd" id="3_j5yw3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kldst"]
 
@@ -127,14 +127,18 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
-text = "Donnees Specifiques :
-etat :"
+text = "etat du batiment :"
 
 [node name="etat_bat_Principal" type="ProgressBar" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
 
 [node name="Ajouter" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
@@ -152,12 +156,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Retirer"
-
-[node name="DonneesCommunes" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
-theme_override_font_sizes/font_size = 28
-text = "Donnees Communes :"
 
 [node name="fermer" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
 modulate = Color(0, 0.98039216, 0.98039216, 1)
