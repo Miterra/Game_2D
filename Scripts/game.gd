@@ -28,61 +28,61 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0
-	},
-
-	"rech2": {
-		"button": null,
-		"panel": null,
-		"bar": null,
-		"label_pers": null,
-		"label_common": null,
-		"pers": 0
-	},
-
-	"antenne": {
-		"button": null,
-		"panel": null,
-		"bar": null,
-		"label_pers": null,
-		"label_common": null,
-		"pers": 0
-	},
-
-	"infirmerie": {
-		"button": null,
-		"panel": null,
-		"bar": null,
-		"label_pers": null,
-		"label_common": null,
-		"pers": 0
-	},
-
-	"restauration": {
-		"button": null,
-		"panel": null,
-		"bar": null,
-		"label_pers": null,
-		"label_common": null,
-		"pers": 0
-	},
-
-	"stockage": {
-		"button": null,
-		"panel": null,
-		"bar": null,
-		"label_pers": null,
-		"label_common": null,
-		"pers": 0
-	},
-
-	"market": {
-		"button": null,
-		"panel": null,
-		"bar": null,
-		"label_pers": null,
-		"label_common": null,
-		"pers": 0
-	}
+	}#,
+#
+	#"rech2": {
+		#"button": null,
+		#"panel": null,
+		#"bar": null,
+		#"label_pers": null,
+		#"label_common": null,
+		#"pers": 0
+	#},
+#
+	#"antenne": {
+		#"button": null,
+		#"panel": null,
+		#"bar": null,
+		#"label_pers": null,
+		#"label_common": null,
+		#"pers": 0
+	#},
+#
+	#"infirmerie": {
+		#"button": null,
+		#"panel": null,
+		#"bar": null,
+		#"label_pers": null,
+		#"label_common": null,
+		#"pers": 0
+	#},
+#
+	#"restauration": {
+		#"button": null,
+		#"panel": null,
+		#"bar": null,
+		#"label_pers": null,
+		#"label_common": null,
+		#"pers": 0
+	#},
+#
+	#"stockage": {
+		#"button": null,
+		#"panel": null,
+		#"bar": null,
+		#"label_pers": null,
+		#"label_common": null,
+		#"pers": 0
+	#},
+#
+	#"market": {
+		#"button": null,
+		#"panel": null,
+		#"bar": null,
+		#"label_pers": null,
+		#"label_common": null,
+		#"pers": 0
+	#}
 
 }
 
@@ -97,14 +97,52 @@ var batiments = {
 @onready var Principal_donnees_communes: Label = $bat_PrincipalWindows/VBoxContainer/DonneesCommunes
 @onready var Principal_personnes: Label = $bat_PrincipalWindows/VBoxContainer/Personnes
 
-# Autres boutons (tu pourras les ajouter plus tard dans le dictionnaire)
+# bat_rech
 @onready var bat_rech_pousse: Button = $bat_rech_pousse
+@onready var bat_rech_windows: PanelContainer = $bat_rechWindows
+@onready var etat_bat_rech: ProgressBar = $bat_rechWindows/VBoxContainer/etat_bat_Rech
+@onready var Rech_donnees_communes: Label = $bat_rechWindows/VBoxContainer/DonneesCommunes
+@onready var Rech_personnes: Label = $bat_rechWindows/VBoxContainer/Personnes
+
+
+
+
+# bat_rech2
 @onready var bat_rech_pousse_2: Button = $bat_rech_pousse2
+
+
+
+
+# Antenne
 @onready var antenne_market: Button = $Antenne_market
+
+
+
+
+# bat_infirmerie
 @onready var bat_infirmerie: Button = $bat_infirmerie
+
+
+
+
+# bat_restauration
 @onready var bat_restauration: Button = $bat_restauration
+
+
+
+
+# bat_stockage
 @onready var bat_stockage: Button = $bat_stockage
+
+
+
+
+# bat_temps
 @onready var bat_temps_market: Button = $bat_temps_market
+
+
+
+
 
 
 
@@ -127,6 +165,16 @@ func _ready() -> void:
 	batiments["principal"].label_pers = Principal_personnes
 	batiments["principal"].label_common = Principal_donnees_communes
 	batiments["principal"].pers = 0
+	
+	batiments["rech"].button = bat_rech_pousse
+	batiments["rech"].panel = bat_rech_windows
+	batiments["rech"].bar = etat_bat_rech
+	batiments["rech"].label_pers = Rech_personnes
+	batiments["rech"].label_common = Rech_donnees_communes
+	batiments["rech"].pers = 0
+	
+	for key in batiments.keys() :
+		batiments[key].button.modulate = 0
 
 	# Mise à jour initiale
 	_update_all_common_labels()
@@ -184,6 +232,10 @@ func retirer_personne() -> void:
 func _on_bat_principal_pressed() -> void:
 	open_batiment("principal")
 
+func _on_bat_rech_pousse_pressed() -> void:
+	open_batiment("rech")
+
+
 
 func _on_ajouter_pressed() -> void:
 	ajouter_personne()
@@ -206,26 +258,32 @@ func _on_fermer_pressed() -> void:
 # --------------------------------------------------------------------
 
 func _on_passer_pressed() -> void:
+	
+	for key in batiments.keys():
+		var b = batiments[key]
+		var pers = b.pers
+		var bar = b.bar
 
-	# Effets sur le bâtiment principal
-	var p = batiments["principal"].pers
+		# Logique de perte/gain
+		if pers < 10:
+			bar.value -= 10
+		
+		if pers > 19:
+			bar.value += 20
+	#------------------------------------------------------------------
 
-	if p < 10:
-		etat_bat_principal.value -= 10
-
-	if p > 19:
-		etat_bat_principal.value += 20
-
-	# Effet sur la barre globale
+	# Mise à jour de la winbar
 	for key in batiments.keys():
 		var bar = batiments[key].bar
+		
 		if bar.value < 50:
 			win_bar.value -= 1
 		else:
 			win_bar.value += 1
 
-	if win_bar.value == 0:
+	if win_bar.value <= 0:
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+
 
 
 func _on_revenir_pressed() -> void:
