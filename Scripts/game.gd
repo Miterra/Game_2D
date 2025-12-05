@@ -13,6 +13,7 @@ var current_bat := ""
 # Dictionnaire de bâtiments
 var batiments = {
 	"principal": {
+		"nom": "Batiment principal",
 		"button": null,
 		"panel": null,
 		"bar": null,
@@ -22,6 +23,37 @@ var batiments = {
 	},
 
 	"rech": {
+		"nom": "Batiment recherche",
+		"button": null,
+		"panel": null,
+		"bar": null,
+		"label_pers": null,
+		"label_common": null,
+		"pers": 0
+	},
+
+	"rech2": {
+		"nom": "Batiment recherche 2",
+		"button": null,
+		"panel": null,
+		"bar": null,
+		"label_pers": null,
+		"label_common": null,
+		"pers": 0
+	},
+
+	"antenne": {
+		"nom": "Batiment antenne",
+		"button": null,
+		"panel": null,
+		"bar": null,
+		"label_pers": null,
+		"label_common": null,
+		"pers": 0
+	},
+
+	"infirmerie": {
+		"nom": "Batiment infirmerie",
 		"button": null,
 		"panel": null,
 		"bar": null,
@@ -29,33 +61,6 @@ var batiments = {
 		"label_common": null,
 		"pers": 0
 	}#,
-#
-	#"rech2": {
-		#"button": null,
-		#"panel": null,
-		#"bar": null,
-		#"label_pers": null,
-		#"label_common": null,
-		#"pers": 0
-	#},
-#
-	#"antenne": {
-		#"button": null,
-		#"panel": null,
-		#"bar": null,
-		#"label_pers": null,
-		#"label_common": null,
-		#"pers": 0
-	#},
-#
-	#"infirmerie": {
-		#"button": null,
-		#"panel": null,
-		#"bar": null,
-		#"label_pers": null,
-		#"label_common": null,
-		#"pers": 0
-	#},
 #
 	#"restauration": {
 		#"button": null,
@@ -91,6 +96,7 @@ var batiments = {
 # --------------------------------------------------------------------
 
 # bat_Principal
+@onready var Principal_nom: Label = $bat_PrincipalWindows/VBoxContainer/Nom
 @onready var bat_principal: Button = $bat_Principal
 @onready var bat_principal_windows: PanelContainer = $bat_PrincipalWindows
 @onready var etat_bat_principal: ProgressBar = $bat_PrincipalWindows/VBoxContainer/etat_bat_Principal
@@ -98,6 +104,7 @@ var batiments = {
 @onready var Principal_personnes: Label = $bat_PrincipalWindows/VBoxContainer/Personnes
 
 # bat_rech
+@onready var Rech_nom: Label = $bat_rechWindows/VBoxContainer/Nom
 @onready var bat_rech_pousse: Button = $bat_rech_pousse
 @onready var bat_rech_windows: PanelContainer = $bat_rechWindows
 @onready var etat_bat_rech: ProgressBar = $bat_rechWindows/VBoxContainer/etat_bat_Rech
@@ -108,36 +115,54 @@ var batiments = {
 
 
 # bat_rech2
-@onready var bat_rech_pousse_2: Button = $bat_rech_pousse2
+@onready var Rech2_nom: Label = $bat_rech2Windows/VBoxContainer/Nom
+@onready var bat_rech2_pousse: Button = $bat_rech_pousse2
+@onready var bat_rech2_windows: PanelContainer = $bat_rech2Windows
+@onready var etat_bat_rech2: ProgressBar = $bat_rech2Windows/VBoxContainer/etat_bat_Rech2
+@onready var Rech2_donnees_communes: Label = $bat_rech2Windows/VBoxContainer/DonneesCommunes
+@onready var Rech2_personnes: Label = $bat_rech2Windows/VBoxContainer/Personnes
 
 
 
 
 # Antenne
+@onready var Antenne_nom: Label = $bat_antenneWindows/VBoxContainer/Nom
 @onready var antenne_market: Button = $Antenne_market
+@onready var bat_antenne_windows: PanelContainer = $bat_antenneWindows
+@onready var etat_bat_antenne: ProgressBar = $bat_antenneWindows/VBoxContainer/etat_bat_Antenne
+@onready var Antenne_donnees_communes: Label = $bat_antenneWindows/VBoxContainer/DonneesCommunes
+@onready var Antenne_personnes: Label = $bat_antenneWindows/VBoxContainer/Personnes
 
 
 
 
 # bat_infirmerie
+@onready var Infirmerie_nom: Label = $bat_infirmerieWindows/VBoxContainer/Nom
 @onready var bat_infirmerie: Button = $bat_infirmerie
+@onready var bat_infirmerie_windows: PanelContainer = $bat_infirmerieWindows
+@onready var etat_bat_infirmerie: ProgressBar = $bat_infirmerieWindows/VBoxContainer/etat_bat_Infirmerie
+@onready var Infirmerie_donnees_communes: Label = $bat_infirmerieWindows/VBoxContainer/DonneesCommunes
+@onready var Infirmerie_personnes: Label = $bat_infirmerieWindows/VBoxContainer/Personnes
 
 
 
 
 # bat_restauration
+
 @onready var bat_restauration: Button = $bat_restauration
 
 
 
 
 # bat_stockage
+
 @onready var bat_stockage: Button = $bat_stockage
 
 
 
 
 # bat_temps
+
 @onready var bat_temps_market: Button = $bat_temps_market
 
 
@@ -159,6 +184,7 @@ func _ready() -> void:
 	bat_principal_windows.visible = false
 
 	# Initialisation du dictionnaire
+	Principal_nom.text = batiments["principal"].nom
 	batiments["principal"].button = bat_principal
 	batiments["principal"].panel = bat_principal_windows
 	batiments["principal"].bar = etat_bat_principal
@@ -166,12 +192,38 @@ func _ready() -> void:
 	batiments["principal"].label_common = Principal_donnees_communes
 	batiments["principal"].pers = 0
 	
+	Rech_nom.text = batiments["rech"].nom
 	batiments["rech"].button = bat_rech_pousse
 	batiments["rech"].panel = bat_rech_windows
 	batiments["rech"].bar = etat_bat_rech
 	batiments["rech"].label_pers = Rech_personnes
 	batiments["rech"].label_common = Rech_donnees_communes
 	batiments["rech"].pers = 0
+	
+	Rech2_nom.text = batiments["rech2"].nom
+	batiments["rech2"].button = bat_rech2_pousse
+	batiments["rech2"].panel = bat_rech2_windows
+	batiments["rech2"].bar = etat_bat_rech2
+	batiments["rech2"].label_pers = Rech2_personnes
+	batiments["rech2"].label_common = Rech2_donnees_communes
+	batiments["rech2"].pers = 0
+	
+	Antenne_nom.text = batiments["antenne"].nom
+	batiments["antenne"].button = antenne_market
+	batiments["antenne"].panel = bat_antenne_windows
+	batiments["antenne"].bar = etat_bat_antenne
+	batiments["antenne"].label_pers = Antenne_personnes
+	batiments["antenne"].label_common = Antenne_donnees_communes
+	batiments["antenne"].pers = 0
+	
+	Infirmerie_nom.text = batiments["infirmerie"].nom
+	batiments["infirmerie"].button = bat_infirmerie
+	batiments["infirmerie"].panel = bat_infirmerie_windows
+	batiments["infirmerie"].bar = etat_bat_infirmerie
+	batiments["infirmerie"].label_pers = Infirmerie_personnes
+	batiments["infirmerie"].label_common = Infirmerie_donnees_communes
+	batiments["infirmerie"].pers = 0
+	
 	
 	for key in batiments.keys() :
 		batiments[key].button.modulate = 0
@@ -235,7 +287,16 @@ func _on_bat_principal_pressed() -> void:
 func _on_bat_rech_pousse_pressed() -> void:
 	open_batiment("rech")
 
+func _on_bat_rech_pousse_2_pressed() -> void:
+	open_batiment("rech2")
 
+func _on_antenne_market_pressed() -> void:
+	open_batiment("antenne")
+
+func _on_bat_infirmerie_pressed() -> void:
+	open_batiment("infirmerie")
+
+#----------------------------------------------------------------------
 
 func _on_ajouter_pressed() -> void:
 	ajouter_personne()
