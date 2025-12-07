@@ -4,8 +4,8 @@ extends Node2D
 @onready var win_bar: ProgressBar = $WinBar
 
 # Personnes globales
-var pers: int = 60
-var persDispo: int = 60
+var pers: int = 70
+var persDispo: int = 70
 
 # Bâtiment actuellement ouvert
 var current_bat := ""
@@ -60,34 +60,37 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0
-	}#,
-#
-	#"restauration": {
-		#"button": null,
-		#"panel": null,
-		#"bar": null,
-		#"label_pers": null,
-		#"label_common": null,
-		#"pers": 0
-	#},
-#
-	#"stockage": {
-		#"button": null,
-		#"panel": null,
-		#"bar": null,
-		#"label_pers": null,
-		#"label_common": null,
-		#"pers": 0
-	#},
-#
-	#"market": {
-		#"button": null,
-		#"panel": null,
-		#"bar": null,
-		#"label_pers": null,
-		#"label_common": null,
-		#"pers": 0
-	#}
+	},
+
+	"restauration": {
+		"nom": "Batiment restaurant",
+		"button": null,
+		"panel": null,
+		"bar": null,
+		"label_pers": null,
+		"label_common": null,
+		"pers": 0
+	},
+
+	"stockage": {
+		"nom": "Batiment stockage",
+		"button": null,
+		"panel": null,
+		"bar": null,
+		"label_pers": null,
+		"label_common": null,
+		"pers": 0
+	},
+
+	"temps": {
+		"nom": "Batiment temps marketing",
+		"button": null,
+		"panel": null,
+		"bar": null,
+		"label_pers": null,
+		"label_common": null,
+		"pers": 0
+	}
 
 }
 
@@ -102,6 +105,9 @@ var batiments = {
 @onready var etat_bat_principal: ProgressBar = $bat_PrincipalWindows/VBoxContainer/etat_bat_Principal
 @onready var Principal_donnees_communes: Label = $bat_PrincipalWindows/VBoxContainer/DonneesCommunes
 @onready var Principal_personnes: Label = $bat_PrincipalWindows/VBoxContainer/Personnes
+
+
+
 
 # bat_rech
 @onready var Rech_nom: Label = $bat_rechWindows/VBoxContainer/Nom
@@ -148,25 +154,34 @@ var batiments = {
 
 
 # bat_restauration
-
+@onready var Restauration_nom: Label = $bat_restaurationWindows/VBoxContainer/Nom
 @onready var bat_restauration: Button = $bat_restauration
+@onready var bat_restauration_windows: PanelContainer = $bat_restaurationWindows
+@onready var etat_bat_restauration: ProgressBar = $bat_restaurationWindows/VBoxContainer/etat_bat_Restauration
+@onready var Restauration_donnees_communes: Label = $bat_restaurationWindows/VBoxContainer/DonneesCommunes
+@onready var Restauration_personnes: Label = $bat_restaurationWindows/VBoxContainer/Personnes
 
 
 
 
 # bat_stockage
-
+@onready var Stockage_nom: Label = $bat_stockageWindows/VBoxContainer/Nom
 @onready var bat_stockage: Button = $bat_stockage
+@onready var bat_stockage_windows: PanelContainer = $bat_stockageWindows
+@onready var etat_bat_stockage: ProgressBar = $bat_stockageWindows/VBoxContainer/etat_bat_Stockage
+@onready var Stockage_donnees_communes: Label = $bat_stockageWindows/VBoxContainer/DonneesCommunes
+@onready var Stockage_personnes: Label = $bat_stockageWindows/VBoxContainer/Personnes
 
 
 
 
 # bat_temps
-
+@onready var Temps_nom: Label = $bat_tempsWindows/VBoxContainer/Nom
 @onready var bat_temps_market: Button = $bat_temps_market
-
-
-
+@onready var bat_temps_windows: PanelContainer = $bat_tempsWindows
+@onready var etat_bat_temps: ProgressBar = $bat_tempsWindows/VBoxContainer/etat_bat_Temps
+@onready var Temps_donnees_communes: Label = $bat_tempsWindows/VBoxContainer/DonneesCommunes
+@onready var Temps_personnes: Label = $bat_tempsWindows/VBoxContainer/Personnes
 
 
 
@@ -181,10 +196,9 @@ func _ready() -> void:
 	win_bar.value = 35
 
 	all.visible = false
-	bat_principal_windows.visible = false
 
 	# Initialisation du dictionnaire
-	Principal_nom.text = batiments["principal"].nom
+	Principal_nom.text = batiments["principal"].nom + "\netat du batiment :"
 	batiments["principal"].button = bat_principal
 	batiments["principal"].panel = bat_principal_windows
 	batiments["principal"].bar = etat_bat_principal
@@ -192,7 +206,7 @@ func _ready() -> void:
 	batiments["principal"].label_common = Principal_donnees_communes
 	batiments["principal"].pers = 0
 	
-	Rech_nom.text = batiments["rech"].nom
+	Rech_nom.text = batiments["rech"].nom + "\netat du batiment :"
 	batiments["rech"].button = bat_rech_pousse
 	batiments["rech"].panel = bat_rech_windows
 	batiments["rech"].bar = etat_bat_rech
@@ -200,7 +214,7 @@ func _ready() -> void:
 	batiments["rech"].label_common = Rech_donnees_communes
 	batiments["rech"].pers = 0
 	
-	Rech2_nom.text = batiments["rech2"].nom
+	Rech2_nom.text = batiments["rech2"].nom + "\netat du batiment :"
 	batiments["rech2"].button = bat_rech2_pousse
 	batiments["rech2"].panel = bat_rech2_windows
 	batiments["rech2"].bar = etat_bat_rech2
@@ -208,7 +222,7 @@ func _ready() -> void:
 	batiments["rech2"].label_common = Rech2_donnees_communes
 	batiments["rech2"].pers = 0
 	
-	Antenne_nom.text = batiments["antenne"].nom
+	Antenne_nom.text = batiments["antenne"].nom + "\netat du batiment :"
 	batiments["antenne"].button = antenne_market
 	batiments["antenne"].panel = bat_antenne_windows
 	batiments["antenne"].bar = etat_bat_antenne
@@ -216,7 +230,7 @@ func _ready() -> void:
 	batiments["antenne"].label_common = Antenne_donnees_communes
 	batiments["antenne"].pers = 0
 	
-	Infirmerie_nom.text = batiments["infirmerie"].nom
+	Infirmerie_nom.text = batiments["infirmerie"].nom + "\netat du batiment :"
 	batiments["infirmerie"].button = bat_infirmerie
 	batiments["infirmerie"].panel = bat_infirmerie_windows
 	batiments["infirmerie"].bar = etat_bat_infirmerie
@@ -224,9 +238,34 @@ func _ready() -> void:
 	batiments["infirmerie"].label_common = Infirmerie_donnees_communes
 	batiments["infirmerie"].pers = 0
 	
+	Restauration_nom.text = batiments["restauration"].nom + "\netat du batiment :"
+	batiments["restauration"].button = bat_restauration
+	batiments["restauration"].panel = bat_restauration_windows
+	batiments["restauration"].bar = etat_bat_restauration
+	batiments["restauration"].label_pers = Restauration_personnes
+	batiments["restauration"].label_common = Restauration_donnees_communes
+	batiments["restauration"].pers = 0
+	
+	Stockage_nom.text = batiments["stockage"].nom + "\netat du batiment :"
+	batiments["stockage"].button = bat_stockage
+	batiments["stockage"].panel = bat_stockage_windows
+	batiments["stockage"].bar = etat_bat_stockage
+	batiments["stockage"].label_pers = Stockage_personnes
+	batiments["stockage"].label_common = Stockage_donnees_communes
+	batiments["stockage"].pers = 0
+	
+	Temps_nom.text = batiments["temps"].nom + "\netat du batiment :"
+	batiments["temps"].button = bat_temps_market
+	batiments["temps"].panel = bat_temps_windows
+	batiments["temps"].bar = etat_bat_temps
+	batiments["temps"].label_pers = Temps_personnes
+	batiments["temps"].label_common = Temps_donnees_communes
+	batiments["temps"].pers = 0
+	
 	
 	for key in batiments.keys() :
 		batiments[key].button.modulate = 0
+		batiments[key].panel.visible = false
 
 	# Mise à jour initiale
 	_update_all_common_labels()
@@ -295,6 +334,15 @@ func _on_antenne_market_pressed() -> void:
 
 func _on_bat_infirmerie_pressed() -> void:
 	open_batiment("infirmerie")
+
+func _on_bat_restauration_pressed() -> void:
+	open_batiment("restauration")
+
+func _on_bat_stockage_pressed() -> void:
+	open_batiment("stockage")
+
+func _on_bat_temps_market_pressed() -> void:
+	open_batiment("temps")
 
 #----------------------------------------------------------------------
 
