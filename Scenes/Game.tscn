@@ -80,7 +80,7 @@ offset_left = 1044.0
 offset_top = 315.0
 offset_right = 1138.0
 offset_bottom = 367.0
-text = "PASSER"
+text = "MOIS SUIVANT"
 
 [node name="all" type="Button" parent="."]
 visible = false
@@ -104,14 +104,34 @@ offset_bottom = 73.0
 grow_horizontal = 0
 text = "revenir"
 
-[node name="Label" type="Label" parent="."]
-offset_left = 484.0
+[node name="Barre de survie" type="Label" parent="."]
+offset_left = 471.0
 offset_top = -1.0
-offset_right = 679.0
+offset_right = 666.0
 offset_bottom = 33.0
 theme_override_colors/font_color = Color(1, 1, 0.29748532, 1)
 theme_override_font_sizes/font_size = 33
 text = "Barre de survie"
+
+[node name="Argent" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 27.0
+offset_right = 228.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Argent : 250000€"
+
+[node name="WinBar" type="ProgressBar" parent="."]
+offset_left = 262.0
+offset_top = 26.0
+offset_right = 888.0
+offset_bottom = 97.0
+size_flags_horizontal = 6
+size_flags_vertical = 2
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0, 1)
+theme_override_font_sizes/font_size = 40
+value = 35.0
 
 [node name="bat_PrincipalWindows" type="PanelContainer" parent="."]
 visible = false
@@ -353,6 +373,11 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Retirer"
+
+[node name="Commander" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Commander"
 
 [node name="fermer" type="Button" parent="bat_antenneWindows/VBoxContainer"]
 modulate = Color(0, 0.98039216, 0.98039216, 1)
@@ -609,16 +634,39 @@ theme_override_font_sizes/font_size = 23
 text = "Sauvegarder et Fermer"
 script = ExtResource("3_j5yw3")
 
-[node name="WinBar" type="ProgressBar" parent="."]
-offset_left = 275.0
-offset_top = 26.0
-offset_right = 901.0
-offset_bottom = 97.0
-size_flags_horizontal = 6
-size_flags_vertical = 2
-theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0, 1)
-theme_override_font_sizes/font_size = 40
-value = 35.0
+[node name="CommandeWindows" type="PanelContainer" parent="."]
+visible = false
+offset_left = 109.0
+offset_top = 98.0
+offset_right = 1017.0
+offset_bottom = 603.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CommandeWindows"]
+layout_mode = 2
+
+[node name="fermer_commande" type="Button" parent="CommandeWindows/VBoxContainer"]
+layout_mode = 2
+text = "Fermer"
+
+[node name="bat_detruitWindows" type="PanelContainer" parent="."]
+offset_left = 110.0
+offset_top = 99.0
+offset_right = 1016.0
+offset_bottom = 604.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_detruitWindows"]
+layout_mode = 2
+
+[node name="Detruit" type="Label" parent="bat_detruitWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Le batiments est detruit...
+Continuer de survivre malgres le batiment en moins"
+
+[node name="fermer_detruit" type="Button" parent="bat_detruitWindows/VBoxContainer"]
+layout_mode = 2
+text = "FERMER"
 
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="bat_rech_pousse" to="." method="_on_bat_rech_pousse_pressed"]
@@ -645,6 +693,7 @@ value = 35.0
 [connection signal="pressed" from="bat_rech2Windows/VBoxContainer/fermer" to="bat_rech2Windows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Commander" to="." method="_on_commander_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/fermer" to="bat_antenneWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
@@ -663,3 +712,5 @@ value = 35.0
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/fermer" to="bat_tempsWindows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="CommandeWindows/VBoxContainer/fermer_commande" to="." method="_on_fermer_commande_pressed"]
+[connection signal="pressed" from="bat_detruitWindows/VBoxContainer/fermer_detruit" to="." method="_on_fermer_detruit_pressed"]

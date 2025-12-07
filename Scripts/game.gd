@@ -4,8 +4,10 @@ extends Node2D
 @onready var win_bar: ProgressBar = $WinBar
 
 # Personnes globales
-var pers: int = 70
-var persDispo: int = 70
+var pers: int = 50
+var persDispo: int = 50
+
+var tours: int = 1
 
 # Bâtiment actuellement ouvert
 var current_bat := ""
@@ -19,7 +21,8 @@ var batiments = {
 		"bar": null,
 		"label_pers": null,
 		"label_common": null,
-		"pers": 0
+		"pers": 0,
+		"etat": true
 	},
 
 	"rech": {
@@ -29,7 +32,8 @@ var batiments = {
 		"bar": null,
 		"label_pers": null,
 		"label_common": null,
-		"pers": 0
+		"pers": 0,
+		"etat": true
 	},
 
 	"rech2": {
@@ -39,7 +43,8 @@ var batiments = {
 		"bar": null,
 		"label_pers": null,
 		"label_common": null,
-		"pers": 0
+		"pers": 0,
+		"etat": true
 	},
 
 	"antenne": {
@@ -49,7 +54,8 @@ var batiments = {
 		"bar": null,
 		"label_pers": null,
 		"label_common": null,
-		"pers": 0
+		"pers": 0,
+		"etat": true
 	},
 
 	"infirmerie": {
@@ -59,7 +65,8 @@ var batiments = {
 		"bar": null,
 		"label_pers": null,
 		"label_common": null,
-		"pers": 0
+		"pers": 0,
+		"etat": true
 	},
 
 	"restauration": {
@@ -69,7 +76,8 @@ var batiments = {
 		"bar": null,
 		"label_pers": null,
 		"label_common": null,
-		"pers": 0
+		"pers": 0,
+		"etat": true
 	},
 
 	"stockage": {
@@ -79,7 +87,8 @@ var batiments = {
 		"bar": null,
 		"label_pers": null,
 		"label_common": null,
-		"pers": 0
+		"pers": 0,
+		"etat": true
 	},
 
 	"temps": {
@@ -89,10 +98,20 @@ var batiments = {
 		"bar": null,
 		"label_pers": null,
 		"label_common": null,
-		"pers": 0
+		"pers": 0,
+		"etat": true
 	}
 
 }
+
+# --------------------------------------------------------------------
+# Argent
+# --------------------------------------------------------------------
+var argent: int = 250000
+@onready var argent_txt: Label = $Argent
+
+
+
 
 # --------------------------------------------------------------------
 # RÉFÉRENCES NODES
@@ -183,6 +202,17 @@ var batiments = {
 @onready var Temps_donnees_communes: Label = $bat_tempsWindows/VBoxContainer/DonneesCommunes
 @onready var Temps_personnes: Label = $bat_tempsWindows/VBoxContainer/Personnes
 
+#---------------------------------------------------------------------
+# commander windows
+#---------------------------------------------------------------------
+@onready var commande_windows: PanelContainer = $CommandeWindows
+
+
+
+#---------------------------------------------------------------------
+# detruit windows
+#---------------------------------------------------------------------
+@onready var bat_detruit_windows: PanelContainer = $bat_detruitWindows
 
 
 
@@ -195,7 +225,13 @@ func _ready() -> void:
 	win_bar.max_value = 100
 	win_bar.value = 35
 
+	argent_txt.text = "Argent : " + str(argent) + "€"
+	tours = 1
+	print("Tour : " + str(tours))
+
 	all.visible = false
+	commande_windows.visible = false
+	bat_detruit_windows.visible = false
 
 	# Initialisation du dictionnaire
 	Principal_nom.text = batiments["principal"].nom + "\netat du batiment :"
@@ -321,28 +357,52 @@ func retirer_personne() -> void:
 # --------------------------------------------------------------------
 
 func _on_bat_principal_pressed() -> void:
-	open_batiment("principal")
+	if batiments["principal"].etat != false :
+		open_batiment("principal")
+	else :
+		bat_detruit_windows.visible = true
 
 func _on_bat_rech_pousse_pressed() -> void:
-	open_batiment("rech")
+	if batiments["rech"].etat != false :
+		open_batiment("rech")
+	else :
+		bat_detruit_windows.visible = true
 
 func _on_bat_rech_pousse_2_pressed() -> void:
-	open_batiment("rech2")
+	if batiments["rech2"].etat != false :
+		open_batiment("rech2")
+	else :
+		bat_detruit_windows.visible = true
 
 func _on_antenne_market_pressed() -> void:
-	open_batiment("antenne")
+	if batiments["antenne"].etat != false :
+		open_batiment("antenne")
+	else :
+		bat_detruit_windows.visible = true
 
 func _on_bat_infirmerie_pressed() -> void:
-	open_batiment("infirmerie")
+	if batiments["infirmerie"].etat != false :
+		open_batiment("infirmerie")
+	else :
+		bat_detruit_windows.visible = true
 
 func _on_bat_restauration_pressed() -> void:
-	open_batiment("restauration")
+	if batiments["restauration"].etat != false :
+		open_batiment("restauration")
+	else :
+		bat_detruit_windows.visible = true
 
 func _on_bat_stockage_pressed() -> void:
-	open_batiment("stockage")
+	if batiments["stockage"].etat != false :
+		open_batiment("stockage")
+	else :
+		bat_detruit_windows.visible = true
 
 func _on_bat_temps_market_pressed() -> void:
-	open_batiment("temps")
+	if batiments["temps"].etat != false :
+		open_batiment("temps")
+	else :
+		bat_detruit_windows.visible = true
 
 #----------------------------------------------------------------------
 
@@ -360,6 +420,24 @@ func _on_fermer_pressed() -> void:
 		batiments[key].panel.visible = false
 	current_bat = ""
 
+#---------------------------------------------------------------------
+# Antenne fonctionnalités
+#---------------------------------------------------------------------
+
+func _on_commander_pressed() -> void:
+	commande_windows.visible = true
+
+func _on_fermer_commande_pressed() -> void:
+	commande_windows.visible = false
+
+#---------------------------------------------------------------------
+
+#---------------------------------------------------------------------
+# detruit fonctionnalités
+#---------------------------------------------------------------------
+
+func _on_fermer_detruit_pressed() -> void:
+	bat_detruit_windows.visible = false
 
 
 # --------------------------------------------------------------------
@@ -367,7 +445,7 @@ func _on_fermer_pressed() -> void:
 # --------------------------------------------------------------------
 
 func _on_passer_pressed() -> void:
-	
+
 	for key in batiments.keys():
 		var b = batiments[key]
 		var pers = b.pers
@@ -376,19 +454,33 @@ func _on_passer_pressed() -> void:
 		# Logique de perte/gain
 		if pers < 10:
 			bar.value -= 10
-		
+
 		if pers > 19:
 			bar.value += 20
-	#------------------------------------------------------------------
 
+		if bar.value == 0 :
+			b.etat = false
+
+		if b.etat == true :
+			argent += 20000
+			print(b.nom + " à généré : 20 000€")
+
+		# fin de la boucle
+	#------------------------------------------------------------------
+	print("Total d'argent : " + str(argent))
 	# Mise à jour de la winbar
 	for key in batiments.keys():
 		var bar = batiments[key].bar
-		
+
 		if bar.value < 50:
 			win_bar.value -= 1
 		else:
 			win_bar.value += 1
+
+	argent_txt.text = "Argent : " + str(argent) + "€"
+
+	tours += 1
+	print("Tour : " + str(tours))
 
 	if win_bar.value <= 0:
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
