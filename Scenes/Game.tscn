@@ -573,7 +573,6 @@ text = "Sauvegarder et Fermer"
 script = ExtResource("3_j5yw3")
 
 [node name="bat_tempsWindows" type="PanelContainer" parent="."]
-visible = false
 material = SubResource("CanvasItemMaterial_kldst")
 custom_minimum_size = Vector2(800, 400)
 anchors_preset = 8
@@ -627,6 +626,11 @@ theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Retirer"
 
+[node name="delais_commande" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Delais des commandes"
+
 [node name="fermer" type="Button" parent="bat_tempsWindows/VBoxContainer"]
 modulate = Color(0, 0.98039216, 0.98039216, 1)
 layout_mode = 2
@@ -649,6 +653,7 @@ layout_mode = 2
 text = "Fermer"
 
 [node name="bat_detruitWindows" type="PanelContainer" parent="."]
+visible = false
 offset_left = 110.0
 offset_top = 99.0
 offset_right = 1016.0
@@ -657,16 +662,44 @@ offset_bottom = 604.0
 [node name="VBoxContainer" type="VBoxContainer" parent="bat_detruitWindows"]
 layout_mode = 2
 
+[node name="nom_detruit" type="Label" parent="bat_detruitWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Batiment (nom)"
+
 [node name="Detruit" type="Label" parent="bat_detruitWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
 text = "Le batiments est detruit...
-Continuer de survivre malgres le batiment en moins"
+Pour reparer le batiment, il faudra vous rendre dans le batiment
+antenne pour pouvoir acheter des ressources afin de les reparer."
 
 [node name="fermer_detruit" type="Button" parent="bat_detruitWindows/VBoxContainer"]
 layout_mode = 2
 text = "FERMER"
+
+[node name="delais_commandeWindows" type="PanelContainer" parent="."]
+visible = false
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 602.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="delais_commandeWindows"]
+layout_mode = 2
+
+[node name="Temps_attente" type="Label" parent="delais_commandeWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 1, 1)
+theme_override_font_sizes/font_size = 23
+text = "Temps d'attente :"
+
+[node name="fermer_delais_commande" type="Button" parent="delais_commandeWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Fermer"
 
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="bat_rech_pousse" to="." method="_on_bat_rech_pousse_pressed"]
@@ -710,7 +743,9 @@ text = "FERMER"
 [connection signal="pressed" from="bat_stockageWindows/VBoxContainer/fermer" to="bat_stockageWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/delais_commande" to="." method="_on_delais_commande_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/fermer" to="bat_tempsWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="CommandeWindows/VBoxContainer/fermer_commande" to="." method="_on_fermer_commande_pressed"]
 [connection signal="pressed" from="bat_detruitWindows/VBoxContainer/fermer_detruit" to="." method="_on_fermer_detruit_pressed"]
+[connection signal="pressed" from="delais_commandeWindows/VBoxContainer/fermer_delais_commande" to="." method="_on_fermer_delais_commande_pressed"]

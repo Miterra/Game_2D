@@ -22,7 +22,9 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0,
-		"etat": true
+		"etat": true,
+		"cout": 300000,
+		"tour_cout": 3
 	},
 
 	"rech": {
@@ -33,7 +35,9 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0,
-		"etat": true
+		"etat": true,
+		"cout": 100000,
+		"tour_cout": 3
 	},
 
 	"rech2": {
@@ -44,7 +48,9 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0,
-		"etat": true
+		"etat": true,
+		"cout": 100000,
+		"tour_cout": 3
 	},
 
 	"antenne": {
@@ -55,7 +61,9 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0,
-		"etat": true
+		"etat": true,
+		"cout": 500000,
+		"tour_cout": 3
 	},
 
 	"infirmerie": {
@@ -66,7 +74,9 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0,
-		"etat": true
+		"etat": true,
+		"cout": 100000,
+		"tour_cout": 3
 	},
 
 	"restauration": {
@@ -77,7 +87,9 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0,
-		"etat": true
+		"etat": true,
+		"cout": 100000,
+		"tour_cout": 3
 	},
 
 	"stockage": {
@@ -88,7 +100,9 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0,
-		"etat": true
+		"etat": true,
+		"cout": 100000,
+		"tour_cout": 3
 	},
 
 	"temps": {
@@ -99,7 +113,9 @@ var batiments = {
 		"label_pers": null,
 		"label_common": null,
 		"pers": 0,
-		"etat": true
+		"etat": true,
+		"cout": 250000,
+		"tour_cout": 3
 	}
 
 }
@@ -206,6 +222,7 @@ var argent: int = 250000
 # commander windows
 #---------------------------------------------------------------------
 @onready var commande_windows: PanelContainer = $CommandeWindows
+@onready var commande_vbox: VBoxContainer = $CommandeWindows/VBoxContainer
 
 
 
@@ -213,6 +230,14 @@ var argent: int = 250000
 # detruit windows
 #---------------------------------------------------------------------
 @onready var bat_detruit_windows: PanelContainer = $bat_detruitWindows
+@onready var nom_detruit: Label = $bat_detruitWindows/VBoxContainer/nom_detruit
+
+
+#---------------------------------------------------------------------
+# Temps fonctionnalités
+#---------------------------------------------------------------------
+@onready var delais_commande_windows: PanelContainer = $delais_commandeWindows
+@onready var delais_vbox: VBoxContainer = $delais_commandeWindows/VBoxContainer
 
 
 
@@ -308,6 +333,51 @@ func _ready() -> void:
 
 
 
+
+# --------------------------------------------------------------------
+# FONCTIONS COMMANDE
+# --------------------------------------------------------------------
+
+
+func afficher_bouton_reparation(key:String):
+	var prix = batiments[key].cout
+
+	var bouton = Button.new()
+	bouton.text = "Reparer " + batiments[key].nom + " - " + str(prix) + "€"
+	bouton.name = "reparer_" + key
+
+	bouton.connect("pressed", Callable(self, "_reparer_batiment").bind(key, bouton)) # à voir ce que ca fait exactement
+
+	commande_vbox.add_child(bouton)
+
+
+
+func _reparer_batiment(key:String, bouton:Button):
+	var prix = batiments[key].cout
+
+	if argent >= prix:
+		argent -= prix
+		argent_txt.text = "Argent : " + str(argent) + "€"
+
+		print(batiments[key].nom + " réparé !")
+		batiments[key].etat = true
+		batiments[key].bar.value = 50   # tu peux ajuster
+
+		bouton.queue_free()  # retiré de la liste de commandes
+
+		# Si plus aucun bouton → fermeture du panel
+		if commande_vbox.get_child_count() == 0:
+			commande_windows.visible = false
+
+		bat_detruit_windows.visible = false
+
+	else:
+		print("Pas assez d'argent pour réparer", batiments[key].nom)
+
+
+
+
+
 # --------------------------------------------------------------------
 # FONCTIONS COMMUNES
 # --------------------------------------------------------------------
@@ -318,6 +388,13 @@ func open_batiment(name: String) -> void:
 	# Affiche le panel du bâtiment
 	for key in batiments.keys():
 		batiments[key].panel.visible = (key == name)
+
+	all.visible = true
+
+func open_destruct_batiment(name: String) -> void:
+	nom_detruit.text = "Batiment " + name
+
+	bat_detruit_windows.visible = true
 
 	all.visible = true
 
@@ -360,49 +437,49 @@ func _on_bat_principal_pressed() -> void:
 	if batiments["principal"].etat != false :
 		open_batiment("principal")
 	else :
-		bat_detruit_windows.visible = true
+		open_destruct_batiment("principal")
 
 func _on_bat_rech_pousse_pressed() -> void:
 	if batiments["rech"].etat != false :
 		open_batiment("rech")
 	else :
-		bat_detruit_windows.visible = true
+		open_destruct_batiment("rech")
 
 func _on_bat_rech_pousse_2_pressed() -> void:
 	if batiments["rech2"].etat != false :
 		open_batiment("rech2")
 	else :
-		bat_detruit_windows.visible = true
+		open_destruct_batiment("rech2")
 
 func _on_antenne_market_pressed() -> void:
 	if batiments["antenne"].etat != false :
 		open_batiment("antenne")
 	else :
-		bat_detruit_windows.visible = true
+		open_destruct_batiment("antenne")
 
 func _on_bat_infirmerie_pressed() -> void:
 	if batiments["infirmerie"].etat != false :
 		open_batiment("infirmerie")
 	else :
-		bat_detruit_windows.visible = true
+		open_destruct_batiment("infirmerie")
 
 func _on_bat_restauration_pressed() -> void:
 	if batiments["restauration"].etat != false :
 		open_batiment("restauration")
 	else :
-		bat_detruit_windows.visible = true
+		open_destruct_batiment("restauration")
 
 func _on_bat_stockage_pressed() -> void:
 	if batiments["stockage"].etat != false :
 		open_batiment("stockage")
 	else :
-		bat_detruit_windows.visible = true
+		open_destruct_batiment("stockage")
 
 func _on_bat_temps_market_pressed() -> void:
 	if batiments["temps"].etat != false :
 		open_batiment("temps")
 	else :
-		bat_detruit_windows.visible = true
+		open_destruct_batiment("temps")
 
 #----------------------------------------------------------------------
 
@@ -431,6 +508,29 @@ func _on_fermer_commande_pressed() -> void:
 	commande_windows.visible = false
 
 #---------------------------------------------------------------------
+# Temps fonctionnalités
+#---------------------------------------------------------------------
+
+func _on_delais_commande_pressed() -> void:
+	afficher_delais_reparations()
+	delais_commande_windows.visible = true
+
+func _on_fermer_delais_commande_pressed() -> void:
+	delais_commande_windows.visible = false
+
+
+
+func afficher_delais_reparations():
+	delais_vbox.queue_free_children() # nettoie l'ancienne liste (important)
+
+	for key in batiments.keys():
+		var b = batiments[key]
+
+		if b.etat == false: # seulement batiments détruits
+			var label = Label.new()
+			label.text = b.nom + " sera réparé dans " + str(b.tour_cout) + " tours."
+			delais_vbox.add_child(label)
+
 
 #---------------------------------------------------------------------
 # detruit fonctionnalités
@@ -451,39 +551,55 @@ func _on_passer_pressed() -> void:
 		var pers = b.pers
 		var bar = b.bar
 
-		# Logique de perte/gain
 		if pers < 10:
 			bar.value -= 10
-
-		if pers > 19:
+		elif pers > 19:
 			bar.value += 20
 
-		if bar.value == 0 :
+		if bar.value <= 0 and b.etat == true:
 			b.etat = false
+			print(b.nom, "est détruit !")
+			afficher_bouton_reparation(key)
 
-		if b.etat == true :
+		if b.etat == true:
 			argent += 20000
-			print(b.nom + " à généré : 20 000€")
+			print(b.nom + " génère 20 000€")
 
-		# fin de la boucle
-	#------------------------------------------------------------------
-	print("Total d'argent : " + str(argent))
-	# Mise à jour de la winbar
+
+	argent_txt.text = "Argent : " + str(argent) + "€"
+	print("Total argent :", argent)
+
+
 	for key in batiments.keys():
-		var bar = batiments[key].bar
-
-		if bar.value < 50:
+		if batiments[key].bar.value < 50:
 			win_bar.value -= 1
 		else:
 			win_bar.value += 1
 
-	argent_txt.text = "Argent : " + str(argent) + "€"
 
 	tours += 1
-	print("Tour : " + str(tours))
+	print("Tour :", tours)
+
+
+	for key in batiments.keys():
+		var b = batiments[key]
+
+		if b.etat == false and b.tour_cout > 0:
+			b.tour_cout -= 1
+
+			if b.tour_cout == 0:
+				b.etat = true
+				b.bar.value = 50
+				print(b.nom, "a été réparé automatiquement !")
+
+	if delais_commande_windows.visible:
+		afficher_delais_reparations()
+
 
 	if win_bar.value <= 0:
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+
+
 
 
 

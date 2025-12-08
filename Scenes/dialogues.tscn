@@ -104,11 +104,21 @@ func _on_btn_before_pressed():
 			fleche_before.visible = false
 			btn_before.visible = false
 
+	
 	fleche_next.visible = true
 	btn_next.visible = true
+	
+	if current_index == 1:
+		fleche_before.visible = false
+		btn_before.visible = false
 	terminer.visible = false
 
+func _input(event):
+	if event.is_action_pressed(\"ui_right\"):
+		_on_btn_next_pressed() # Flèche droite = Next
 
+	if event.is_action_pressed(\"ui_left\"):
+		_on_btn_before_pressed() # Flèche gauche = Before
 
 
 func _on_revenir_pressed() -> void:
