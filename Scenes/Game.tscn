@@ -75,13 +75,6 @@ offset_top = 306.0
 offset_right = 821.0
 offset_bottom = 475.0
 
-[node name="Passer" type="Button" parent="."]
-offset_left = 1044.0
-offset_top = 315.0
-offset_right = 1138.0
-offset_bottom = 367.0
-text = "MOIS SUIVANT"
-
 [node name="all" type="Button" parent="."]
 visible = false
 visibility_layer = 0
@@ -93,6 +86,13 @@ offset_right = 1152.0001
 offset_bottom = 647.99994
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Passer" type="Button" parent="."]
+offset_left = 1044.0
+offset_top = 315.0
+offset_right = 1138.0
+offset_bottom = 367.0
+text = "MOIS SUIVANT"
 
 [node name="revenir" type="Button" parent="."]
 anchors_preset = 1
@@ -709,8 +709,8 @@ text = "Fermer"
 [connection signal="pressed" from="bat_restauration" to="." method="_on_bat_restauration_pressed"]
 [connection signal="pressed" from="bat_stockage" to="." method="_on_bat_stockage_pressed"]
 [connection signal="pressed" from="bat_temps_market" to="." method="_on_bat_temps_market_pressed"]
-[connection signal="pressed" from="Passer" to="." method="_on_passer_pressed"]
 [connection signal="pressed" from="all" to="." method="_on_bat_principal_pressed"]
+[connection signal="pressed" from="Passer" to="." method="_on_passer_pressed"]
 [connection signal="pressed" from="revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]

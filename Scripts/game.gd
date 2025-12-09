@@ -24,7 +24,8 @@ var batiments = {
 		"pers": 0,
 		"etat": true,
 		"cout": 300000,
-		"tour_cout": 3
+		"tour_cout": 5,
+		"reparation_restante": 0
 	},
 
 	"rech": {
@@ -37,7 +38,8 @@ var batiments = {
 		"pers": 0,
 		"etat": true,
 		"cout": 100000,
-		"tour_cout": 3
+		"tour_cout": 5,
+		"reparation_restante": 0
 	},
 
 	"rech2": {
@@ -50,7 +52,8 @@ var batiments = {
 		"pers": 0,
 		"etat": true,
 		"cout": 100000,
-		"tour_cout": 3
+		"tour_cout": 5,
+		"reparation_restante": 0
 	},
 
 	"antenne": {
@@ -63,7 +66,8 @@ var batiments = {
 		"pers": 0,
 		"etat": true,
 		"cout": 500000,
-		"tour_cout": 3
+		"tour_cout": 5,
+		"reparation_restante": 0
 	},
 
 	"infirmerie": {
@@ -76,7 +80,8 @@ var batiments = {
 		"pers": 0,
 		"etat": true,
 		"cout": 100000,
-		"tour_cout": 3
+		"tour_cout": 5,
+		"reparation_restante": 0
 	},
 
 	"restauration": {
@@ -89,7 +94,8 @@ var batiments = {
 		"pers": 0,
 		"etat": true,
 		"cout": 100000,
-		"tour_cout": 3
+		"tour_cout": 5,
+		"reparation_restante": 0
 	},
 
 	"stockage": {
@@ -102,7 +108,8 @@ var batiments = {
 		"pers": 0,
 		"etat": true,
 		"cout": 100000,
-		"tour_cout": 3
+		"tour_cout": 5,
+		"reparation_restante": 0
 	},
 
 	"temps": {
@@ -115,7 +122,8 @@ var batiments = {
 		"pers": 0,
 		"etat": true,
 		"cout": 250000,
-		"tour_cout": 3
+		"tour_cout": 5,
+		"reparation_restante": 0
 	}
 
 }
@@ -259,69 +267,15 @@ func _ready() -> void:
 	bat_detruit_windows.visible = false
 
 	# Initialisation du dictionnaire
-	Principal_nom.text = batiments["principal"].nom + "\netat du batiment :"
-	batiments["principal"].button = bat_principal
-	batiments["principal"].panel = bat_principal_windows
-	batiments["principal"].bar = etat_bat_principal
-	batiments["principal"].label_pers = Principal_personnes
-	batiments["principal"].label_common = Principal_donnees_communes
-	batiments["principal"].pers = 0
-	
-	Rech_nom.text = batiments["rech"].nom + "\netat du batiment :"
-	batiments["rech"].button = bat_rech_pousse
-	batiments["rech"].panel = bat_rech_windows
-	batiments["rech"].bar = etat_bat_rech
-	batiments["rech"].label_pers = Rech_personnes
-	batiments["rech"].label_common = Rech_donnees_communes
-	batiments["rech"].pers = 0
-	
-	Rech2_nom.text = batiments["rech2"].nom + "\netat du batiment :"
-	batiments["rech2"].button = bat_rech2_pousse
-	batiments["rech2"].panel = bat_rech2_windows
-	batiments["rech2"].bar = etat_bat_rech2
-	batiments["rech2"].label_pers = Rech2_personnes
-	batiments["rech2"].label_common = Rech2_donnees_communes
-	batiments["rech2"].pers = 0
-	
-	Antenne_nom.text = batiments["antenne"].nom + "\netat du batiment :"
-	batiments["antenne"].button = antenne_market
-	batiments["antenne"].panel = bat_antenne_windows
-	batiments["antenne"].bar = etat_bat_antenne
-	batiments["antenne"].label_pers = Antenne_personnes
-	batiments["antenne"].label_common = Antenne_donnees_communes
-	batiments["antenne"].pers = 0
-	
-	Infirmerie_nom.text = batiments["infirmerie"].nom + "\netat du batiment :"
-	batiments["infirmerie"].button = bat_infirmerie
-	batiments["infirmerie"].panel = bat_infirmerie_windows
-	batiments["infirmerie"].bar = etat_bat_infirmerie
-	batiments["infirmerie"].label_pers = Infirmerie_personnes
-	batiments["infirmerie"].label_common = Infirmerie_donnees_communes
-	batiments["infirmerie"].pers = 0
-	
-	Restauration_nom.text = batiments["restauration"].nom + "\netat du batiment :"
-	batiments["restauration"].button = bat_restauration
-	batiments["restauration"].panel = bat_restauration_windows
-	batiments["restauration"].bar = etat_bat_restauration
-	batiments["restauration"].label_pers = Restauration_personnes
-	batiments["restauration"].label_common = Restauration_donnees_communes
-	batiments["restauration"].pers = 0
-	
-	Stockage_nom.text = batiments["stockage"].nom + "\netat du batiment :"
-	batiments["stockage"].button = bat_stockage
-	batiments["stockage"].panel = bat_stockage_windows
-	batiments["stockage"].bar = etat_bat_stockage
-	batiments["stockage"].label_pers = Stockage_personnes
-	batiments["stockage"].label_common = Stockage_donnees_communes
-	batiments["stockage"].pers = 0
-	
-	Temps_nom.text = batiments["temps"].nom + "\netat du batiment :"
-	batiments["temps"].button = bat_temps_market
-	batiments["temps"].panel = bat_temps_windows
-	batiments["temps"].bar = etat_bat_temps
-	batiments["temps"].label_pers = Temps_personnes
-	batiments["temps"].label_common = Temps_donnees_communes
-	batiments["temps"].pers = 0
+	setup_batiment("principal", Principal_nom, bat_principal, bat_principal_windows, etat_bat_principal, Principal_personnes, Principal_donnees_communes)
+	setup_batiment("rech", Rech_nom, bat_rech_pousse, bat_rech_windows, etat_bat_rech, Rech_personnes, Rech_donnees_communes)
+	setup_batiment("rech2", Rech2_nom, bat_rech2_pousse, bat_rech2_windows, etat_bat_rech2, Rech2_personnes, Rech2_donnees_communes)
+	setup_batiment("antenne", Antenne_nom, antenne_market, bat_antenne_windows, etat_bat_antenne, Antenne_personnes, Antenne_donnees_communes)
+	setup_batiment("infirmerie", Infirmerie_nom, bat_infirmerie, bat_infirmerie_windows, etat_bat_infirmerie, Infirmerie_personnes, Infirmerie_donnees_communes)
+	setup_batiment("restauration", Restauration_nom, bat_restauration, bat_restauration_windows, etat_bat_restauration, Restauration_personnes, Restauration_donnees_communes)
+	setup_batiment("stockage", Stockage_nom, bat_stockage, bat_stockage_windows, etat_bat_stockage, Stockage_personnes, Stockage_donnees_communes)
+	setup_batiment("temps", Temps_nom, bat_temps_market, bat_temps_windows, etat_bat_temps, Temps_personnes, Temps_donnees_communes)
+
 	
 	
 	for key in batiments.keys() :
@@ -331,6 +285,19 @@ func _ready() -> void:
 	# Mise à jour initiale
 	_update_all_common_labels()
 
+# --------------------------------------------------------------------
+# INITIALISATION BATIMENT
+# --------------------------------------------------------------------
+
+func setup_batiment(key: String, nom_label: Label, button: Button, panel: PanelContainer, bar: ProgressBar, label_pers: Label, label_comm: Label):
+	var b = batiments[key]
+	nom_label.text = b.nom + "\netat du batiment :"
+	b.button = button
+	b.panel = panel
+	b.bar = bar
+	b.label_pers = label_pers
+	b.label_common = label_comm
+	b.pers = 0
 
 
 
@@ -353,26 +320,24 @@ func afficher_bouton_reparation(key:String):
 
 
 func _reparer_batiment(key:String, bouton:Button):
-	var prix = batiments[key].cout
+	var b = batiments[key]
+	var prix = b.cout
 
 	if argent >= prix:
 		argent -= prix
 		argent_txt.text = "Argent : " + str(argent) + "€"
 
-		print(batiments[key].nom + " réparé !")
-		batiments[key].etat = true
-		batiments[key].bar.value = 50   # tu peux ajuster
 
-		bouton.queue_free()  # retiré de la liste de commandes
+		b.etat = false
+		b.reparation_restante = b.tour_cout
 
-		# Si plus aucun bouton → fermeture du panel
-		if commande_vbox.get_child_count() == 0:
-			commande_windows.visible = false
+		print(b.nom + " en cours de réparation (" + str(b.reparation_restante) + " tours).")
 
-		bat_detruit_windows.visible = false
+		bouton.queue_free()
 
 	else:
-		print("Pas assez d'argent pour réparer", batiments[key].nom)
+		print("Pas assez d'argent pour réparer", b.nom)
+
 
 
 
@@ -521,14 +486,16 @@ func _on_fermer_delais_commande_pressed() -> void:
 
 
 func afficher_delais_reparations():
-	delais_vbox.queue_free_children() # nettoie l'ancienne liste (important)
+	for c in delais_vbox.get_children():
+		if c != $delais_commandeWindows/VBoxContainer/Temps_attente and c != $delais_commandeWindows/VBoxContainer/fermer_delais_commande :
+			c.queue_free()
 
 	for key in batiments.keys():
 		var b = batiments[key]
 
 		if b.etat == false: # seulement batiments détruits
 			var label = Label.new()
-			label.text = b.nom + " sera réparé dans " + str(b.tour_cout) + " tours."
+			label.text = b.nom + " sera réparé dans " + str(b.reparation_restante) + " tours."
 			delais_vbox.add_child(label)
 
 
@@ -538,6 +505,7 @@ func afficher_delais_reparations():
 
 func _on_fermer_detruit_pressed() -> void:
 	bat_detruit_windows.visible = false
+	all.visible = false
 
 
 # --------------------------------------------------------------------
@@ -545,9 +513,15 @@ func _on_fermer_detruit_pressed() -> void:
 # --------------------------------------------------------------------
 
 func _on_passer_pressed() -> void:
+	var argent_genere: int = 0
+
 
 	for key in batiments.keys():
 		var b = batiments[key]
+
+		if b.reparation_restante > 0:
+			continue
+
 		var pers = b.pers
 		var bar = b.bar
 
@@ -558,20 +532,31 @@ func _on_passer_pressed() -> void:
 
 		if bar.value <= 0 and b.etat == true:
 			b.etat = false
-			print(b.nom, "est détruit !")
+			print(b.nom, " est détruit !")
 			afficher_bouton_reparation(key)
 
 		if b.etat == true:
 			argent += 20000
+			argent_genere += 20000
 			print(b.nom + " génère 20 000€")
 
-
+	print("Argent généré au total : " + str(argent_genere))
 	argent_txt.text = "Argent : " + str(argent) + "€"
 	print("Total argent :", argent)
 
 
 	for key in batiments.keys():
-		if batiments[key].bar.value < 50:
+		var b = batiments[key]
+
+		if b.reparation_restante > 0:
+			win_bar.value -= 1
+			continue
+
+		if b.etat == false:
+			win_bar.value -= 1
+			continue
+
+		if b.bar.value < 50:
 			win_bar.value -= 1
 		else:
 			win_bar.value += 1
@@ -584,13 +569,14 @@ func _on_passer_pressed() -> void:
 	for key in batiments.keys():
 		var b = batiments[key]
 
-		if b.etat == false and b.tour_cout > 0:
-			b.tour_cout -= 1
+		if b.reparation_restante > 0:
+			b.reparation_restante -= 1
 
-			if b.tour_cout == 0:
+			if b.reparation_restante == 0:
 				b.etat = true
 				b.bar.value = 50
-				print(b.nom, "a été réparé automatiquement !")
+				print(b.nom, " a été réparé !")
+
 
 	if delais_commande_windows.visible:
 		afficher_delais_reparations()
@@ -598,6 +584,8 @@ func _on_passer_pressed() -> void:
 
 	if win_bar.value <= 0:
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+
+
 
 
 
