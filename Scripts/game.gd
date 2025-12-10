@@ -2,12 +2,16 @@ extends Node2D
 
 @onready var all: Button = $all
 @onready var win_bar: ProgressBar = $WinBar
+@onready var mode: Label = $Mode
 
 # Personnes globales
 var pers: int = 50
 var persDispo: int = 50
 
 var tours: int = 1
+
+var moisJour: int = 1
+var moisNuit: int = 0
 
 # Bâtiment actuellement ouvert
 var current_bat := ""
@@ -261,6 +265,7 @@ func _ready() -> void:
 	argent_txt.text = "Argent : " + str(argent) + "€"
 	tours = 1
 	print("Tour : " + str(tours))
+	print("Mode Jour : moisJour = " + str(moisJour))
 
 	all.visible = false
 	commande_windows.visible = false
@@ -367,6 +372,7 @@ func open_destruct_batiment(name: String) -> void:
 func _update_all_common_labels() -> void:
 	for key in batiments.keys():
 		batiments[key].label_common.text = "Personnes disponibles : " + str(persDispo) + "/" + str(pers)
+		batiments[key].label_pers.text = "Personnes : " + str(batiments[key].pers)
 
 
 func ajouter_personne() -> void:
@@ -566,6 +572,40 @@ func _on_passer_pressed() -> void:
 	print("Tour :", tours)
 
 
+
+	if moisNuit == 0 :
+		moisJour += 1
+		print("Mode Jour : moisJour = " + str(moisJour))
+		if moisJour == 6 :
+			pers = 10
+			moisJour = 0
+			print("30 personnes limité et moisJour = " + str(moisJour))
+			for key in batiments.keys() :
+				batiments[key].pers = 0
+			persDispo = 10
+			mode.text = "Mode Nuit"
+			mode.add_theme_color_override("font_color", Color(0, 0, 0.5))
+			_update_all_common_labels()
+
+
+
+	if moisJour == 0 :
+		moisNuit += 1
+		print("Passage en mode Nuit. moisNuit = " + str(moisNuit))
+		if moisNuit == 6 :
+			pers = 50
+			moisNuit = 0
+			for key in batiments.keys() :
+				batiments[key].pers = 0
+			persDispo = 50
+			_update_all_common_labels()
+			mode.text = "Mode Jour"
+			mode.add_theme_color_override("font_color", Color(1.0, 1.0, 0.0, 1.0))
+			print("50 personnes limité et moisNuit = " + str(moisNuit))
+			print("Passage en mode Jour")
+
+
+
 	for key in batiments.keys():
 		var b = batiments[key]
 
@@ -583,6 +623,7 @@ func _on_passer_pressed() -> void:
 
 
 	if win_bar.value <= 0:
+		print("GAME OVER")
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 
 

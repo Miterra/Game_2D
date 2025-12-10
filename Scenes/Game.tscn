@@ -573,6 +573,7 @@ text = "Sauvegarder et Fermer"
 script = ExtResource("3_j5yw3")
 
 [node name="bat_tempsWindows" type="PanelContainer" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_kldst")
 custom_minimum_size = Vector2(800, 400)
 anchors_preset = 8
@@ -700,6 +701,15 @@ text = "Temps d'attente :"
 layout_mode = 2
 theme_override_font_sizes/font_size = 23
 text = "Fermer"
+
+[node name="Mode" type="Label" parent="."]
+offset_left = 898.0
+offset_top = 13.0
+offset_right = 1023.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 34
+text = "Mode Jour"
 
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="bat_rech_pousse" to="." method="_on_bat_rech_pousse_pressed"]
