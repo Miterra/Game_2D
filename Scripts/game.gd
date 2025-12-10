@@ -400,6 +400,50 @@ func retirer_personne() -> void:
 
 
 
+
+func _on_pdix_personnes_pressed() -> void:
+	if current_bat == "":
+		return
+
+	var b = batiments[current_bat]
+
+	# On ne peut pas ajouter plus que le nombre de personnes disponibles
+	if persDispo <= 0:
+		return
+
+	# Combien peut-on réellement ajouter ?
+	var ajout = min(10, persDispo)
+
+	# Appliquer l’ajout
+	persDispo -= ajout
+	b.pers += ajout
+
+	# Mettre à jour l'affichage
+	b.label_pers.text = "Personnes : " + str(b.pers)
+	_update_all_common_labels()
+
+
+
+
+
+func _on_mdix_personnes_pressed() -> void:
+	if current_bat == "":
+		return
+
+	var b = batiments[current_bat]
+
+	# Combien peut-on réellement retirer ?
+	var retrait = min(10, b.pers)
+
+	# Appliquer le retrait
+	b.pers -= retrait
+	persDispo += retrait
+
+	# Mise à jour affichage
+	b.label_pers.text = "Personnes : " + str(b.pers)
+	_update_all_common_labels()
+
+
 # --------------------------------------------------------------------
 # SIGNALS (boutons)
 # --------------------------------------------------------------------
@@ -556,14 +600,23 @@ func _on_passer_pressed() -> void:
 
 		if b.reparation_restante > 0:
 			win_bar.value -= 1
+			if win_bar.value <= 0:
+				print("GAME OVER")
+				get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 			continue
 
 		if b.etat == false:
 			win_bar.value -= 1
+			if win_bar.value <= 0:
+				print("GAME OVER")
+				get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 			continue
 
 		if b.bar.value < 50:
 			win_bar.value -= 1
+			if win_bar.value <= 0:
+				print("GAME OVER")
+				get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 		else:
 			win_bar.value += 1
 

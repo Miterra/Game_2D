@@ -169,6 +169,7 @@ value = 70.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
@@ -176,11 +177,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
+[node name="pdix_personnes" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
 [node name="Personnes" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
@@ -231,6 +240,7 @@ value = 70.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_rechWindows/VBoxContainer"]
 layout_mode = 2
@@ -238,11 +248,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
+[node name="pdix_personnes" type="Button" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
 [node name="Personnes" type="Label" parent="bat_rechWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_rechWindows/VBoxContainer"]
 layout_mode = 2
@@ -293,6 +311,7 @@ value = 70.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_rech2Windows/VBoxContainer"]
 layout_mode = 2
@@ -300,11 +319,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
+[node name="pdix_personnes" type="Button" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
 [node name="Personnes" type="Label" parent="bat_rech2Windows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_rech2Windows/VBoxContainer"]
 layout_mode = 2
@@ -355,6 +382,7 @@ value = 70.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_antenneWindows/VBoxContainer"]
 layout_mode = 2
@@ -362,11 +390,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
+[node name="pdix_personnes" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
 [node name="Personnes" type="Label" parent="bat_antenneWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_antenneWindows/VBoxContainer"]
 layout_mode = 2
@@ -422,6 +458,7 @@ value = 70.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
 layout_mode = 2
@@ -429,11 +466,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
+[node name="pdix_personnes" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
 [node name="Personnes" type="Label" parent="bat_infirmerieWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
 layout_mode = 2
@@ -484,6 +529,7 @@ value = 70.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
 layout_mode = 2
@@ -491,11 +537,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
+[node name="pdix_personnes" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
 [node name="Personnes" type="Label" parent="bat_restaurationWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
 layout_mode = 2
@@ -546,6 +600,7 @@ value = 70.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_stockageWindows/VBoxContainer"]
 layout_mode = 2
@@ -553,11 +608,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
+[node name="pdix_personnes" type="Button" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
 [node name="Personnes" type="Label" parent="bat_stockageWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_stockageWindows/VBoxContainer"]
 layout_mode = 2
@@ -608,6 +671,7 @@ value = 70.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_tempsWindows/VBoxContainer"]
 layout_mode = 2
@@ -615,11 +679,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
+[node name="pdix_personnes" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
 [node name="Personnes" type="Label" parent="bat_tempsWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
 text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_tempsWindows/VBoxContainer"]
 layout_mode = 2
@@ -723,35 +795,51 @@ text = "Mode Jour"
 [connection signal="pressed" from="Passer" to="." method="_on_passer_pressed"]
 [connection signal="pressed" from="revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/fermer" to="bat_PrincipalWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_rechWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_rechWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_rechWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_rechWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_rechWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_rechWindows/VBoxContainer/fermer" to="bat_rechWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_rech2Windows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_rech2Windows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_rech2Windows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_rech2Windows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_rech2Windows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_rech2Windows/VBoxContainer/fermer" to="bat_rech2Windows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Commander" to="." method="_on_commander_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_antenneWindows/VBoxContainer/fermer" to="bat_antenneWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/fermer" to="bat_infirmerieWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/fermer" to="bat_restaurationWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_stockageWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_stockageWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_stockageWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_stockageWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_stockageWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_stockageWindows/VBoxContainer/fermer" to="bat_stockageWindows" method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/delais_commande" to="." method="_on_delais_commande_pressed"]
 [connection signal="pressed" from="bat_tempsWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
