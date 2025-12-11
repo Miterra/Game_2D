@@ -1,6 +1,6 @@
 # ❄️ Glacia
 
-**Glacia** est un jeu de **gestion, de survie et de recherches** en Antarctique, développé avec **Godot Engine**.  
+**Glacia** est un jeu de **gestion, de survie et de recherche** en Antarctique, développé avec **Godot Engine**.  
 Le joueur doit gérer une station scientifique composée de **8 bâtiments**, maintenir le **moral** et la **population** des scientifiques, et faire face aux conditions extrêmes.
 
 ---
