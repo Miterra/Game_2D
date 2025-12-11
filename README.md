@@ -18,8 +18,8 @@ Le joueur doit gérer une station scientifique composée de **8 bâtiments**, ma
 | État du bâtiment | Population | Effet |
 |-----------------|------------|-------|
 | Moins de 10     | 0–9        | ❌ Détérioration |
-| Entre 10 et 20  | 10–20      | ⚠️ Stabilité |
-| Plus de 20      | 21+        | ✅ Amélioration |
+| Entre 10 et 19  | 10–19      | ⚠️ Stabilité |
+| Plus de 19      | 20+        | ✅ Amélioration |
 
 > ⚠️ Si un bâtiment est <50% après un mois → **moral -1%**  
 
