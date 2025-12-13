@@ -22,6 +22,7 @@ build_windows:
     paths:
       - exports/$GAME_NAME.exe
 
+
 # ----------------------------
 # Créer l'installateur Windows avec NSIS
 # ----------------------------
