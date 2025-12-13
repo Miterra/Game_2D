@@ -5,33 +5,26 @@ stages:
 variables:
   # Chemin vers Godot Steam sur Windows
   GODOT_PATH_WINDOWS: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Godot\\Godot.exe"
-  # Nom du jeu
   GAME_NAME: "Glacia"
 
+# ----------------------------
 # Build Windows
+# ----------------------------
 build_windows:
   stage: build
   tags:
     - windows
   script:
     - mkdir exports
-    - powershell -Command "& `"$env:GODOT_PATH_WINDOWS`" --export `"Windows Desktop`" exports/$GAME_NAME.exe"
+    # Export du projet Godot pour Windows
+    - powershell -Command "& `"$env:GODOT_PATH_WINDOWS`" --export `"Windows Desktop`" exports/$env:GAME_NAME.exe"
   artifacts:
     paths:
-      - exports/$GAME_NAME.exe
+      - exports/$env:GAME_NAME.exe
 
-# Build Linux
-build_linux:
-  stage: build
-  image: godotengine/godot:latest
-  script:
-    - mkdir exports
-    - godot --export "Linux/X11" exports/$GAME_NAME.x86_64
-  artifacts:
-    paths:
-      - exports/$GAME_NAME.x86_64
-
+# ----------------------------
 # Créer l'installateur Windows avec NSIS
+# ----------------------------
 create_installer_windows:
   stage: release
   tags:
@@ -39,24 +32,26 @@ create_installer_windows:
   dependencies:
     - build_windows
   script:
-    - pwsh installer/create_installer.ps1
-    - mkdir -p release
-    - cp exports/$GAME_NAMEInstaller.exe release/
-    - powershell Compress-Archive -Path release/$GAME_NAMEInstaller.exe -DestinationPath release/$GAME_NAME-Windows.zip
+    # Exécuter le script PowerShell qui lance NSIS
+    - powershell -Command "& `"$PWD\installer\create_installer.ps1`""
+    # Créer un dossier release et copier l'installateur dedans
+    - mkdir release
+    - copy exports\$env:GAME_NAMEInstaller.exe release\
+    # Créer un zip pour distribution
+    - powershell -Command "Compress-Archive -Path release\$env:GAME_NAMEInstaller.exe -DestinationPath release\$env:GAME_NAME-Windows.zip"
   artifacts:
     paths:
-      - release/$GAME_NAME-Windows.zip
+      - release/$env:GAME_NAME-Windows.zip
 
-# Créer un zip Linux
-create_release_linux:
-  stage: release
-  image: ubuntu:22.04
-  dependencies:
-    - build_linux
-  script:
-    - mkdir -p release
-    - cp exports/$GAME_NAME.x86_64 release/
-    - zip -r release/$GAME_NAME-Linux.zip release/
-  artifacts:
-    paths:
-      - release/$GAME_NAME-Linux.zip
+# ----------------------------
+# Build Linux (désactivé pour l'instant)
+# ----------------------------
+# build_linux:
+#   stage: build
+#   image: godotengine/godot:latest
+#   script:
+#     - mkdir exports
+#     - godot --export "Linux/X11" exports/$GAME_NAME.x86_64
+#   artifacts:
+#     paths:
+#       - exports/$GAME_NAME.x86_64
