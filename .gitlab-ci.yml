@@ -1,58 +1,35 @@
 stages:
   - build
-  - release
+  - installer
 
 variables:
-  # Chemin vers Godot Steam sur Windows
   GODOT_PATH_WINDOWS: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Godot\\Godot.exe"
   GAME_NAME: "Glacia"
 
-# ----------------------------
 # Build Windows
-# ----------------------------
 build_windows:
   stage: build
   tags:
     - windows
   script:
     - mkdir exports
-    # Export du projet Godot pour Windows avec PowerShell classique
     - powershell -Command "& `"$env:GODOT_PATH_WINDOWS`" --export `"Windows Desktop`" exports\$env:GAME_NAME.exe"
   artifacts:
     paths:
       - exports/$GAME_NAME.exe
 
-
-# ----------------------------
 # Créer l'installateur Windows avec NSIS
-# ----------------------------
 create_installer_windows:
-  stage: release
+  stage: installer
   tags:
     - windows
   dependencies:
     - build_windows
   script:
-    # Exécuter le script PowerShell qui lance NSIS
     - powershell -Command "& `"$PWD\installer\create_installer.ps1`""
-    # Créer un dossier release et copier l'installateur dedans
     - mkdir release
     - copy exports\$env:GAME_NAMEInstaller.exe release\
-    # Créer un zip pour distribution
     - powershell -Command "Compress-Archive -Path release\$env:GAME_NAMEInstaller.exe -DestinationPath release\$env:GAME_NAME-Windows.zip"
   artifacts:
     paths:
       - release/$GAME_NAME-Windows.zip
-
-# ----------------------------
-# Build Linux (désactivé pour l'instant)
-# ----------------------------
-# build_linux:
-#   stage: build
-#   image: godotengine/godot:latest
-#   script:
-#     - mkdir exports
-#     - godot --export "Linux/X11" exports/$GAME_NAME.x86_64
-#   artifacts:
-#     paths:
-#       - exports/$GAME_NAME.x86_64
