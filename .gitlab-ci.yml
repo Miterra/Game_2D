@@ -16,11 +16,11 @@ build_windows:
     - windows
   script:
     - mkdir exports
-    # Export du projet Godot pour Windows
-    - powershell -Command "& `"$env:GODOT_PATH_WINDOWS`" --export `"Windows Desktop`" exports/$env:GAME_NAME.exe"
+    # Export du projet Godot pour Windows avec PowerShell classique
+    - powershell -Command "& `"$env:GODOT_PATH_WINDOWS`" --export `"Windows Desktop`" exports\$env:GAME_NAME.exe"
   artifacts:
     paths:
-      - exports/$env:GAME_NAME.exe
+      - exports/$GAME_NAME.exe
 
 # ----------------------------
 # Créer l'installateur Windows avec NSIS
@@ -41,7 +41,7 @@ create_installer_windows:
     - powershell -Command "Compress-Archive -Path release\$env:GAME_NAMEInstaller.exe -DestinationPath release\$env:GAME_NAME-Windows.zip"
   artifacts:
     paths:
-      - release/$env:GAME_NAME-Windows.zip
+      - release/$GAME_NAME-Windows.zip
 
 # ----------------------------
 # Build Linux (désactivé pour l'instant)
