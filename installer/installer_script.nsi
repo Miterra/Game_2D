@@ -6,5 +6,5 @@ InstallDir "$PROGRAMFILES\Glacia"
 
 Section ""
   SetOutPath "$INSTDIR"
-  File "exports\Glacia.exe"
+  File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\Glacia.exe"
 SectionEnd
