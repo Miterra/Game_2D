@@ -1,0 +1,38 @@
+stages:
+  - build
+  - installer
+
+variables:
+  GODOT_PATH: /usr/bin/godot  # chemin du Godot du runner Docker
+
+build_windows:
+  stage: build
+  image: godotengine/godot:latest
+  script:
+    - mkdir -p exports
+    - godot --export "Windows Desktop" exports/Glacia.exe
+  artifacts:
+    paths:
+      - exports/Glacia.exe
+
+build_linux:
+  stage: build
+  image: godotengine/godot:latest
+  script:
+    - mkdir -p exports
+    - godot --export "Linux/X11" exports/Glacia.x86_64
+  artifacts:
+    paths:
+      - exports/Glacia.x86_64
+
+
+create_installer_windows:
+  stage: installer
+  image: mcr.microsoft.com/powershell
+  dependencies:
+    - build_windows
+  script:
+    - pwsh installer/create_installer.ps1
+  artifacts:
+    paths:
+      - exports/GlaciaInstaller.exe
