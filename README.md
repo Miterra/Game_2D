@@ -3,8 +3,6 @@
 **Glacia** est un jeu de **gestion, de survie et de recherche** en Antarctique, développé avec **Godot Engine**.  
 Le joueur doit gérer une station scientifique composée de **8 bâtiments**, maintenir le **moral** et la **population** des scientifiques, et faire face aux conditions extrêmes.
 
-<<<<<<< HEAD
-=======
 
 ---
 
@@ -12,7 +10,6 @@ Le joueur doit gérer une station scientifique composée de **8 bâtiments**, ma
 
 👉 https://miterra.itch.io/glacia
 
->>>>>>> 62ae48b (Sync README GitHub)
 ---
 
 ## 🎯 Objectifs du jeu
