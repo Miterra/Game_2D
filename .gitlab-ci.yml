@@ -15,7 +15,7 @@ build_windows:
     - windows
   script:
     - mkdir exports
-    - & $env:GODOT_PATH_WINDOWS --export "Windows Desktop" exports/$GAME_NAME.exe
+    - powershell -Command "& `"$env:GODOT_PATH_WINDOWS`" --export `"Windows Desktop`" exports/$GAME_NAME.exe"
   artifacts:
     paths:
       - exports/$GAME_NAME.exe
