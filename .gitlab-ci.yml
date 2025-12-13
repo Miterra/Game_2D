@@ -28,9 +28,8 @@ build_linux:
 
 create_installer_windows:
   stage: installer
-  image: mcr.microsoft.com/powershell
-  dependencies:
-    - build_windows
+  tags:
+    - windows  # le tag de ton runner Windows
   script:
     - pwsh installer/create_installer.ps1
   artifacts:
