@@ -8,8 +8,8 @@ Section "Glacia"
   SetOutPath "$INSTDIR"
 
   ; Copie l'exécutable
-  File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\Glacia.exe"
+  File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\windows\Glacia_windows.exe"
 
   ; Copie le fichier de données Godot
-  File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\Glacia.pck"
+  File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\windows\Glacia_windows.pck"
 SectionEnd
