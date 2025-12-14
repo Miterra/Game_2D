@@ -1,15 +1,15 @@
 ; Nom de l’installateur
-OutFile "exports\GlaciaInstaller.exe"
+OutFile "GlaciaInstaller.exe"
 
-; Dossier par défaut d’installation
+; Dossier d'installation par défaut
 InstallDir "$PROGRAMFILES\Glacia"
 
 Section "Glacia"
   SetOutPath "$INSTDIR"
 
-  ; Exécutable du jeu
+  ; Copie l'exécutable
   File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\Glacia.exe"
 
-  ; Données du jeu (OBLIGATOIRE)
+  ; Copie le fichier de données Godot
   File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\Glacia.pck"
 SectionEnd
