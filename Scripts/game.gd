@@ -564,27 +564,32 @@ func _on_fermer_detruit_pressed() -> void:
 
 func _on_passer_pressed() -> void:
 	var argent_genere: int = 0
+	var game_over: bool = false  # Flag pour ne changer la scène qu'une fois
 
-
+	# Gestion des bâtiments et génération d'argent
 	for key in batiments.keys():
 		var b = batiments[key]
 
+		# Sauter les bâtiments en réparation pour cette phase
 		if b.reparation_restante > 0:
 			continue
 
 		var pers = b.pers
 		var bar = b.bar
 
+		# Modifier l'état du bâtiment selon le nombre de personnes
 		if pers < 10:
 			bar.value -= 10
 		elif pers > 19:
 			bar.value += 20
 
+		# Vérifier si le bâtiment est détruit
 		if bar.value <= 0 and b.etat == true:
 			b.etat = false
 			print(b.nom, " est détruit !")
 			afficher_bouton_reparation(key)
 
+		# Générer de l'argent si le bâtiment est actif
 		if b.etat == true:
 			argent += 20000
 			argent_genere += 20000
@@ -594,61 +599,45 @@ func _on_passer_pressed() -> void:
 	argent_txt.text = "Argent : " + str(argent) + "€"
 	print("Total argent :", argent)
 
-
+	# Mise à jour de la barre de victoire
 	for key in batiments.keys():
 		var b = batiments[key]
 
-		if b.reparation_restante > 0:
+		if b.reparation_restante > 0 or b.etat == false or b.bar.value < 50:
 			win_bar.value -= 1
-			if win_bar.value <= 0:
-				print("GAME OVER")
-				get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
-			continue
-
-		if b.etat == false:
-			win_bar.value -= 1
-			if win_bar.value <= 0:
-				print("GAME OVER")
-				get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
-			continue
-
-		if b.bar.value < 50:
-			win_bar.value -= 1
-			if win_bar.value <= 0:
-				print("GAME OVER")
-				get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
 		else:
 			win_bar.value += 1
 
+	# Vérifier fin de partie
+	if win_bar.value <= 0:
+		game_over = true
 
+	# Incrémenter le tour
 	tours += 1
 	print("Tour :", tours)
 
-
-
-	if moisNuit == 0 :
+	# Gestion du cycle Jour/Nuit
+	if moisNuit == 0:
 		moisJour += 1
 		print("Mode Jour : moisJour = " + str(moisJour))
-		if moisJour == 6 :
+		if moisJour == 6:
 			pers = 10
 			moisJour = 0
 			print("30 personnes limité et moisJour = " + str(moisJour))
-			for key in batiments.keys() :
+			for key in batiments.keys():
 				batiments[key].pers = 0
 			persDispo = 10
 			mode.text = "Mode Nuit"
 			mode.add_theme_color_override("font_color", Color(0, 0, 0.5))
 			_update_all_common_labels()
 
-
-
-	if moisJour == 0 :
+	if moisJour == 0:
 		moisNuit += 1
 		print("Passage en mode Nuit. moisNuit = " + str(moisNuit))
-		if moisNuit == 6 :
+		if moisNuit == 6:
 			pers = 50
 			moisNuit = 0
-			for key in batiments.keys() :
+			for key in batiments.keys():
 				batiments[key].pers = 0
 			persDispo = 50
 			_update_all_common_labels()
@@ -657,27 +646,25 @@ func _on_passer_pressed() -> void:
 			print("50 personnes limité et moisNuit = " + str(moisNuit))
 			print("Passage en mode Jour")
 
-
-
+	# Décrémenter les réparations en cours
 	for key in batiments.keys():
 		var b = batiments[key]
-
 		if b.reparation_restante > 0:
 			b.reparation_restante -= 1
-
 			if b.reparation_restante == 0:
 				b.etat = true
 				b.bar.value = 50
 				print(b.nom, " a été réparé !")
 
-
+	# Mettre à jour les délais si visible
 	if delais_commande_windows.visible:
 		afficher_delais_reparations()
 
-
-	if win_bar.value <= 0:
+	# Changer de scène si GAME OVER
+	if game_over:
 		print("GAME OVER")
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+
 
 
 
