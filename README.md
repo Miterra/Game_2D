@@ -98,3 +98,103 @@ Le joueur doit gérer une station scientifique composée de **8 bâtiments**, ma
 | 1–5  | 50               | Normal |
 | 6    | 10               | Mode nuit, difficultés augmentées |
 | 7+   | Variable         | Survie critique, gestion des ressources essentielles |
+
+---
+
+# Glacia - Installation et lancement
+
+Glacia est un jeu développé avec Godot. Ce guide explique comment l’installer et le lancer selon votre système d’exploitation.
+
+---
+
+## Windows
+
+1. Télécharger l’installateur Windows depuis GitLab : `GlaciaInstaller.exe`.
+2. Double-cliquer sur le fichier pour lancer l’installation.
+3. Choisir le dossier d’installation (par défaut : `C:\Program Files (x86)\Glacia`).
+4. Une fois installé, lancer `Glacia.exe` depuis le raccourci ou le dossier d’installation.
+
+---
+
+## macOS
+
+**Note :** pas encore de binaire natif macOS. Le jeu fonctionne via **Wine** en utilisant la version Windows.
+
+### Étape 1 : Installer Homebrew (si non installé)
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Ajouter Homebrew au PATH :
+
+- Apple Silicon (M1/M2/M3) :
+  ```bash
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  ```
+- Intel :
+  ```bash
+  echo 'eval "$(/usr/local/bin/brew shellenv)"' >> ~/.zprofile
+  eval "$(/usr/local/bin/brew shellenv)"
+  ```
+
+Vérifier l’installation :
+
+```bash
+brew --version
+```
+
+### Étape 2 : Installer Wine
+
+```bash
+brew install --cask wine-stable
+```
+
+### Étape 3 : Télécharger la version Windows du jeu
+
+- `Glacia.exe`
+- `Glacia.pck`
+
+### Étape 4 : Lancer le jeu
+
+Dans le Terminal, naviguer jusqu’au dossier contenant `Glacia.exe` et `Glacia.pck` :
+
+```bash
+cd /chemin/vers/le/dossier
+wine Glacia.exe
+```
+
+⚠️ La première fois, un clic droit → Ouvrir peut être nécessaire pour autoriser Wine à exécuter le jeu.
+
+---
+
+## Linux
+
+Glacia fonctionne via Wine sur Linux.
+
+### Étape 1 : Installer Wine
+
+- Debian/Ubuntu :
+  ```bash
+  sudo apt update
+  sudo apt install wine
+  ```
+- Fedora :
+  ```bash
+  sudo dnf install wine
+  ```
+- Autres distributions : adapter la commande d’installation de Wine.
+
+### Étape 2 : Télécharger la version Windows du jeu
+
+- `Glacia.exe`
+- `Glacia.pck`
+
+### Étape 3 : Lancer le jeu
+
+```bash
+wine Glacia.exe
+```
+
+---
