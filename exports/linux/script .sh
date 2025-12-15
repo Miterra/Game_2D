@@ -10,10 +10,10 @@ echo "Installation de $APP_NAME dans $INSTALL_DIR"
 mkdir -p "$INSTALL_DIR"
 
 # Copier le binaire et le .pck
-cp Glacia.x86_64 "$INSTALL_DIR/$APP_NAME"
+cp Glacia_linux.exe.x86_64 "$INSTALL_DIR/$APP_NAME"
 chmod +x "$INSTALL_DIR/$APP_NAME"
 
-cp Glacia.pck "$INSTALL_DIR/"
+cp Glacia_linux.exe.pck "$INSTALL_DIR/"
 
 # Créer un script de lancement
 LAUNCHER="$INSTALL_DIR/run.sh"
