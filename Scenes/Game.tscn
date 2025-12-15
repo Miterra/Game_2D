@@ -1,18 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3iueqnheek7"]
+[gd_scene load_steps=6 format=3 uid="uid://b3iueqnheek7"]
 
 [ext_resource type="Script" uid="uid://csw802whqe37j" path="res://Scripts/game.gd" id="1_gl6un"]
-[ext_resource type="Texture2D" uid="uid://detqaknji2182" path="res://Sprites/Game/MAP.png" id="1_iukft"]
-[ext_resource type="Script" uid="uid://14i0ih8m51xa" path="res://Scripts/bat_principal_windows.gd" id="3_j5yw3"]
+[ext_resource type="Texture2D" uid="uid://b4w654jfn1xek" path="res://Sprites/Game/MAP_final.png" id="2_j5yw3"]
+[ext_resource type="Script" uid="uid://b437ffv2g58hx" path="res://Scripts/fermer.gd" id="3_j5yw3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kldst"]
+
+[sub_resource type="GDScript" id="GDScript_gl6un"]
+script/source = "extends PanelContainer
+
+@export var PrincipalWindows : NodePath
+
+func _on_fermer_pressed() -> void:
+	visible = false
+"
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_gl6un")
 
-[node name="StationsMaison" type="Sprite2D" parent="."]
-position = Vector2(575.74744, 323.991)
-scale = Vector2(0.6210356, 0.6208386)
-texture = ExtResource("1_iukft")
+[node name="MapFinal" type="Sprite2D" parent="."]
+position = Vector2(575.49994, 323.5)
+scale = Vector2(0.45134816, 0.4510077)
+texture = ExtResource("2_j5yw3")
 
 [node name="bat_Principal" type="Button" parent="."]
 offset_left = 480.0
@@ -66,14 +75,8 @@ offset_top = 306.0
 offset_right = 821.0
 offset_bottom = 475.0
 
-[node name="Passer" type="Button" parent="."]
-offset_left = 1044.0
-offset_top = 315.0
-offset_right = 1138.0
-offset_bottom = 367.0
-text = "PASSER"
-
 [node name="all" type="Button" parent="."]
+visible = false
 visibility_layer = 0
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,6 +87,13 @@ offset_bottom = 647.99994
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Passer" type="Button" parent="."]
+offset_left = 1044.0
+offset_top = 315.0
+offset_right = 1138.0
+offset_bottom = 367.0
+text = "MOIS SUIVANT"
+
 [node name="revenir" type="Button" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
@@ -93,6 +103,35 @@ offset_right = 1152.5107
 offset_bottom = 73.0
 grow_horizontal = 0
 text = "revenir"
+
+[node name="Barre de survie" type="Label" parent="."]
+offset_left = 471.0
+offset_top = -1.0
+offset_right = 666.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(1, 1, 0.29748532, 1)
+theme_override_font_sizes/font_size = 33
+text = "Barre de survie"
+
+[node name="Argent" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 27.0
+offset_right = 228.0
+offset_bottom = 63.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Argent : 250000€"
+
+[node name="WinBar" type="ProgressBar" parent="."]
+offset_left = 262.0
+offset_top = 26.0
+offset_right = 888.0
+offset_bottom = 97.0
+size_flags_horizontal = 6
+size_flags_vertical = 2
+theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0, 1)
+theme_override_font_sizes/font_size = 40
+value = 35.0
 
 [node name="bat_PrincipalWindows" type="PanelContainer" parent="."]
 visible = false
@@ -109,21 +148,28 @@ offset_right = 1017.0
 offset_bottom = 603.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_j5yw3")
+script = SubResource("GDScript_gl6un")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="bat_PrincipalWindows"]
 layout_mode = 2
 
-[node name="Donnees" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
+[node name="Nom" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
-text = "Donnees Specifiques :
-etat :"
+text = "etat du batiment :"
 
 [node name="etat_bat_Principal" type="ProgressBar" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
 value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
 
 [node name="Ajouter" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
@@ -131,10 +177,19 @@ theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Ajouter"
 
-[node name="Chercheurs" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
+[node name="pdix_personnes" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
+[node name="Personnes" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
 theme_override_font_sizes/font_size = 28
+text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
 
 [node name="Retirer" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
 layout_mode = 2
@@ -142,32 +197,653 @@ theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
 theme_override_font_sizes/font_size = 23
 text = "Retirer"
 
-[node name="DonneesCommunes" type="Label" parent="bat_PrincipalWindows/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
-theme_override_font_sizes/font_size = 28
-text = "Donnees Communes :"
-
 [node name="fermer" type="Button" parent="bat_PrincipalWindows/VBoxContainer"]
 modulate = Color(0, 0.98039216, 0.98039216, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 23
+text = "Sauvegarder et Fermer"
+script = ExtResource("3_j5yw3")
+
+[node name="bat_rechWindows" type="PanelContainer" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_kldst")
+custom_minimum_size = Vector2(800, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 603.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gl6un")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_rechWindows"]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "etat du batiment :"
+
+[node name="etat_bat_Rech" type="ProgressBar" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
+
+[node name="Ajouter" type="Button" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Ajouter"
+
+[node name="pdix_personnes" type="Button" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
+[node name="Personnes" type="Label" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
+
+[node name="Retirer" type="Button" parent="bat_rechWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Retirer"
+
+[node name="fermer" type="Button" parent="bat_rechWindows/VBoxContainer"]
+modulate = Color(0, 0.98039216, 0.98039216, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Sauvegarder et Fermer"
+script = ExtResource("3_j5yw3")
+
+[node name="bat_rech2Windows" type="PanelContainer" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_kldst")
+custom_minimum_size = Vector2(800, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 603.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gl6un")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_rech2Windows"]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "etat du batiment :"
+
+[node name="etat_bat_Rech2" type="ProgressBar" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
+
+[node name="Ajouter" type="Button" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Ajouter"
+
+[node name="pdix_personnes" type="Button" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
+[node name="Personnes" type="Label" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
+
+[node name="Retirer" type="Button" parent="bat_rech2Windows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Retirer"
+
+[node name="fermer" type="Button" parent="bat_rech2Windows/VBoxContainer"]
+modulate = Color(0, 0.98039216, 0.98039216, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Sauvegarder et Fermer"
+script = ExtResource("3_j5yw3")
+
+[node name="bat_antenneWindows" type="PanelContainer" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_kldst")
+custom_minimum_size = Vector2(800, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 603.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gl6un")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_antenneWindows"]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "etat du batiment :"
+
+[node name="etat_bat_Antenne" type="ProgressBar" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
+
+[node name="Ajouter" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Ajouter"
+
+[node name="pdix_personnes" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
+[node name="Personnes" type="Label" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
+
+[node name="Retirer" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Retirer"
+
+[node name="Commander" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Commander"
+
+[node name="fermer" type="Button" parent="bat_antenneWindows/VBoxContainer"]
+modulate = Color(0, 0.98039216, 0.98039216, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Sauvegarder et Fermer"
+script = ExtResource("3_j5yw3")
+
+[node name="bat_infirmerieWindows" type="PanelContainer" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_kldst")
+custom_minimum_size = Vector2(800, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 603.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gl6un")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_infirmerieWindows"]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "etat du batiment :"
+
+[node name="etat_bat_Infirmerie" type="ProgressBar" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
+
+[node name="Ajouter" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Ajouter"
+
+[node name="pdix_personnes" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
+[node name="Personnes" type="Label" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
+
+[node name="Retirer" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Retirer"
+
+[node name="fermer" type="Button" parent="bat_infirmerieWindows/VBoxContainer"]
+modulate = Color(0, 0.98039216, 0.98039216, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Sauvegarder et Fermer"
+script = ExtResource("3_j5yw3")
+
+[node name="bat_restaurationWindows" type="PanelContainer" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_kldst")
+custom_minimum_size = Vector2(800, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 603.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gl6un")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_restaurationWindows"]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "etat du batiment :"
+
+[node name="etat_bat_Restauration" type="ProgressBar" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
+
+[node name="Ajouter" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Ajouter"
+
+[node name="pdix_personnes" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
+[node name="Personnes" type="Label" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
+
+[node name="Retirer" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Retirer"
+
+[node name="fermer" type="Button" parent="bat_restaurationWindows/VBoxContainer"]
+modulate = Color(0, 0.98039216, 0.98039216, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Sauvegarder et Fermer"
+script = ExtResource("3_j5yw3")
+
+[node name="bat_stockageWindows" type="PanelContainer" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_kldst")
+custom_minimum_size = Vector2(800, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 603.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gl6un")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_stockageWindows"]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "etat du batiment :"
+
+[node name="etat_bat_Stockage" type="ProgressBar" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
+
+[node name="Ajouter" type="Button" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Ajouter"
+
+[node name="pdix_personnes" type="Button" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
+[node name="Personnes" type="Label" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
+
+[node name="Retirer" type="Button" parent="bat_stockageWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Retirer"
+
+[node name="fermer" type="Button" parent="bat_stockageWindows/VBoxContainer"]
+modulate = Color(0, 0.98039216, 0.98039216, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Sauvegarder et Fermer"
+script = ExtResource("3_j5yw3")
+
+[node name="bat_tempsWindows" type="PanelContainer" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_kldst")
+custom_minimum_size = Vector2(800, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 603.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gl6un")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_tempsWindows"]
+layout_mode = 2
+
+[node name="Nom" type="Label" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "etat du batiment :"
+
+[node name="etat_bat_Temps" type="ProgressBar" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+value = 70.0
+
+[node name="DonneesCommunes" type="Label" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes disponibles : 00/00"
+
+[node name="Ajouter" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3529412, 0.8784314, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Ajouter"
+
+[node name="pdix_personnes" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+text = "+ 10 personnes"
+
+[node name="Personnes" type="Label" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.047058824, 0.4117647, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Personnes : 0"
+
+[node name="mdix_personnes" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+text = "- 10 personnes"
+
+[node name="Retirer" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96608514, 0.1482785, 0, 1)
+theme_override_font_sizes/font_size = 23
+text = "Retirer"
+
+[node name="delais_commande" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Delais des commandes"
+
+[node name="fermer" type="Button" parent="bat_tempsWindows/VBoxContainer"]
+modulate = Color(0, 0.98039216, 0.98039216, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Sauvegarder et Fermer"
+script = ExtResource("3_j5yw3")
+
+[node name="CommandeWindows" type="PanelContainer" parent="."]
+visible = false
+offset_left = 109.0
+offset_top = 98.0
+offset_right = 1017.0
+offset_bottom = 603.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CommandeWindows"]
+layout_mode = 2
+
+[node name="fermer_commande" type="Button" parent="CommandeWindows/VBoxContainer"]
+layout_mode = 2
 text = "Fermer"
 
-[node name="WinBar" type="ProgressBar" parent="."]
-offset_left = 276.0
-offset_top = 18.0
-offset_right = 902.0
-offset_bottom = 89.0
-size_flags_horizontal = 6
-size_flags_vertical = 2
-value = 35.0
+[node name="bat_detruitWindows" type="PanelContainer" parent="."]
+visible = false
+offset_left = 110.0
+offset_top = 99.0
+offset_right = 1016.0
+offset_bottom = 604.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bat_detruitWindows"]
+layout_mode = 2
+
+[node name="nom_detruit" type="Label" parent="bat_detruitWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Batiment (nom)"
+
+[node name="Detruit" type="Label" parent="bat_detruitWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Le batiments est detruit...
+Pour reparer le batiment, il faudra vous rendre dans le batiment
+antenne pour pouvoir acheter des ressources afin de les reparer."
+
+[node name="fermer_detruit" type="Button" parent="bat_detruitWindows/VBoxContainer"]
+layout_mode = 2
+text = "FERMER"
+
+[node name="delais_commandeWindows" type="PanelContainer" parent="."]
+visible = false
+offset_left = 109.0
+offset_top = 99.0
+offset_right = 1017.0
+offset_bottom = 602.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="delais_commandeWindows"]
+layout_mode = 2
+
+[node name="Temps_attente" type="Label" parent="delais_commandeWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 1, 1)
+theme_override_font_sizes/font_size = 23
+text = "Temps d'attente :"
+
+[node name="fermer_delais_commande" type="Button" parent="delais_commandeWindows/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Fermer"
+
+[node name="Mode" type="Label" parent="."]
+offset_left = 898.0
+offset_top = 13.0
+offset_right = 1023.0
+offset_bottom = 51.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 34
+text = "Mode Jour"
 
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]
-[connection signal="pressed" from="Passer" to="." method="_on_passer_pressed"]
+[connection signal="pressed" from="bat_rech_pousse" to="." method="_on_bat_rech_pousse_pressed"]
+[connection signal="pressed" from="bat_rech_pousse2" to="." method="_on_bat_rech_pousse_2_pressed"]
+[connection signal="pressed" from="Antenne_market" to="." method="_on_antenne_market_pressed"]
+[connection signal="pressed" from="bat_infirmerie" to="." method="_on_bat_infirmerie_pressed"]
+[connection signal="pressed" from="bat_restauration" to="." method="_on_bat_restauration_pressed"]
+[connection signal="pressed" from="bat_stockage" to="." method="_on_bat_stockage_pressed"]
+[connection signal="pressed" from="bat_temps_market" to="." method="_on_bat_temps_market_pressed"]
 [connection signal="pressed" from="all" to="." method="_on_bat_principal_pressed"]
+[connection signal="pressed" from="Passer" to="." method="_on_passer_pressed"]
 [connection signal="pressed" from="revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/fermer" to="bat_PrincipalWindows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_rechWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_rechWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_rechWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
+[connection signal="pressed" from="bat_rechWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_rechWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_rechWindows/VBoxContainer/fermer" to="bat_rechWindows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_rech2Windows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_rech2Windows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_rech2Windows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
+[connection signal="pressed" from="bat_rech2Windows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_rech2Windows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_rech2Windows/VBoxContainer/fermer" to="bat_rech2Windows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/Commander" to="." method="_on_commander_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_antenneWindows/VBoxContainer/fermer" to="bat_antenneWindows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
+[connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_infirmerieWindows/VBoxContainer/fermer" to="bat_infirmerieWindows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
+[connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_restaurationWindows/VBoxContainer/fermer" to="bat_restaurationWindows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_stockageWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_stockageWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_stockageWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
+[connection signal="pressed" from="bat_stockageWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_stockageWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_stockageWindows/VBoxContainer/fermer" to="bat_stockageWindows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/mdix_personnes" to="." method="_on_mdix_personnes_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/Retirer" to="." method="_on_retirer_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/delais_commande" to="." method="_on_delais_commande_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/fermer" to="." method="_on_fermer_pressed"]
+[connection signal="pressed" from="bat_tempsWindows/VBoxContainer/fermer" to="bat_tempsWindows" method="_on_fermer_pressed"]
+[connection signal="pressed" from="CommandeWindows/VBoxContainer/fermer_commande" to="." method="_on_fermer_commande_pressed"]
+[connection signal="pressed" from="bat_detruitWindows/VBoxContainer/fermer_detruit" to="." method="_on_fermer_detruit_pressed"]
+[connection signal="pressed" from="delais_commandeWindows/VBoxContainer/fermer_delais_commande" to="." method="_on_fermer_delais_commande_pressed"]

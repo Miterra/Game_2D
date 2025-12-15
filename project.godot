@@ -13,7 +13,7 @@ config_version=5
 config/name="T3"
 run/main_scene="uid://dosri68swpiyn"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cbhhxr7ci5jna"
 
 [autoload]
 

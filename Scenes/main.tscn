@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dosri68swpiyn"]
+[gd_scene load_steps=15 format=3 uid="uid://dosri68swpiyn"]
 
 [ext_resource type="Script" uid="uid://cuveqiydci504" path="res://Scripts/main.gd" id="1_bo1nx"]
 [ext_resource type="Texture2D" uid="uid://hlpc104jlw16" path="res://Sprites/Menu/main_background.png" id="2_jjvhh"]
@@ -11,6 +11,32 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_21xkr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_21xkr"]
+
+[sub_resource type="Curve" id="Curve_6bp64"]
+_data = [Vector2(0, 0.9301076), 0.0, 0.0, 0, 0, Vector2(0.8774835, 0.21279007), 0.0, 0.0, 0, 0, Vector2(1, 0.0031126738), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_344ge"]
+curve = SubResource("Curve_6bp64")
+
+[sub_resource type="Gradient" id="Gradient_ynf5e"]
+offsets = PackedFloat32Array(0.4919355, 0.58064514)
+colors = PackedColorArray(1, 1, 1, 0.34509805, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hptm8"]
+gradient = SubResource("Gradient_ynf5e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d1ilt"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(500, 1, 1)
+gravity = Vector3(45, 98, 0)
+scale_max = 4.0
+color_initial_ramp = SubResource("GradientTexture1D_hptm8")
+alpha_curve = SubResource("CurveTexture_344ge")
+turbulence_enabled = true
+turbulence_influence_min = 0.020000001
+turbulence_influence_max = 0.080000006
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bo1nx")
@@ -74,6 +100,13 @@ label_settings = SubResource("LabelSettings_21xkr")
 
 [node name="VolumeSlider" type="HSlider" parent="SettingsWindows/VBoxContainer"]
 layout_mode = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, -175)
+amount = 200
+lifetime = 10.0
+interp_to_end = 1.0
+process_material = SubResource("ParticleProcessMaterial_d1ilt")
 
 [connection signal="pressed" from="btnPlay" to="." method="_on_btn_play_pressed"]
 [connection signal="pressed" from="btnExit" to="." method="_on_btn_exit_pressed"]
