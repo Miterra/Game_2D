@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3iueqnheek7"]
+[gd_scene load_steps=7 format=3 uid="uid://b3iueqnheek7"]
 
 [ext_resource type="Script" uid="uid://csw802whqe37j" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Texture2D" uid="uid://b4w654jfn1xek" path="res://Sprites/Game/MAP_final.png" id="2_j5yw3"]
 [ext_resource type="Script" uid="uid://b437ffv2g58hx" path="res://Scripts/fermer.gd" id="3_j5yw3"]
+[ext_resource type="Texture2D" uid="uid://q3xdtomg16xl" path="res://Sprites/Menu/flocons.PNG" id="4_kldst"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kldst"]
 
@@ -22,6 +23,18 @@ script = ExtResource("1_gl6un")
 position = Vector2(575.49994, 323.5)
 scale = Vector2(0.45134816, 0.4510077)
 texture = ExtResource("2_j5yw3")
+
+[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-331, -659)
+amount = 600
+texture = ExtResource("4_kldst")
+lifetime = 10.0
+preprocess = 0.5
+fixed_fps = 60
+initial_velocity_min = 178.66
+initial_velocity_max = 1000.0
+scale_amount_min = 0.0
+scale_amount_max = 0.05
 
 [node name="bat_Principal" type="Button" parent="."]
 offset_left = 480.0
