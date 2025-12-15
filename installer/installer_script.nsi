@@ -12,4 +12,7 @@ Section "Glacia"
 
   ; Copie le fichier de données Godot
   File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\windows\Glacia_windows.pck"
+
+  File "C:\Users\Halil\Documents\iut\BUT_2\Projet_Jeu\Game_2D\exports\windows\Glacia_windows.console.exe"
+
 SectionEnd
