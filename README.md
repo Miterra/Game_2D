@@ -118,7 +118,7 @@ Glacia est un jeu développé avec Godot. Ce guide explique comment l’installe
 
 ## macOS
 
-**Note :** pas encore de binaire natif macOS. Le jeu fonctionne via **Wine** en utilisant la version Windows.
+**Note :** pas encore de binaire natif macOS. Le jeu fonctionne via **Wine**.
 
 ### Étape 1 : Installer Homebrew (si non installé)
 
