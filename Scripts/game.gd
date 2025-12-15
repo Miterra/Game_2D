@@ -570,26 +570,22 @@ func _on_passer_pressed() -> void:
 	for key in batiments.keys():
 		var b = batiments[key]
 
-		# Sauter les bâtiments en réparation pour cette phase
 		if b.reparation_restante > 0:
 			continue
 
 		var pers = b.pers
 		var bar = b.bar
 
-		# Modifier l'état du bâtiment selon le nombre de personnes
 		if pers < 10:
 			bar.value -= 10
 		elif pers > 19:
 			bar.value += 20
 
-		# Vérifier si le bâtiment est détruit
 		if bar.value <= 0 and b.etat == true:
 			b.etat = false
 			print(b.nom, " est détruit !")
 			afficher_bouton_reparation(key)
 
-		# Générer de l'argent si le bâtiment est actif
 		if b.etat == true:
 			argent += 20000
 			argent_genere += 20000
@@ -599,7 +595,6 @@ func _on_passer_pressed() -> void:
 	argent_txt.text = "Argent : " + str(argent) + "€"
 	print("Total argent :", argent)
 
-	# Mise à jour de la barre de victoire
 	for key in batiments.keys():
 		var b = batiments[key]
 
@@ -608,22 +603,19 @@ func _on_passer_pressed() -> void:
 		else:
 			win_bar.value += 1
 
-	# Vérifier fin de partie
 	if win_bar.value <= 0:
 		game_over = true
 
-	# Incrémenter le tour
 	tours += 1
 	print("Tour :", tours)
 
-	# Gestion du cycle Jour/Nuit
+	# Gestion Jour/Nuit
 	if moisNuit == 0:
 		moisJour += 1
 		print("Mode Jour : moisJour = " + str(moisJour))
 		if moisJour == 6:
 			pers = 10
 			moisJour = 0
-			print("30 personnes limité et moisJour = " + str(moisJour))
 			for key in batiments.keys():
 				batiments[key].pers = 0
 			persDispo = 10
@@ -656,21 +648,27 @@ func _on_passer_pressed() -> void:
 				b.bar.value = 50
 				print(b.nom, " a été réparé !")
 
-	# Mettre à jour les délais si visible
 	if delais_commande_windows.visible:
 		afficher_delais_reparations()
 
 	# Changer de scène si GAME OVER
 	if game_over:
-		print("GAME OVER")
+		call_deferred("_change_to_game_over")
+
+# Fonction différée pour changer de scène
+func _change_to_game_over():
+	if get_tree() != null:
 		get_tree().change_scene_to_file("res://Scenes/game_over.tscn")
+	else:
+		print("Erreur : Node pas encore ajouté au SceneTree")
 
 
-
-
-
-
-
-
+# --------------------------------------------------------------------
 func _on_revenir_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	call_deferred("_change_to_main_scene")
+
+func _change_to_main_scene():
+	if get_tree() != null:
+		get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	else:
+		print("Erreur : Node pas encore ajouté au SceneTree")
