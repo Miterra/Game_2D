@@ -26,8 +26,19 @@ cd "\$DIR"
 EOL
 chmod +x "$LAUNCHER"
 
-# Optionnel : créer un alias dans ~/.bashrc pour lancer le jeu depuis n’importe où
-echo "alias $APP_NAME='$LAUNCHER'" >> ~/.bashrc
+# Rendre le lancement disponible via la commande `Glacia`
+# 1) Symlink dans ~/.local/bin si ce dossier est dans le PATH
+BIN_DIR="$HOME/.local/bin"
+if [ -d "$BIN_DIR" ] && echo ":$PATH:" | grep -q ":$BIN_DIR:"; then
+  ln -sf "$LAUNCHER" "$BIN_DIR/$APP_NAME"
+  MADE_CMD=true
+fi
+
+# 2) Sinon, ajouter un alias dans ~/.bashrc et ~/.zshrc
+if [ -z "$MADE_CMD" ]; then
+  echo "alias $APP_NAME='$LAUNCHER'" >> "$HOME/.bashrc"
+  echo "alias $APP_NAME='$LAUNCHER'" >> "$HOME/.zshrc"
+fi
 
 echo "Installation terminée !"
 echo "Pour lancer le jeu, tapez : $APP_NAME"

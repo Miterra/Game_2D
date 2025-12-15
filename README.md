@@ -171,30 +171,38 @@ wine Glacia.exe
 
 ## Linux
 
-Glacia fonctionne via Wine sur Linux.
+Les fichiers Linux sont dans `exports/linux` sur GitLab : `Glacia_linux.exe.x86_64`, `Glacia_linux.exe.pck` et `script .sh`.
 
-### Étape 1 : Installer Wine
+### Étape 1 : Récupérer les fichiers
+- Télécharger le dossier `exports/linux` ou ces trois fichiers dans un même répertoire (ex. `~/Downloads`).
 
-- Debian/Ubuntu :
-  ```bash
-  sudo apt update
-  sudo apt install wine
-  ```
-- Fedora :
-  ```bash
-  sudo dnf install wine
-  ```
-- Autres distributions : adapter la commande d’installation de Wine.
-
-### Étape 2 : Télécharger la version Windows du jeu
-
-- `Glacia.exe`
-- `Glacia.pck`
-
-### Étape 3 : Lancer le jeu
+### Étape 2 : Rendre le script exécutable
 
 ```bash
-wine Glacia.exe
+cd ~/Downloads
+chmod +x 'script .sh'
 ```
+
+### Étape 3 : Installer le jeu
+
+```bash
+./'script .sh'
+```
+
+Le script installe Glacia dans `~/Glacia` (ou affiche le chemin exact) et crée un script de lancement `run.sh`. Il peut aussi ajouter une commande `Glacia` si le script la propose.
+
+### Étape 4 : Lancer le jeu
+
+```bash
+~/Glacia/run.sh
+```
+
+Si le script a ajouté la commande système, vous pouvez simplement taper :
+
+```bash
+Glacia
+```
+
+> Si vous voyez “Permission non accordée” en lançant le script, vérifiez que l’étape `chmod +x 'script .sh'` a bien été faite.
 
 ---
