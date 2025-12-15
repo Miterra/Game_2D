@@ -13,13 +13,15 @@ mkdir -p "$INSTALL_DIR"
 cp Glacia_linux.exe.x86_64 "$INSTALL_DIR/$APP_NAME"
 chmod +x "$INSTALL_DIR/$APP_NAME"
 
-cp Glacia_linux.exe.pck "$INSTALL_DIR/"
+# Renommer le .pck pour correspondre au binaire
+cp Glacia_linux.exe.pck "$INSTALL_DIR/$APP_NAME.pck"
 
 # Créer un script de lancement
 LAUNCHER="$INSTALL_DIR/run.sh"
 cat > "$LAUNCHER" <<EOL
 #!/bin/bash
-cd "$INSTALL_DIR"
+DIR="\$(cd "\$(dirname "\$0")" && pwd)"
+cd "\$DIR"
 ./$APP_NAME
 EOL
 chmod +x "$LAUNCHER"
