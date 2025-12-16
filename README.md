@@ -30,12 +30,16 @@ Le joueur doit gérer une station scientifique composée de **8 bâtiments**, ma
 
 > ⚠️ Si un bâtiment est <50% après un mois → **moral -1%**  
 
+![alt text](Assets/Sprites/README/Batiment.png)
+
 ---
 
 ## 📊 Moral / Barre de survie
 - Valeur initiale : **100%**  
 - Baisse si des bâtiments sont mal gérés  
 - **Moral = 0 → Game Over** 🚨  
+
+![alt text](Assets/Sprites/README/Jeu.png)
 
 ---
 
@@ -51,6 +55,8 @@ Le joueur doit gérer une station scientifique composée de **8 bâtiments**, ma
 - Achat de ressources pour **réparer les bâtiments détruits (0%)**  
 - Livraison : **5 mois après l’achat**  
 - Après livraison → bâtiment réparé ✅  
+
+![alt text](Assets/Sprites/README/reparation.png)
 
 ---
 
