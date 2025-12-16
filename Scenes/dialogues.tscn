@@ -168,7 +168,7 @@ func _on_button_pressed() -> void:
 	get_tree().change_scene_to_file(\"res://Scenes/Game.tscn\")
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1xo8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7vqu"]
 resource_local_to_scene = true
 shader = ExtResource("3_gp4mg")
 shader_parameter/my_tex = ExtResource("3_y2qk2")
@@ -355,9 +355,9 @@ animations = [{
 script = SubResource("GDScript_yfpkt")
 
 [node name="MapFinal" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_i1xo8")
+material = SubResource("ShaderMaterial_g7vqu")
 position = Vector2(575.49994, 323.5)
-scale = Vector2(0.4513481, 0.45100763)
+scale = Vector2(0.45134816, 0.4510077)
 texture = ExtResource("3_y2qk2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
