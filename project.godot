@@ -17,7 +17,7 @@ config/icon="uid://cbhhxr7ci5jna"
 
 [autoload]
 
-AudioMenu="*res://Audio/audio_menu.tscn"
+AudioMenu="*res://Assets/Audio/audio_menu.tscn"
 
 [display]
 

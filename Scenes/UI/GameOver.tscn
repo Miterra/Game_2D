@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfhs48umcfx41"]
+
+[ext_resource type="Script" uid="uid://bus46kgag16sl" path="res://Scripts/Controllers/GameOverController.gd" id="1_yxx3c"]
+[ext_resource type="Texture2D" uid="uid://b4w654jfn1xek" path="res://Assets/Sprites/Buildings/MAP_final.png" id="2_8fo1c"]
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource("1_yxx3c")
+
+[node name="MapFinal" type="Sprite2D" parent="."]
+position = Vector2(575.49994, 323.5)
+scale = Vector2(0.45134816, 0.4510077)
+texture = ExtResource("2_8fo1c")
+
+[node name="Game Over" type="Label" parent="."]
+offset_left = 27.0
+offset_top = 14.0
+offset_right = 1160.0
+offset_bottom = 314.0
+theme_override_font_sizes/font_size = 300
+text = "GAME OVER"
+
+[node name="Restart" type="Button" parent="."]
+offset_left = 153.0
+offset_top = 309.0
+offset_right = 507.0
+offset_bottom = 473.0
+theme_override_font_sizes/font_size = 80
+text = "RESTART ?"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 649.0
+offset_top = 310.0
+offset_right = 1003.0
+offset_bottom = 474.0
+theme_override_font_sizes/font_size = 80
+text = " QUIT ?"
+
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
