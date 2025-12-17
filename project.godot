@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="T3"
+config/name="T3MVC"
 run/main_scene="uid://dosri68swpiyn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="uid://cbhhxr7ci5jna"
 
 [autoload]
 
-AudioMenu="*res://Audio/audio_menu.tscn"
+AudioMenu="*res://Assets/Audio/audio_menu.tscn"
 
 [display]
 

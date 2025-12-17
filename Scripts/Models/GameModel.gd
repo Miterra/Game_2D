@@ -1,0 +1,122 @@
+class_name GameModel
+extends Node
+
+# --- DONNÉES PURES ---
+var argent: int = 250000
+var pers_totales: int = 50
+var pers_dispo: int = 50
+var tour_actuel: int = 1
+
+var moisJour: int = 1
+var moisNuit: int = 0
+var is_night_mode: bool = false 
+
+var barre_survie: int = 35 
+var argent_genere_ce_tour: int = 0
+
+# MODIFICATION ICI : On charge les données depuis le fichier externe
+var batiments_data: Dictionary = BatimentsDB.get_default_data()
+
+# --- LOGIQUE ---
+
+func passer_tour() -> bool:
+	argent_genere_ce_tour = 0
+	
+	# 1. Gestion des bâtiments
+	for key in batiments_data:
+		var b = batiments_data[key]
+		
+		# Si en réparation
+		if b.reparation_restante > 0:
+			b.reparation_restante -= 1
+			if b.reparation_restante == 0:
+				b.etat = true
+				b.pv = 50 
+				print(b.nom, " a été réparé !")
+			continue
+
+		# Si détruit, on passe
+		if not b.etat:
+			continue
+
+		# Logique PV selon personnel
+		if b.pers < 10:
+			b.pv -= 10
+		elif b.pers > 19:
+			b.pv += 20
+		
+		# Vérification destruction
+		if b.pv <= 0:
+			b.etat = false
+			print(b.nom + " est détruit !")
+		else:
+			var gain = b.gain_argent
+			argent_genere_ce_tour += gain
+			print(b.nom + " génère " + str(gain) + "€")
+
+	argent += argent_genere_ce_tour
+	print("Argent généré au total : " + str(argent_genere_ce_tour))
+	print("Total argent : " + str(argent))
+
+	# 2. Calcul barre de survie
+	for key in batiments_data:
+		var b = batiments_data[key]
+		if b.reparation_restante > 0 or not b.etat or b.pv < 50:
+			barre_survie -= 1
+		else:
+			barre_survie += 1
+	
+	barre_survie = clamp(barre_survie, 0, 100)
+	
+	tour_actuel += 1
+	print("------------------------------------------------")
+	print("FIN DU TOUR : " + str(tour_actuel))
+	
+	# 3. Gestion Jour/Nuit
+	gerer_jour_nuit()
+	
+	return barre_survie <= 0
+
+
+func gerer_jour_nuit():
+	# Si on est en mode JOUR
+	if not is_night_mode:
+		moisJour += 1
+		print("Cycle : MODE JOUR (" + str(moisJour) + "/6)")
+		
+		if moisJour >= 6:
+			passer_en_mode_nuit()
+			
+	# Si on est en mode NUIT
+	else:
+		moisNuit += 1
+		print("Cycle : MODE NUIT (" + str(moisNuit) + "/6)")
+		
+		if moisNuit >= 6:
+			passer_en_mode_jour()
+
+func passer_en_mode_nuit():
+	is_night_mode = true
+	moisJour = 0 
+	moisNuit = 0 
+	
+	pers_totales = 10
+	pers_dispo = 10
+	reset_personnel_batiments()
+	
+	print(">>> TRANSITION : La Nuit polaire tombe... (Personnel réduit à 10)")
+
+func passer_en_mode_jour():
+	is_night_mode = false
+	moisNuit = 0 
+	moisJour = 0 
+	
+	pers_totales = 50
+	pers_dispo = 50
+	reset_personnel_batiments()
+	
+	print(">>> TRANSITION : Le Soleil revient ! (Personnel remonte à 50)")
+
+func reset_personnel_batiments():
+	for key in batiments_data:
+		batiments_data[key].pers = 0
