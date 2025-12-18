@@ -1,6 +1,6 @@
 # ❄️ Glacia
 
-**Glacia** est un jeu de **gestion, de survie et de recherche** en Antarctique, développé avec **Godot Engine**.  
+**Glacia** est un jeu de **gestion, de survie et de recherche** en Antarctique, développé avec **Godot Engine**.  
 Le joueur doit gérer une station scientifique composée de **8 bâtiments**, maintenir le **moral** et la **population** des scientifiques, et faire face aux conditions extrêmes.
 
 ---
@@ -24,6 +24,13 @@ Ce projet vise à développer des compétences clés en gestion de projet et en 
 ### 🕹️ Genre et Style
 **Glacia** est un jeu de **simulation et de stratégie en 2D** au style "Pixel Art / Interface". L'esthétique est froide et clinique, rappelant les tableaux de bord de gestion, pour immerger le joueur dans le rôle d'un administrateur de station isolé face à la rudesse de l'Antarctique.
 
+### 🎮 Modes de Jeu
+Le joueur peut choisir entre deux approches au démarrage :
+* **Mode Normal :** Survivre 24 mois (Objectif de fin).
+* **Mode Infini :** Survivre le plus longtemps possible (High Score).
+
+![Menu des modes](Assets/Sprites/README/Mode.png)
+
 ### 🖱️ Actions du joueur
 Le joueur agit en tant que chef de station via plusieurs leviers :
 * **Répartition des effectifs :** Déplacer les scientifiques dans les bâtiments prioritaires pour freiner leur dégradation.
@@ -39,97 +46,108 @@ Le système communique l'état de la simulation via des indicateurs visuels clai
 ---
 
 ## 🎯 Objectifs du jeu
-- Survie et gestion de la population scientifique  
-- Gestion du **moral** et de l’état des bâtiments  
-- Optimisation des **ressources financières** pour réparer et maintenir les bâtiments  
-- Anticipation du mode **jour → nuit** après 6 mois, où la population chute drastiquement  
+- Survie et gestion de la population scientifique  
+- Gestion du **moral** et de l’état des bâtiments  
+- Optimisation des **ressources financières** pour réparer et maintenir les bâtiments  
+- Anticipation du mode **jour → nuit** après 6 mois, où la population chute drastiquement  
 
 ---
 
-## 🏢 Bâtiments
+## 🏢 Bâtiments & Gestion du Personnel
 
-| État du bâtiment | Population | Effet |
-|-----------------|------------|-------|
-| Moins de 10     | 0–9        | ❌ Détérioration |
-| Entre 10 et 19  | 10–19      | ⚠️ Stabilité |
-| Plus de 19      | 20+        | ✅ Amélioration |
+La gestion du personnel influence directement l'état des bâtiments à chaque tour. La précision est la clé :
 
-> ⚠️ Si un bâtiment est <50% après un mois → **moral -1%**  
+| Population | Effet sur l'état | Description |
+| :---: | :---: | :--- |
+| **0 – 4** | 🛑 **DANGER (-10%)** | Dégradation critique et rapide. |
+| **5 – 9** | ⚠️ **Usure (-5%)** | Le bâtiment s'abîme lentement. |
+| **10 – 14** | ⚖️ **Stabilité** | L'état ne bouge pas. |
+| **15 – 19** | 🔧 **Entretien (+5%)** | Le bâtiment est réparé doucement. |
+| **20 +** | ✅ **Rénovation (+20%)** | Réparation très rapide. |
 
-![alt text](Assets/Sprites/README/Batiment.png)
+> ⚠️ Si un bâtiment est <50% après un mois → **moral -1%** ![alt text](Assets/Sprites/README/Batiment.png)
 
 ---
 
 ## 📊 Moral / Barre de survie
-- Valeur initiale : **100%**  
-- Baisse si des bâtiments sont mal gérés  
-- **Moral = 0 → Game Over** 🚨  
+- Valeur initiale : **100%** - Baisse si des bâtiments sont mal gérés  
+- **Moral = 0 → Game Over** 🚨  
 
 ![alt text](Assets/Sprites/README/Jeu.png)
 
 ---
 
 ## 👥 Population
-- Population totale : **50 personnes** réparties dans les bâtiments  
-- Après 6 mois → **mode nuit** : population totale = **10**  
-- Importance : maintenir la population pour éviter la dégradation des bâtiments  
+- Population totale : **50 personnes** réparties dans les bâtiments  
+- Après 6 mois → **mode nuit** : population totale = **10** - Importance : maintenir la population pour éviter la dégradation des bâtiments  
 
 ---
 
 ## 💰 Budget et ressources
-- Budget : **20 000 € par bâtiment / mois** → 160 000 € total  
-- Achat de ressources pour **réparer les bâtiments détruits (0%)**  
-- Livraison : **5 mois après l’achat**  
-- Après livraison → bâtiment réparé ✅  
+- Budget : **20 000 € par bâtiment / mois** → 160 000 € total  
+- Achat de ressources pour **réparer les bâtiments détruits (0%)** - Livraison : **5 mois après l’achat** - Après livraison → bâtiment réparé ✅  
 
 ![alt text](Assets/Sprites/README/reparation.png)
 
 ---
 
+## 🏁 Fin de Partie
+
+Le jeu propose un écran récapitulatif détaillé à la fin de la session (Victoire ou Défaite), affichant le score, l'argent économisé et l'état final des bâtiments.
+
+### ✅ Victoire (Mission Réussie)
+En mode normal, atteindre le 24ème mois avec un moral positif.
+
+![Ecran de Victoire](Assets/Sprites/README/Win.png)
+
+### ❌ Game Over (Station Gelée)
+Si la barre de survie tombe à 0%.
+
+![Ecran de Game Over](Assets/Sprites/README/GameOver.png)
+
+---
+
 ## 🖥️ Interface
-- Barre de chaque bâtiment indiquant l’état (%)  
-- Barre globale indiquant le **moral**  
-- Indicateur de population par bâtiment  
-- 🔴 Alerte si bâtiment <50% ou population trop faible  
-- ⏳ Compteur de livraison de ressources  
+- Barre de chaque bâtiment indiquant l’état (%)  
+- Barre globale indiquant le **moral** - Indicateur de population par bâtiment  
+- 🔴 Alerte si bâtiment <50% ou population trop faible  
+- ⏳ Compteur de livraison de ressources  
 
 ---
 
 ## ⚙️ Contraintes techniques
-- Développement avec **Godot Engine**  
-- Jeu en 2D, type **simulation de station scientifique**  
-- Sauvegarde automatique mensuelle de l’état  
-- Simulation mensuelle pour les bâtiments et le moral  
+- Développement avec **Godot Engine** - Jeu en 2D, type **simulation de station scientifique** - Sauvegarde automatique mensuelle de l’état  
+- Simulation mensuelle pour les bâtiments et le moral  
 
 ---
 
 ## 🎮 Stratégie
-- Répartir la population de manière optimale  
-- Planifier le budget pour anticiper les réparations (livraison 5 mois plus tard)  
-- Préparer le **mode nuit** pour maintenir le moral  
+- Répartir la population de manière optimale  
+- Planifier le budget pour anticiper les réparations (livraison 5 mois plus tard)  
+- Préparer le **mode nuit** pour maintenir le moral  
 
 ---
 
 ## 👥 Équipe
-- **Halil Bronja** : développement Godot, gestion des bâtiments et du moral  
-- **Matteo Stroher** : ressources, interface et design graphique  
-- **Victor Hatt** : ancien membre, plus actif  
+- **Halil Bronja** : développement Godot, gestion des bâtiments et du moral  
+- **Matteo Stroher** : ressources, interface et design graphique  
+- **Victor Hatt** : ancien membre, plus actif  
 
 ---
 
 ## 🚀 Améliorations futures
-- Événements aléatoires : tempêtes, pannes, maladies 🌪️❄️🦠  
-- Niveaux de difficulté ou modes de jeu alternatifs  
-- Amélioration de l’interface et animations pour le moral et les bâtiments  
+- Événements aléatoires : tempêtes, pannes, maladies 🌪️❄️🦠  
+- Niveaux de difficulté ou modes de jeu alternatifs  
+- Amélioration de l’interface et animations pour le moral et les bâtiments  
 
 ---
 
 ## 📅 Timeline / Gestion des mois
 | Mois | Population totale | Événements |
 |------|-----------------|-----------|
-| 1–5  | 50               | Normal |
-| 6    | 10               | Mode nuit, difficultés augmentées |
-| 7+   | Variable         | Survie critique, gestion des ressources essentielles |
+| 1–5  | 50               | Normal |
+| 6    | 10               | Mode nuit, difficultés augmentées |
+| 7+   | Variable         | Survie critique, gestion des ressources essentielles |
 
 ---
 

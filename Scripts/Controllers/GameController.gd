@@ -5,6 +5,7 @@ extends Node2D
 @onready var win_bar: ProgressBar = $WinBar
 @onready var mode: Label = $Mode
 @onready var argent_txt: Label = $Argent
+@onready var mois: Label = $Mois
 
 # Fenêtres des bâtiments
 @onready var bat_principal_windows: PanelContainer = $bat_PrincipalWindows
@@ -120,7 +121,7 @@ func _update_all_labels() -> void:
 # --- LOGIQUE PASSER TOUR ---
 func _on_passer_pressed() -> void:
 	var game_status = game_model.passer_tour()
-	
+	mois.text = "Mois : " + str(game_model.tour_actuel)
 	for key in game_model.batiments_data:
 		var data = game_model.batiments_data[key]
 		if not data.etat and data.pv <= 0:

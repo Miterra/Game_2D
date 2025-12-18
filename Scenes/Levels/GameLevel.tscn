@@ -127,6 +127,15 @@ grow_horizontal = 0
 icon = ExtResource("4_mypyd")
 flat = true
 
+[node name="Mois" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 109.0
+offset_right = 146.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0.46666667, 0, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "Mois : 1"
+
 [node name="Barre de survie" type="Label" parent="."]
 offset_left = 471.0
 offset_top = -1.0
