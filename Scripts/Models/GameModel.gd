@@ -1,32 +1,161 @@
 class_name GameModel
 extends Node
 
-# Données pures
-var argent: int = 250000
+# --- DONNÉES PURES ---
+var argent: int = 150000
+var argent_depense: int = 0
 var pers_totales: int = 50
 var pers_dispo: int = 50
 var tour_actuel: int = 1
-var mois_jour: int = 1
-var mois_nuit: int = 0
-var barre_survie: int = 35
 
-# Ton dictionnaire de bâtiments (sans les références UI comme "button" ou "panel")
-var batiments_data = {
-	"principal": { "nom": "Batiment principal", "pers": 0, "etat": true, "cout": 300000, "reparation": 0 },
-	"rech": { "nom": "Batiment recherche", "pers": 0, "etat": true, "cout": 100000, "reparation": 0 },
-	# ... ajoute les autres ici ...
-}
+var moisJour: int = 1
+var moisNuit: int = 0
+var is_night_mode: bool = false 
 
-# Fonction pour calculer la fin du tour (Logique pure)
-func passer_tour():
-	var gain_argent = 0
+var barre_survie: int = 35 
+var argent_genere_ce_tour: int = 0
+
+var batiments_data: Dictionary = BatimentsDB.get_default_data()
+
+# --- LOGIQUE ---
+
+# Cette fonction retourne maintenant un int (nombre entier)
+# 0 = Continue, 1 = Perdu, 2 = Gagné
+func passer_tour() -> int:
+	argent_genere_ce_tour = 0
+	
+	# 1. Gestion des bâtiments
+	for key in batiments_data:
+		var b = batiments_data[key]
+		
+		# --- GESTION REPARATION ---
+		if b.reparation_restante > 0:
+			b.reparation_restante -= 1
+			if b.reparation_restante == 0:
+				b.etat = true
+				b.pv = 50 
+				print(b.nom, " a été réparé !")
+			continue
+
+		# --- SI DETRUIT ---
+		if not b.etat:
+			continue
+
+		# --- NOUVELLE LOGIQUE PV ---
+		if b.pers < 5:
+			b.pv -= 10 # Critique
+		elif b.pers < 10: # Donc entre 5 et 9
+			b.pv -= 5  # Perte légère
+		elif b.pers < 15: # Donc entre 10 et 14
+			pass       # Stable (Rien ne se passe)
+		elif b.pers < 20: # Donc entre 15 et 19
+			b.pv += 5  # Gain léger
+		else:             # 20 et plus
+			b.pv += 20 # Gros gain
+
+		# --- VERIFICATION DESTRUCTION ---
+		if b.pv <= 0:
+			b.etat = false
+			print(b.nom + " est détruit !")
+		else:
+			var gain = b.gain_argent
+			argent_genere_ce_tour += gain
+			print(b.nom + " génère " + str(gain) + "€")
+
+	argent += argent_genere_ce_tour
+	print("Argent généré au total : " + str(argent_genere_ce_tour))
+	print("Total argent : " + str(argent))
+
+	# 2. Calcul barre de survie
+	for key in batiments_data:
+		var b = batiments_data[key]
+		if b.reparation_restante > 0 or not b.etat or b.pv < 50:
+			barre_survie -= 1
+		else:
+			barre_survie += 1
+	
+	barre_survie = clamp(barre_survie, 0, 100)
+	
+	tour_actuel += 1
+	print("------------------------------------------------")
+	print("FIN DU TOUR : " + str(tour_actuel))
+	
+	# 3. Gestion Jour/Nuit
+	gerer_jour_nuit()
+	
+	# --- CONDITIONS DE FIN ---
+	if barre_survie <= 0:
+		return 1
+	
+	if not GameData.mode_infini and tour_actuel > 24:
+		return 2
+		
+	return 0
+
+
+func gerer_jour_nuit():
+	if not is_night_mode:
+		moisJour += 1
+		print("Cycle : MODE JOUR (" + str(moisJour) + "/6)")
+		if moisJour >= 6:
+			passer_en_mode_nuit()
+	else:
+		moisNuit += 1
+		print("Cycle : MODE NUIT (" + str(moisNuit) + "/6)")
+		if moisNuit >= 6:
+			passer_en_mode_jour()
+
+func passer_en_mode_nuit():
+	is_night_mode = true
+	moisJour = 0 
+	moisNuit = 0 
+	pers_totales = 10
+	pers_dispo = 10
+	reset_personnel_batiments()
+	print(">>> TRANSITION : La Nuit polaire tombe... (Personnel réduit à 10)")
+
+func passer_en_mode_jour():
+	is_night_mode = false
+	moisNuit = 0 
+	moisJour = 0 
+	pers_totales = 50
+	pers_dispo = 50
+	reset_personnel_batiments()
+	print(">>> TRANSITION : Le Soleil revient ! (Personnel remonte à 50)")
+
+func reset_personnel_batiments():
+	for key in batiments_data:
+		batiments_data[key].pers = 0
+
+
+
+# Fonction pour emballer toutes les infos de fin de partie
+func recuperer_stats_finales() -> Dictionary:
+	var survivants = []
+	var detruits = []
+	var score = 0
+
+	# 1. Trier les bâtiments
 	for key in batiments_data:
 		var b = batiments_data[key]
 		if b.etat:
-			gain_argent += 20000
-			# Logique de dégradation/amélioration selon le nombre de personnes
-			# ... ton code de calcul ici ...
-	
-	argent += gain_argent
-	tour_actuel += 1
-	# ... gestion jour/nuit ...
+			survivants.append(b.nom)
+			score += 1000 # 1000 points par bâtiment vivant
+		else:
+			detruits.append(b.nom)
+
+	# 2. Points pour l'argent
+	# 1 point pour chaque 100€ restants
+	score += int(argent / 100)
+
+	# 3. Bonus victoire
+	score += 5000
+
+	return {
+		"score_total": score,
+		"argent_restant": argent,
+		"argent_depense": argent_depense,
+		"liste_survivants": survivants,
+		"liste_detruits": detruits,
+		"tours_tenus": tour_actuel
+	}

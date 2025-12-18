@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3iueqnheek7"]
+[gd_scene load_steps=10 format=3 uid="uid://b3iueqnheek7"]
 
 [ext_resource type="Script" uid="uid://csw802whqe37j" path="res://Scripts/Controllers/GameController.gd" id="1_0eh1h"]
 [ext_resource type="Texture2D" uid="uid://b4w654jfn1xek" path="res://Assets/Sprites/Buildings/MAP_final.png" id="2_r4v18"]
 [ext_resource type="Texture2D" uid="uid://q3xdtomg16xl" path="res://Assets/Sprites/UI/flocons.PNG" id="3_htr12"]
 [ext_resource type="Script" uid="uid://b437ffv2g58hx" path="res://Scripts/Utils/CloseButton.gd" id="4_2ao20"]
+[ext_resource type="Texture2D" uid="uid://x62x2u5bcr4a" path="res://Assets/Sprites/UI/Pause.PNG" id="4_mypyd"]
+[ext_resource type="Texture2D" uid="uid://bac0vl3m8q0sa" path="res://Assets/Sprites/UI/Play.PNG" id="6_6athi"]
+[ext_resource type="Texture2D" uid="uid://clidgj58463n8" path="res://Assets/Sprites/UI/Quit.PNG" id="7_vtlkr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kldst"]
 
@@ -25,6 +28,7 @@ scale = Vector2(0.45134816, 0.4510077)
 texture = ExtResource("2_r4v18")
 
 [node name="GPUParticles2D" type="CPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.78431374)
 position = Vector2(-331, -659)
 amount = 600
 texture = ExtResource("3_htr12")
@@ -88,6 +92,13 @@ offset_top = 306.0
 offset_right = 821.0
 offset_bottom = 475.0
 
+[node name="Passer" type="Button" parent="."]
+offset_left = 1044.0
+offset_top = 315.0
+offset_right = 1138.0
+offset_bottom = 367.0
+text = "MOIS SUIVANT"
+
 [node name="all" type="Button" parent="."]
 visible = false
 visibility_layer = 0
@@ -100,22 +111,17 @@ offset_bottom = 647.99994
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Passer" type="Button" parent="."]
-offset_left = 1044.0
-offset_top = 315.0
-offset_right = 1138.0
-offset_bottom = 367.0
-text = "MOIS SUIVANT"
-
 [node name="revenir" type="Button" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 1028.0
-offset_right = 1152.5107
-offset_bottom = 73.0
+offset_left = 963.0
+offset_top = 22.0
+offset_right = 1091.0
+offset_bottom = 95.0
 grow_horizontal = 0
-text = "revenir"
+icon = ExtResource("4_mypyd")
+flat = true
 
 [node name="Barre de survie" type="Label" parent="."]
 offset_left = 471.0
@@ -127,10 +133,10 @@ theme_override_font_sizes/font_size = 33
 text = "Barre de survie"
 
 [node name="Argent" type="Label" parent="."]
-offset_left = 5.0
-offset_top = 27.0
-offset_right = 228.0
-offset_bottom = 63.0
+offset_left = 10.0
+offset_top = 23.0
+offset_right = 233.0
+offset_bottom = 59.0
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 35
 text = "Argent : 250000€"
@@ -145,6 +151,15 @@ size_flags_vertical = 2
 theme_override_colors/font_color = Color(0.9490196, 0.9490196, 0, 1)
 theme_override_font_sizes/font_size = 40
 value = 35.0
+
+[node name="Mode" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 65.0
+offset_right = 150.0
+offset_bottom = 103.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 34
+text = "Mode Jour"
 
 [node name="bat_PrincipalWindows" type="PanelContainer" parent="."]
 visible = false
@@ -787,14 +802,29 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 23
 text = "Fermer"
 
-[node name="Mode" type="Label" parent="."]
-offset_left = 898.0
-offset_top = 13.0
-offset_right = 1023.0
-offset_bottom = 51.0
-theme_override_colors/font_color = Color(1, 1, 0, 1)
-theme_override_font_sizes/font_size = 34
-text = "Mode Jour"
+[node name="Menu_pause" type="PanelContainer" parent="."]
+visible = false
+offset_left = 301.0
+offset_top = 192.0
+offset_right = 850.0
+offset_bottom = 512.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu_pause"]
+layout_mode = 2
+
+[node name="Reprendre" type="Button" parent="Menu_pause/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8745098, 1, 1)
+icon = ExtResource("6_6athi")
+flat = true
+icon_alignment = 1
+
+[node name="Quitter" type="Button" parent="Menu_pause/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9999257, 0.4695617, 0.40151137, 1)
+icon = ExtResource("7_vtlkr")
+flat = true
+icon_alignment = 1
 
 [connection signal="pressed" from="bat_Principal" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="bat_rech_pousse" to="." method="_on_bat_rech_pousse_pressed"]
@@ -804,8 +834,8 @@ text = "Mode Jour"
 [connection signal="pressed" from="bat_restauration" to="." method="_on_bat_restauration_pressed"]
 [connection signal="pressed" from="bat_stockage" to="." method="_on_bat_stockage_pressed"]
 [connection signal="pressed" from="bat_temps_market" to="." method="_on_bat_temps_market_pressed"]
-[connection signal="pressed" from="all" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="Passer" to="." method="_on_passer_pressed"]
+[connection signal="pressed" from="all" to="." method="_on_bat_principal_pressed"]
 [connection signal="pressed" from="revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/Ajouter" to="." method="_on_ajouter_pressed"]
 [connection signal="pressed" from="bat_PrincipalWindows/VBoxContainer/pdix_personnes" to="." method="_on_pdix_personnes_pressed"]
@@ -860,3 +890,5 @@ text = "Mode Jour"
 [connection signal="pressed" from="CommandeWindows/VBoxContainer/fermer_commande" to="." method="_on_fermer_commande_pressed"]
 [connection signal="pressed" from="bat_detruitWindows/VBoxContainer/fermer_detruit" to="." method="_on_fermer_detruit_pressed"]
 [connection signal="pressed" from="delais_commandeWindows/VBoxContainer/fermer_delais_commande" to="." method="_on_fermer_delais_commande_pressed"]
+[connection signal="pressed" from="Menu_pause/VBoxContainer/Reprendre" to="." method="_on_reprendre_pressed"]
+[connection signal="pressed" from="Menu_pause/VBoxContainer/Quitter" to="." method="_on_quitter_pressed"]

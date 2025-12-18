@@ -1,12 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://dpv3kdx55ti0w"]
+[gd_scene load_steps=29 format=3 uid="uid://dp50bbhmm8cr1"]
 
 [ext_resource type="Shader" uid="uid://c4nffjp86nq0v" path="res://Assets/Sprites/dialogues.gdshader" id="2_17r0m"]
 [ext_resource type="Texture2D" uid="uid://cevfv5arm3fw7" path="res://Assets/Sprites/UI/fleche_dialogue.jpg" id="3_5adu3"]
 [ext_resource type="Texture2D" uid="uid://draabrdxu6hpi" path="res://Assets/Sprites/UI/neige_sol.jpg" id="3_g7vqu"]
 [ext_resource type="Shader" uid="uid://i6rrf626yf5l" path="res://Assets/Shaders/dialogues_Background.gdshader" id="3_gp4mg"]
 [ext_resource type="Texture2D" uid="uid://b4w654jfn1xek" path="res://Assets/Sprites/Buildings/MAP_final.png" id="3_y2qk2"]
-[ext_resource type="Texture2D" uid="uid://d1mrcctkw31ts" path="res://Assets/Sprites/Backgrounds/fond_texte.png" id="6_g7vqu"]
 [ext_resource type="Texture2D" uid="uid://dgeqc05bd6ord" path="res://Assets/Sprites/UI/manchot.png" id="6_gp4mg"]
+[ext_resource type="Texture2D" uid="uid://bgdx444f3t0sv" path="res://Assets/Sprites/UI/Dialogue_Play.png" id="8_ihtew"]
+[ext_resource type="Texture2D" uid="uid://ckgiiopsxb3l7" path="res://Assets/Sprites/UI/fond_texte_blanc.png" id="8_r3w36"]
+[ext_resource type="Texture2D" uid="uid://di8lej7hkhpxv" path="res://Assets/Sprites/UI/SKIP.png" id="9_mn5k6"]
 
 [sub_resource type="GDScript" id="GDScript_yfpkt"]
 script/source = "extends Node2D
@@ -22,7 +24,7 @@ script/source = "extends Node2D
 @onready var img_flecheBefore = $CanvasLayer/FlecheBefore # Image de la flèche gauche
 @onready var img_flecheNext = $CanvasLayer/FlecheNext     # Image de la flèche droite
 @onready var Skip = $CanvasLayer/Button              # Bouton \"SKIP\" pour passer l'intro
-@onready var fond_texte: Sprite2D = $CanvasLayer/FondTexte # L'image de fond derrière le texte
+@onready var fond_texte_blanc: Sprite2D = $CanvasLayer/FondTexteBlanc
 @onready var fleche_before: Sprite2D = $CanvasLayer/FlecheBefore
 @onready var fleche_next: Sprite2D = $CanvasLayer/FlecheNext
 @onready var map_final: Sprite2D = $MapFinal         # L'image de fond floue (shader)
@@ -41,7 +43,7 @@ func _ready():
 	fleche_before.visible = false
 	dialogue_label.visible = false
 	terminer.visible = false
-	fond_texte.visible = false
+	fond_texte_blanc.visible = false
 
 	# --- Gestion du Shader (le flou) ---
 	var mat = map_final.material as ShaderMaterial # Récupère le matériau du fond
@@ -71,7 +73,7 @@ func _ready():
 	fleche_next.visible = true
 	btn_next.visible = true
 	dialogue_label.visible = true
-	fond_texte.visible = true
+	fond_texte_blanc.visible = true
 
 	# Affiche le texte numéro 1 depuis la classe statique Dialogues
 	dialogue_label.text = Dialogues.text[current_index]
@@ -145,7 +147,7 @@ func _on_terminer_pressed() -> void:
 	terminer.visible = false
 	btn_before.visible = false
 	btn_next.visible = false
-	fond_texte.visible = false
+	fond_texte_blanc.visible = false
 	
 	# Lance l'animation de sortie du manchot
 	manchot.play(\"outro\")
@@ -194,11 +196,6 @@ resource_local_to_scene = true
 shader = ExtResource("3_gp4mg")
 shader_parameter/my_tex = ExtResource("3_y2qk2")
 shader_parameter/radius = 10.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gp4mg"]
-shader = ExtResource("2_17r0m")
-shader_parameter/key_color1 = Color(0, 0, 0, 1)
-shader_parameter/tolerance = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y2qk2"]
 shader = ExtResource("2_17r0m")
@@ -383,17 +380,17 @@ texture = ExtResource("3_y2qk2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="FondTexte" type="Sprite2D" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_gp4mg")
-position = Vector2(734.00006, 406.99997)
-scale = Vector2(0.42335072, 0.13475181)
-texture = ExtResource("6_g7vqu")
-
 [node name="NeigeSol" type="Sprite2D" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_y2qk2")
 position = Vector2(575, 378.99994)
 scale = Vector2(1.882353, 1.8517442)
 texture = ExtResource("3_g7vqu")
+
+[node name="FondTexteBlanc" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(665, 358.00003)
+rotation = 1.5707964
+scale = Vector2(0.3518517, 0.5793781)
+texture = ExtResource("8_r3w36")
 
 [node name="FlecheBefore" type="Sprite2D" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_7abj2")
@@ -414,10 +411,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -254.0
-offset_top = -6.0
-offset_right = 468.0
-offset_bottom = 136.0
+offset_left = -179.0
+offset_top = -53.0
+offset_right = 374.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
@@ -484,20 +481,25 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -111.0
-offset_right = -28.0
-offset_bottom = -56.0
+offset_left = -134.0
+offset_top = -144.0
+offset_right = -45.0
+offset_bottom = -45.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "Terminer"
+icon = ExtResource("8_ihtew")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="Button" type="Button" parent="CanvasLayer"]
-offset_left = 1041.0
-offset_top = 503.0
-offset_right = 1083.0
-offset_bottom = 534.0
-text = "SKIP"
+offset_left = 1046.0
+offset_top = 421.0
+offset_right = 1136.0
+offset_bottom = 488.0
+icon = ExtResource("9_mn5k6")
+flat = true
+expand_icon = true
 
 [connection signal="pressed" from="CanvasLayer/revenir" to="." method="_on_revenir_pressed"]
 [connection signal="pressed" from="CanvasLayer/Terminer" to="." method="_on_terminer_pressed"]

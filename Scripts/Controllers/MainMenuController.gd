@@ -1,13 +1,33 @@
 extends Node
+
 @onready var game = preload("res://Scenes/UI/Dialogues.tscn")
+@onready var game_mode: PanelContainer = $GameMode
+@onready var normal: Button = $Normal
+@onready var infini: Button = $Infini
+@onready var quit: Button = $Quit
 
 func _on_btn_exit_pressed() -> void:
 	get_tree().quit()
 
-
 func _on_btn_play_pressed() -> void:
-	get_tree().change_scene_to_packed(game)
-
+	game_mode.visible = true
+	normal.visible = true
+	infini.visible = true
+	quit.visible = true
 
 func _on_btn_settings_pressed() -> void:
 	$SettingsWindows.visible = !$SettingsWindows.visible
+
+func _on_normal_pressed() -> void:
+	GameData.mode_infini = false
+	get_tree().change_scene_to_packed(game)
+
+func _on_infini_pressed() -> void:
+	GameData.mode_infini = true
+	get_tree().change_scene_to_packed(game)
+
+func _on_quit_pressed() -> void:
+	game_mode.visible = false
+	normal.visible = false
+	infini.visible = false
+	quit.visible = false

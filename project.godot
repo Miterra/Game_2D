@@ -18,6 +18,7 @@ config/icon="uid://cbhhxr7ci5jna"
 [autoload]
 
 AudioMenu="*res://Assets/Audio/audio_menu.tscn"
+GameData="*res://Scripts/Data/GameData.gd"
 
 [display]
 
@@ -26,6 +27,21 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="Test_2D"
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "pink",
+"res://Assets/Audio/": "red",
+"res://Resources/": "yellow",
+"res://Scenes/": "green",
+"res://Scripts/": "orange",
+"res://Scripts/Controllers/": "red",
+"res://Scripts/Data/": "blue",
+"res://Scripts/Models/": "teal",
+"res://Scripts/Views/": "blue",
+"res://theme/": "purple"
+}
 
 [gui]
 
