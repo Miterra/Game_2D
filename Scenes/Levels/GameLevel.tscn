@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3iueqnheek7"]
+[gd_scene load_steps=11 format=3 uid="uid://b3iueqnheek7"]
 
 [ext_resource type="Script" uid="uid://csw802whqe37j" path="res://Scripts/Controllers/GameController.gd" id="1_0eh1h"]
 [ext_resource type="Texture2D" uid="uid://b4w654jfn1xek" path="res://Assets/Sprites/Buildings/MAP_final.png" id="2_r4v18"]
 [ext_resource type="Texture2D" uid="uid://q3xdtomg16xl" path="res://Assets/Sprites/UI/flocons.PNG" id="3_htr12"]
 [ext_resource type="Script" uid="uid://b437ffv2g58hx" path="res://Scripts/Utils/CloseButton.gd" id="4_2ao20"]
+[ext_resource type="Texture2D" uid="uid://cnbdeb5qxu7lw" path="res://Assets/Sprites/UI/Mois_Suivant.png" id="4_6athi"]
 [ext_resource type="Texture2D" uid="uid://x62x2u5bcr4a" path="res://Assets/Sprites/UI/Pause.PNG" id="4_mypyd"]
 [ext_resource type="Texture2D" uid="uid://bac0vl3m8q0sa" path="res://Assets/Sprites/UI/Play.PNG" id="6_6athi"]
 [ext_resource type="Texture2D" uid="uid://clidgj58463n8" path="res://Assets/Sprites/UI/Quit.PNG" id="7_vtlkr"]
@@ -93,11 +94,14 @@ offset_right = 821.0
 offset_bottom = 475.0
 
 [node name="Passer" type="Button" parent="."]
-offset_left = 1044.0
-offset_top = 315.0
-offset_right = 1138.0
-offset_bottom = 367.0
-text = "MOIS SUIVANT"
+offset_left = 1032.0
+offset_top = 258.0
+offset_right = 1131.0
+offset_bottom = 374.0
+icon = ExtResource("4_6athi")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="all" type="Button" parent="."]
 visible = false
