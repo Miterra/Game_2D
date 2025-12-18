@@ -21,6 +21,7 @@ var batiments_data: Dictionary = BatimentsDB.get_default_data()
 
 # Cette fonction retourne maintenant un int (nombre entier)
 # 0 = Continue, 1 = Perdu, 2 = Gagné
+# --- LOGIQUE ---
 func passer_tour() -> int:
 	argent_genere_ce_tour = 0
 	
@@ -38,7 +39,9 @@ func passer_tour() -> int:
 			continue
 
 		# --- SI DETRUIT ---
+		# Si le bâtiment est déjà détruit, on ne touche plus à ses PV
 		if not b.etat:
+			b.pv = 0 # On s'assure qu'il reste bien à 0 et pas -10
 			continue
 
 		# --- NOUVELLE LOGIQUE PV ---
@@ -53,9 +56,15 @@ func passer_tour() -> int:
 		else:             # 20 et plus
 			b.pv += 20 # Gros gain
 
+		# --- CORRECTION CRUCIALE ICI : CLAMP ---
+		# On oblige la valeur à rester entre 0 et 100
+		# Comme ça, impossible d'avoir 120 PV ou -10 PV
+		b.pv = clamp(b.pv, 0, 100)
+
 		# --- VERIFICATION DESTRUCTION ---
 		if b.pv <= 0:
 			b.etat = false
+			b.pv = 0 # Sécurité supplémentaire
 			print(b.nom + " est détruit !")
 		else:
 			var gain = b.gain_argent

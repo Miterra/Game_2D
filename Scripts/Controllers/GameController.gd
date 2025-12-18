@@ -7,6 +7,37 @@ extends Node2D
 @onready var argent_txt: Label = $Argent
 @onready var mois: Label = $Mois
 
+# --- ANIMATIONS REPARATION (Luigi) ---
+@onready var luigi_reparation_principal: AnimatedSprite2D = $Luigi_reparation_principal
+@onready var luigi_reparation_rech: AnimatedSprite2D = $Luigi_reparation_rech
+@onready var luigi_reparation_rech_2: AnimatedSprite2D = $Luigi_reparation_rech2
+@onready var luigi_reparation_antenne: AnimatedSprite2D = $Luigi_reparation_antenne
+@onready var luigi_reparation_infirmerie: AnimatedSprite2D = $Luigi_reparation_infirmerie
+@onready var luigi_reparation_restauration: AnimatedSprite2D = $Luigi_reparation_restauration
+@onready var luigi_reparation_stockage: AnimatedSprite2D = $Luigi_reparation_stockage
+@onready var luigi_reparation_temps: AnimatedSprite2D = $Luigi_reparation_temps
+
+# --- ANIMATIONS DESTRUCTION ---
+@onready var detruis_principal: AnimatedSprite2D = $detruis_principal
+@onready var detruis_rech: AnimatedSprite2D = $detruis_rech
+@onready var detruis_rech_2: AnimatedSprite2D = $detruis_rech2
+@onready var detruis_antenne: AnimatedSprite2D = $detruis_antenne
+@onready var detruis_infirmerie: AnimatedSprite2D = $detruis_infirmerie
+@onready var detruis_restauration: AnimatedSprite2D = $detruis_restauration
+@onready var detruis_stockage: AnimatedSprite2D = $detruis_stockage
+@onready var detruis_temps: AnimatedSprite2D = $detruis_temps
+
+# --- ANIMATIONS WARNING (Nouveau) ---
+# IMPORTANT : Assure-toi que ces noeuds existent bien dans ta scène Godot !
+@onready var warning_principal: AnimatedSprite2D = $warning_principal
+@onready var warning_rech: AnimatedSprite2D = $warning_rech
+@onready var warning_rech_2: AnimatedSprite2D = $warning_rech_2
+@onready var warning_antenne: AnimatedSprite2D = $warning_antenne
+@onready var warning_infirmerie: AnimatedSprite2D = $warning_infirmerie
+@onready var warning_restauration: AnimatedSprite2D = $warning_restauration
+@onready var warning_stockage: AnimatedSprite2D = $warning_stockage
+@onready var warning_temps: AnimatedSprite2D = $warning_temps
+
 # Fenêtres des bâtiments
 @onready var bat_principal_windows: PanelContainer = $bat_PrincipalWindows
 @onready var bat_rech_windows: PanelContainer = $bat_rechWindows
@@ -26,7 +57,7 @@ extends Node2D
 @onready var delais_vbox: VBoxContainer = $delais_commandeWindows/VBoxContainer
 @onready var menu_pause: PanelContainer = $Menu_pause
 
-# Boutons Bâtiments (Référencés pour la transparence)
+# Boutons Bâtiments
 @onready var bat_principal_btn: Button = $bat_Principal
 @onready var bat_rech_btn: Button = $bat_rech_pousse
 @onready var bat_rech2_btn: Button = $bat_rech_pousse2
@@ -48,15 +79,27 @@ func _ready() -> void:
 	win_bar.min_value = 0
 	win_bar.max_value = 100
 	
-	# SETUP UI : On passe le bouton en paramètre pour pouvoir le cacher plus tard
-	setup_batiment_ui("principal", $bat_Principal, $bat_PrincipalWindows, $bat_PrincipalWindows/VBoxContainer/etat_bat_Principal, $bat_PrincipalWindows/VBoxContainer/Personnes, $bat_PrincipalWindows/VBoxContainer/DonneesCommunes, $bat_PrincipalWindows/VBoxContainer/Nom)
-	setup_batiment_ui("rech", $bat_rech_pousse, $bat_rechWindows, $bat_rechWindows/VBoxContainer/etat_bat_Rech, $bat_rechWindows/VBoxContainer/Personnes, $bat_rechWindows/VBoxContainer/DonneesCommunes, $bat_rechWindows/VBoxContainer/Nom)
-	setup_batiment_ui("rech2", $bat_rech_pousse2, $bat_rech2Windows, $bat_rech2Windows/VBoxContainer/etat_bat_Rech2, $bat_rech2Windows/VBoxContainer/Personnes, $bat_rech2Windows/VBoxContainer/DonneesCommunes, $bat_rech2Windows/VBoxContainer/Nom)
-	setup_batiment_ui("antenne", $Antenne_market, $bat_antenneWindows, $bat_antenneWindows/VBoxContainer/etat_bat_Antenne, $bat_antenneWindows/VBoxContainer/Personnes, $bat_antenneWindows/VBoxContainer/DonneesCommunes, $bat_antenneWindows/VBoxContainer/Nom)
-	setup_batiment_ui("infirmerie", $bat_infirmerie, $bat_infirmerieWindows, $bat_infirmerieWindows/VBoxContainer/etat_bat_Infirmerie, $bat_infirmerieWindows/VBoxContainer/Personnes, $bat_infirmerieWindows/VBoxContainer/DonneesCommunes, $bat_infirmerieWindows/VBoxContainer/Nom)
-	setup_batiment_ui("restauration", $bat_restauration, $bat_restaurationWindows, $bat_restaurationWindows/VBoxContainer/etat_bat_Restauration, $bat_restaurationWindows/VBoxContainer/Personnes, $bat_restaurationWindows/VBoxContainer/DonneesCommunes, $bat_restaurationWindows/VBoxContainer/Nom)
-	setup_batiment_ui("stockage", $bat_stockage, $bat_stockageWindows, $bat_stockageWindows/VBoxContainer/etat_bat_Stockage, $bat_stockageWindows/VBoxContainer/Personnes, $bat_stockageWindows/VBoxContainer/DonneesCommunes, $bat_stockageWindows/VBoxContainer/Nom)
-	setup_batiment_ui("temps", $bat_temps_market, $bat_tempsWindows, $bat_tempsWindows/VBoxContainer/etat_bat_Temps, $bat_tempsWindows/VBoxContainer/Personnes, $bat_tempsWindows/VBoxContainer/DonneesCommunes, $bat_tempsWindows/VBoxContainer/Nom)
+	# SETUP UI : On passe les TROIS animations
+	# Note : Si un warning n'est pas créé dans la scène, la variable sera 'null', mais le code gérera ça.
+	setup_batiment_ui("principal", $bat_Principal, $bat_PrincipalWindows, $bat_PrincipalWindows/VBoxContainer/etat_bat_Principal, $bat_PrincipalWindows/VBoxContainer/Personnes, $bat_PrincipalWindows/VBoxContainer/DonneesCommunes, $bat_PrincipalWindows/VBoxContainer/Nom, $Luigi_reparation_principal, $detruis_principal, $warning_principal)
+	setup_batiment_ui("rech", $bat_rech_pousse, $bat_rechWindows, $bat_rechWindows/VBoxContainer/etat_bat_Rech, $bat_rechWindows/VBoxContainer/Personnes, $bat_rechWindows/VBoxContainer/DonneesCommunes, $bat_rechWindows/VBoxContainer/Nom, $Luigi_reparation_rech, $detruis_rech, $warning_rech)
+	setup_batiment_ui("rech2", $bat_rech_pousse2, $bat_rech2Windows, $bat_rech2Windows/VBoxContainer/etat_bat_Rech2, $bat_rech2Windows/VBoxContainer/Personnes, $bat_rech2Windows/VBoxContainer/DonneesCommunes, $bat_rech2Windows/VBoxContainer/Nom, $Luigi_reparation_rech2, $detruis_rech2, $warning_rech_2)
+	setup_batiment_ui("antenne", $Antenne_market, $bat_antenneWindows, $bat_antenneWindows/VBoxContainer/etat_bat_Antenne, $bat_antenneWindows/VBoxContainer/Personnes, $bat_antenneWindows/VBoxContainer/DonneesCommunes, $bat_antenneWindows/VBoxContainer/Nom, $Luigi_reparation_antenne, $detruis_antenne, $warning_antenne)
+	setup_batiment_ui("infirmerie", $bat_infirmerie, $bat_infirmerieWindows, $bat_infirmerieWindows/VBoxContainer/etat_bat_Infirmerie, $bat_infirmerieWindows/VBoxContainer/Personnes, $bat_infirmerieWindows/VBoxContainer/DonneesCommunes, $bat_infirmerieWindows/VBoxContainer/Nom, $Luigi_reparation_infirmerie, $detruis_infirmerie, $warning_infirmerie)
+	setup_batiment_ui("restauration", $bat_restauration, $bat_restaurationWindows, $bat_restaurationWindows/VBoxContainer/etat_bat_Restauration, $bat_restaurationWindows/VBoxContainer/Personnes, $bat_restaurationWindows/VBoxContainer/DonneesCommunes, $bat_restaurationWindows/VBoxContainer/Nom, $Luigi_reparation_restauration, $detruis_restauration, $warning_restauration)
+	setup_batiment_ui("stockage", $bat_stockage, $bat_stockageWindows, $bat_stockageWindows/VBoxContainer/etat_bat_Stockage, $bat_stockageWindows/VBoxContainer/Personnes, $bat_stockageWindows/VBoxContainer/DonneesCommunes, $bat_stockageWindows/VBoxContainer/Nom, $Luigi_reparation_stockage, $detruis_stockage, $warning_stockage)
+	setup_batiment_ui("temps", $bat_temps_market, $bat_tempsWindows, $bat_tempsWindows/VBoxContainer/etat_bat_Temps, $bat_tempsWindows/VBoxContainer/Personnes, $bat_tempsWindows/VBoxContainer/DonneesCommunes, $bat_tempsWindows/VBoxContainer/Nom, $Luigi_reparation_temps, $detruis_temps, $warning_temps)
+
+	# Masquer les fenêtres, boutons et TOUTES les animations
+	for key in batiments_ui:
+		batiments_ui[key].panel.visible = false
+		batiments_ui[key].button.modulate = Color(1, 1, 1, 0)
+		batiments_ui[key].bar.modulate = Color.GREEN
+		
+		# On utilise une fonction sécurisée pour éviter le crash si l'animation est 'null'
+		set_anim_active(batiments_ui[key].anim_repar, false)
+		set_anim_active(batiments_ui[key].anim_detruit, false)
+		set_anim_active(batiments_ui[key].anim_warning, false)
 
 	all.visible = false
 	commande_windows.visible = false
@@ -64,30 +107,25 @@ func _ready() -> void:
 	delais_commande_windows.visible = false
 	menu_pause.visible = false
 
-	# Masquer les fenêtres et rendre les boutons invisibles (Alpha 0)
-	for key in batiments_ui:
-		batiments_ui[key].panel.visible = false
-		batiments_ui[key].button.modulate = Color(1, 1, 1, 0)
-		batiments_ui[key].bar.modulate = Color.GREEN
-
-
 	update_global_ui()
 	_update_all_labels()
 	
 	print("--- DÉBUT DU JEU ---")
 	print("Mode Jour : moisJour = " + str(game_model.moisJour))
 
-func setup_batiment_ui(key: String, button, panel, bar, label_pers, label_comm, label_nom):
+func setup_batiment_ui(key: String, button, panel, bar, label_pers, label_comm, label_nom, anim_repar, anim_detruit, anim_warning):
 	batiments_ui[key] = {
 		"button": button,
 		"panel": panel,
 		"bar": bar,
 		"label_pers": label_pers,
 		"label_common": label_comm,
-		"label_nom": label_nom
+		"label_nom": label_nom,
+		"anim_repar": anim_repar,    # Animation Luigi
+		"anim_detruit": anim_detruit, # Animation Destruction
+		"anim_warning": anim_warning  # Animation Warning
 	}
 	
-	# --- MISE A JOUR DU LABEL NOM ---
 	var data = game_model.batiments_data[key]
 	var texte_titre = data.nom
 	texte_titre += "\nGain mensuel : " + str(data.gain_argent) + "€"
@@ -96,6 +134,49 @@ func setup_batiment_ui(key: String, button, panel, bar, label_pers, label_comm, 
 	
 	label_nom.text = texte_titre
 	bar.value = data.pv
+
+# --- GESTION DES ANIMATIONS (LOGIQUE PRINCIPALE) ---
+func update_animations_batiments():
+	for key in batiments_ui:
+		var data = game_model.batiments_data[key]
+		var anim_repar = batiments_ui[key].anim_repar
+		var anim_detruit = batiments_ui[key].anim_detruit
+		var anim_warning = batiments_ui[key].anim_warning
+		
+		# CAS 1 : EN REPARATION (Priorité absolue)
+		if data.reparation_restante > 0:
+			set_anim_active(anim_repar, true)
+			set_anim_active(anim_detruit, false)
+			set_anim_active(anim_warning, false)
+			
+		# CAS 2 : DETRUIT (Et PAS en réparation)
+		elif not data.etat: 
+			set_anim_active(anim_repar, false)
+			set_anim_active(anim_detruit, true)
+			set_anim_active(anim_warning, false)
+			
+		# CAS 3 : WARNING (Entre 0% et 20%)
+		elif data.pv <= 20:
+			set_anim_active(anim_repar, false)
+			set_anim_active(anim_detruit, false)
+			set_anim_active(anim_warning, true)
+			
+		# CAS 4 : NORMAL (Tout va bien)
+		else:
+			set_anim_active(anim_repar, false)
+			set_anim_active(anim_detruit, false)
+			set_anim_active(anim_warning, false)
+
+# FONCTION HELPER (Sécurisée contre les crashs si l'animation manque)
+func set_anim_active(anim: AnimatedSprite2D, active: bool):
+	if anim == null: return # Si l'animation n'existe pas dans la scène, on ne fait rien
+	
+	anim.visible = active
+	if active:
+		if not anim.is_playing():
+			anim.play("default")
+	else:
+		anim.stop()
 
 # --- MISE A JOUR AFFICHAGE ---
 func update_global_ui():
@@ -122,14 +203,25 @@ func _update_all_labels() -> void:
 func _on_passer_pressed() -> void:
 	var game_status = game_model.passer_tour()
 	mois.text = "Mois : " + str(game_model.tour_actuel)
+	
+	# Mise à jour des animations
+	update_animations_batiments()
+	
+	# Affichage conditionnel des boutons de réparation
 	for key in game_model.batiments_data:
 		var data = game_model.batiments_data[key]
-		if not data.etat and data.pv <= 0:
+		
+		# On affiche le bouton réparer SI :
+		# 1. Le bâtiment est cassé (etat == false)
+		# 2. PV à 0
+		# 3. PAS de réparation en cours (reparation_restante == 0)
+		if not data.etat and data.pv <= 0 and data.reparation_restante == 0:
 			afficher_bouton_reparation(key)
 
+	# Couleurs des barres
 	for key in batiments_ui.keys():
 		var ui_elements = batiments_ui[key]
-		var bar = ui_elements.bar 
+		var bar = ui_elements.bar
 		var data = game_model.batiments_data[key]
 		
 		if data.pv >= 50:
@@ -145,7 +237,6 @@ func _on_passer_pressed() -> void:
 	if delais_commande_windows.visible:
 		afficher_delais_reparations()
 
-	# --- GESTION FIN DE JEU ---
 	if game_status == 1:
 		_change_to_game_over()
 	elif game_status == 2:
@@ -217,31 +308,27 @@ func afficher_bouton_reparation(key:String):
 	commande_vbox.add_child(bouton)
 
 func _reparer_batiment(key:String, bouton:Button):
-	# --- VERIF ANTENNE ---
 	if key != "antenne":
 		if game_model.batiments_data["antenne"].etat == false:
 			print("IMPOSSIBLE : L'antenne est détruite !")
-			return 
+			return
 	
-	# --- REPARATION ---
 	var data = game_model.batiments_data[key]
 	if game_model.argent >= data.cout:
 		game_model.argent -= data.cout
-		game_model.argent_depense += data.cout
+		game_model.argent_depense += data.cout # Stats de fin
 		
-		update_global_ui()
 		data.reparation_restante = data.tour_cout
+		update_global_ui()
 		
-		# On supprime le bouton car c'est payé
+		# On met à jour les animations (Luigi va remplacer la destruction)
+		update_animations_batiments()
+		
 		bouton.queue_free()
-		
-		# ASTUCE : On attend une micro-seconde que le bouton soit bien supprimé de la mémoire
-		# avant de vérifier s'il reste des boutons, sinon le compte sera faux.
-		await get_tree().process_frame 
-		verifier_etat_commandes() # <--- AJOUT DE L'APPEL ICI
-		
+		await get_tree().process_frame
+		verifier_etat_commandes()
 	else:
-		print("Pas assez d'argent pour réparer", data.nom)
+		print("Pas assez d'argent")
 
 func _on_commander_pressed() -> void:
 	commande_windows.visible = true
@@ -257,66 +344,44 @@ func _on_delais_commande_pressed() -> void:
 func _on_fermer_delais_commande_pressed() -> void:
 	delais_commande_windows.visible = false
 
-
 func verifier_etat_commandes():
-	# 1. On compte s'il y a des boutons de réparation
 	var nb_boutons_reparation = 0
 	for child in commande_vbox.get_children():
-		# On compte les boutons qui ne sont PAS le bouton fermer
 		if child is Button and child.name != "fermer_commande":
 			nb_boutons_reparation += 1
 
-	# 2. On vérifie si le label existe déjà
 	var nom_label = "LabelRienAFaire"
 	var label_existe = commande_vbox.has_node(nom_label)
 
-	# --- CAS 1 : Aucune réparation à faire (On veut le message) ---
 	if nb_boutons_reparation == 0:
-		# On ne le crée QUE s'il n'existe pas encore
 		if not label_existe:
 			var label = Label.new()
 			label.name = nom_label
 			label.text = "Aucune reparation a faire pour le moment."
 			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			
-			# Style
 			label.add_theme_color_override("font_color", Color.BLACK)
 			label.add_theme_font_size_override("font_size", 40)
-			
 			commande_vbox.add_child(label)
-			
-			# Positionnement au-dessus du bouton fermer
 			if commande_vbox.has_node("fermer_commande"):
 				var btn_fermer = commande_vbox.get_node("fermer_commande")
 				commande_vbox.move_child(label, btn_fermer.get_index())
-	
-	# --- CAS 2 : Il y a des réparations (On ne veut PAS le message) ---
 	else:
-		# Si le label existe, on le supprime
 		if label_existe:
 			commande_vbox.get_node(nom_label).queue_free()
 
-
-
 func afficher_delais_reparations():
-
 	for c in delais_vbox.get_children():
 		if c.name != "Temps_attente" and c.name != "fermer_delais_commande":
 			c.queue_free()
 
 	var index_insertion = 1
-	
 	for key in game_model.batiments_data:
 		var data = game_model.batiments_data[key]
 		if data.reparation_restante > 0:
 			var label = Label.new()
 			label.text = "- " + data.nom + " : " + str(data.reparation_restante) + " mois restants"
-			
-			# --- STYLE ---
-			label.add_theme_color_override("font_color", Color(1, 0.2, 0.2)) 
+			label.add_theme_color_override("font_color", Color(1, 0.2, 0.2))
 			label.add_theme_font_size_override("font_size", 24)
-			
-			# --- POSITIONNEMENT ---
 			delais_vbox.add_child(label)
 			delais_vbox.move_child(label, index_insertion)
 			index_insertion += 1
@@ -336,23 +401,13 @@ func _on_quitter_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
 
 func _change_to_game_over() -> void:
-	# 1. On récupère les stats (même en cas de défaite, le modèle connait le tour actuel)
 	var stats = game_model.recuperer_stats_finales()
-	
-	# 2. On sauvegarde dans la mémoire globale
 	GameData.stats_fin_de_partie = stats
-	
-	# 3. On change de scène
 	get_tree().change_scene_to_file("res://Scenes/UI/GameOver.tscn")
 
 func _change_to_game_win() -> void:
-	# 1. On demande au modèle de calculer le score
 	var stats = game_model.recuperer_stats_finales()
-	
-	# 2. On sauvegarde ça dans la mémoire globale (Singleton)
 	GameData.stats_fin_de_partie = stats
-	
-	# 3. On change de scène
 	get_tree().change_scene_to_file("res://Scenes/UI/GameWin.tscn")
 
 # --- SIGNAUX OUVERTURE BATIMENTS ---
