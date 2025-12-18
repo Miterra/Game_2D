@@ -78,7 +78,7 @@ layout_mode = 2
 
 [node name="GPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(-331, -659)
-amount = 400
+amount = 200
 texture = ExtResource("8_euk5f")
 lifetime = 10.0
 preprocess = 0.5
