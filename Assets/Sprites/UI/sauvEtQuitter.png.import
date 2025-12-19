@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tdqke2xqmpsr"
-path="res://.godot/imported/Gemini_Generated_Image_n1tbjrn1tbjrn1tb (1).png-af4abe84a095fbcff12c51e4c5019241.ctex"
+uid="uid://dl6kgxu53lqs7"
+path="res://.godot/imported/sauvEtQuitter.png-a196fe6e4bffe158a57dc33782479fca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/Gemini_Generated_Image_n1tbjrn1tbjrn1tb (1).png"
-dest_files=["res://.godot/imported/Gemini_Generated_Image_n1tbjrn1tbjrn1tb (1).png-af4abe84a095fbcff12c51e4c5019241.ctex"]
+source_file="res://Assets/Sprites/UI/sauvEtQuitter.png"
+dest_files=["res://.godot/imported/sauvEtQuitter.png-a196fe6e4bffe158a57dc33782479fca.ctex"]
 
 [params]
 

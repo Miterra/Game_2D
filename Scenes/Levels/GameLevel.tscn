@@ -714,7 +714,6 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_8xcuk")
 value = 35.0
 
 [node name="bat_PrincipalWindows" type="PanelContainer" parent="."]
-visible = false
 material = SubResource("CanvasItemMaterial_kldst")
 custom_minimum_size = Vector2(800, 400)
 anchors_preset = 8
