@@ -714,6 +714,7 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_8xcuk")
 value = 35.0
 
 [node name="bat_PrincipalWindows" type="PanelContainer" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_kldst")
 custom_minimum_size = Vector2(800, 400)
 anchors_preset = 8
@@ -1323,7 +1324,7 @@ text = "Batiment (nom)"
 [node name="Detruit" type="Label" parent="bat_detruitWindows/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 20
 text = "Le batiments est detruit...
 Pour reparer le batiment, il faudra vous rendre dans le batiment
 antenne pour pouvoir acheter des ressources afin de les reparer."
