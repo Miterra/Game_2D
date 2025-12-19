@@ -22,6 +22,7 @@ var batiments_data: Dictionary = BatimentsDB.get_default_data()
 # Cette fonction retourne maintenant un int (nombre entier)
 # 0 = Continue, 1 = Perdu, 2 = Gagné
 # --- LOGIQUE ---
+# Exécute un tour complet (réparations, PV, gains, barre de survie, fins)
 func passer_tour() -> int:
 	argent_genere_ce_tour = 0
 	
@@ -102,6 +103,7 @@ func passer_tour() -> int:
 	return 0
 
 
+# Gère l’alternance des cycles jour/nuit et déclenche les transitions
 func gerer_jour_nuit():
 	if not is_night_mode:
 		moisJour += 1
@@ -114,6 +116,7 @@ func gerer_jour_nuit():
 		if moisNuit >= 6:
 			passer_en_mode_jour()
 
+# Passe en mode nuit et réduit le personnel disponible
 func passer_en_mode_nuit():
 	is_night_mode = true
 	moisJour = 0 
@@ -123,6 +126,7 @@ func passer_en_mode_nuit():
 	reset_personnel_batiments()
 	print(">>> TRANSITION : La Nuit polaire tombe... (Personnel réduit à 10)")
 
+# Passe en mode jour et restaure le personnel disponible
 func passer_en_mode_jour():
 	is_night_mode = false
 	moisNuit = 0 
@@ -132,6 +136,7 @@ func passer_en_mode_jour():
 	reset_personnel_batiments()
 	print(">>> TRANSITION : Le Soleil revient ! (Personnel remonte à 50)")
 
+# Réinitialise le personnel affecté sur chaque bâtiment
 func reset_personnel_batiments():
 	for key in batiments_data:
 		batiments_data[key].pers = 0
@@ -139,6 +144,7 @@ func reset_personnel_batiments():
 
 
 # Fonction pour emballer toutes les infos de fin de partie
+# Construit les statistiques finales utilisées par les écrans de fin
 func recuperer_stats_finales() -> Dictionary:
 	var survivants = []
 	var detruits = []

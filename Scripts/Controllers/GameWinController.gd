@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var score_label: Label = $ScoreLabel
 
+# Prépare le label et affiche les résultats de victoire
 func _ready() -> void:
 	# --- STYLE DU TEXTE ---
 	score_label.add_theme_color_override("font_color", Color.BLACK) # Texte en NOIR
@@ -9,6 +10,7 @@ func _ready() -> void:
 	
 	afficher_resultats()
 
+# Construit le texte de score victoire à partir des stats finales
 func afficher_resultats() -> void:
 	var stats = GameData.stats_fin_de_partie
 	
@@ -41,9 +43,11 @@ func afficher_resultats() -> void:
 	score_label.text = texte
 
 
+# Relance une partie
 func _on_restart_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Levels/GameLevel.tscn")
 
 
+# Retourne au menu principal
 func _on_quit_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")

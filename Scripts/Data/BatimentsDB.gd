@@ -1,6 +1,7 @@
 class_name BatimentsDB
 extends Node
 
+# Fournit les données par défaut de tous les bâtiments
 static func get_default_data() -> Dictionary:
 	return {
 		"principal": { 

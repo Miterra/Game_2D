@@ -72,6 +72,7 @@ var game_model: GameModel
 var current_bat_ui_key := ""
 var batiments_ui = {}
 
+# Prépare les références, l'UI et l'état initial du jeu
 func _ready() -> void:
 	game_model = GameModel.new()
 	add_child(game_model)
@@ -113,6 +114,7 @@ func _ready() -> void:
 	print("--- DÉBUT DU JEU ---")
 	print("Mode Jour : moisJour = " + str(game_model.moisJour))
 
+# Enregistre les éléments UI/animations d'un bâtiment et initialise ses libellés
 func setup_batiment_ui(key: String, button, panel, bar, label_pers, label_comm, label_nom, anim_repar, anim_detruit, anim_warning):
 	batiments_ui[key] = {
 		"button": button,
@@ -136,6 +138,7 @@ func setup_batiment_ui(key: String, button, panel, bar, label_pers, label_comm, 
 	bar.value = data.pv
 
 # --- GESTION DES ANIMATIONS (LOGIQUE PRINCIPALE) ---
+# Choisit quelle animation afficher selon l'état de chaque bâtiment
 func update_animations_batiments():
 	for key in batiments_ui:
 		var data = game_model.batiments_data[key]
@@ -168,6 +171,7 @@ func update_animations_batiments():
 			set_anim_active(anim_warning, false)
 
 # FONCTION HELPER (Sécurisée contre les crashs si l'animation manque)
+# Active ou désactive une animation en évitant les accès null
 func set_anim_active(anim: AnimatedSprite2D, active: bool):
 	if anim == null: return # Si l'animation n'existe pas dans la scène, on ne fait rien
 	
@@ -179,6 +183,7 @@ func set_anim_active(anim: AnimatedSprite2D, active: bool):
 		anim.stop()
 
 # --- MISE A JOUR AFFICHAGE ---
+# Met à jour l'affichage global (argent, barre de survie, mode jour/nuit)
 func update_global_ui():
 	argent_txt.text = "Argent : " + str(game_model.argent) + "€"
 	win_bar.value = game_model.barre_survie
@@ -190,6 +195,7 @@ func update_global_ui():
 		mode.text = "Mode Jour (" + str(game_model.moisJour) + "/6)"
 		mode.add_theme_color_override("font_color", Color(1, 1, 0, 1))
 
+# Rafraîchit tous les libellés liés aux bâtiments
 func _update_all_labels() -> void:
 	for key in batiments_ui:
 		var ui = batiments_ui[key]
@@ -200,6 +206,7 @@ func _update_all_labels() -> void:
 		ui.bar.value = data.pv
 
 # --- LOGIQUE PASSER TOUR ---
+# Avance d'un tour, met à jour UI/animations et gère les fins de partie
 func _on_passer_pressed() -> void:
 	var game_status = game_model.passer_tour()
 	mois.text = "Mois : " + str(game_model.tour_actuel)
@@ -243,6 +250,7 @@ func _on_passer_pressed() -> void:
 		_change_to_game_win()
 
 # --- GESTION FENÊTRES ---
+# Ouvre la fenêtre d'un bâtiment s'il est intact, sinon affiche la fenêtre détruite
 func open_batiment(key: String) -> void:
 	var data = game_model.batiments_data[key]
 	if data.etat:
@@ -253,11 +261,13 @@ func open_batiment(key: String) -> void:
 	else:
 		open_destruct_batiment(data.nom)
 
+# Affiche la fenêtre indiquant qu'un bâtiment est détruit
 func open_destruct_batiment(bat_name: String) -> void:
 	nom_detruit.text = "Batiment " + bat_name
 	bat_detruit_windows.visible = true
 	all.visible = true
 
+# Ferme toutes les fenêtres de bâtiments
 func _on_fermer_pressed() -> void:
 	all.visible = false
 	for k in batiments_ui:
@@ -265,12 +275,14 @@ func _on_fermer_pressed() -> void:
 	current_bat_ui_key = ""
 
 # --- GESTION PERSONNEL ---
+# Ajoute 1 personne au bâtiment courant si disponible
 func _on_ajouter_pressed() -> void:
 	if current_bat_ui_key != "" and game_model.pers_dispo > 0:
 		game_model.pers_dispo -= 1
 		game_model.batiments_data[current_bat_ui_key].pers += 1
 		_update_all_labels()
 
+# Retire 1 personne du bâtiment courant
 func _on_retirer_pressed() -> void:
 	if current_bat_ui_key != "":
 		var data = game_model.batiments_data[current_bat_ui_key]
@@ -279,6 +291,7 @@ func _on_retirer_pressed() -> void:
 			data.pers -= 1
 			_update_all_labels()
 
+# Ajoute jusqu'à 10 personnes au bâtiment courant
 func _on_pdix_personnes_pressed() -> void:
 	if current_bat_ui_key != "" and game_model.pers_dispo > 0:
 		var ajout = min(10, game_model.pers_dispo)
@@ -286,6 +299,7 @@ func _on_pdix_personnes_pressed() -> void:
 		game_model.batiments_data[current_bat_ui_key].pers += ajout
 		_update_all_labels()
 
+# Retire jusqu'à 10 personnes du bâtiment courant
 func _on_mdix_personnes_pressed() -> void:
 	if current_bat_ui_key != "":
 		var data = game_model.batiments_data[current_bat_ui_key]
@@ -296,6 +310,7 @@ func _on_mdix_personnes_pressed() -> void:
 
 
 # --- REPARATIONS ET COMMANDES ---
+# Crée dynamiquement un bouton de réparation pour un bâtiment détruit
 func afficher_bouton_reparation(key:String):
 	var btn_name = "reparer_" + key
 	if commande_vbox.has_node(btn_name): return
@@ -307,6 +322,7 @@ func afficher_bouton_reparation(key:String):
 	bouton.connect("pressed", Callable(self, "_reparer_batiment").bind(key, bouton))
 	commande_vbox.add_child(bouton)
 
+# Débite l'argent, planifie la réparation et met à jour l'UI/animations
 func _reparer_batiment(key:String, bouton:Button):
 	if key != "antenne":
 		if game_model.batiments_data["antenne"].etat == false:
@@ -330,20 +346,25 @@ func _reparer_batiment(key:String, bouton:Button):
 	else:
 		print("Pas assez d'argent")
 
+# Ouvre la fenêtre des commandes de réparation
 func _on_commander_pressed() -> void:
 	commande_windows.visible = true
 	verifier_etat_commandes()
 
+# Ferme la fenêtre des commandes de réparation
 func _on_fermer_commande_pressed() -> void:
 	commande_windows.visible = false
 	
+# Affiche le détail des délais de réparations
 func _on_delais_commande_pressed() -> void:
 	afficher_delais_reparations()
 	delais_commande_windows.visible = true
 
+# Ferme la fenêtre des délais de réparations
 func _on_fermer_delais_commande_pressed() -> void:
 	delais_commande_windows.visible = false
 
+# Met à jour le contenu de la fenêtre commandes (boutons ou message vide)
 func verifier_etat_commandes():
 	var nb_boutons_reparation = 0
 	for child in commande_vbox.get_children():
@@ -369,6 +390,7 @@ func verifier_etat_commandes():
 		if label_existe:
 			commande_vbox.get_node(nom_label).queue_free()
 
+# Reconstruit la liste des réparations en cours et leur délai
 func afficher_delais_reparations():
 	for c in delais_vbox.get_children():
 		if c.name != "Temps_attente" and c.name != "fermer_delais_commande":
@@ -386,36 +408,50 @@ func afficher_delais_reparations():
 			delais_vbox.move_child(label, index_insertion)
 			index_insertion += 1
 
+# Ferme la fenêtre indiquant un bâtiment détruit
 func _on_fermer_detruit_pressed() -> void:
 	bat_detruit_windows.visible = false
 	all.visible = false
 
 # --- NAVIGATION ---
+# Ouvre le menu pause
 func _on_revenir_pressed() -> void:
 	menu_pause.visible = true
 
+# Ferme le menu pause
 func _on_reprendre_pressed() -> void:
 	menu_pause.visible = false
 
+# Retourne au menu principal
 func _on_quitter_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
 
+# Passe à la scène Game Over en stockant les stats
 func _change_to_game_over() -> void:
 	var stats = game_model.recuperer_stats_finales()
 	GameData.stats_fin_de_partie = stats
 	get_tree().change_scene_to_file("res://Scenes/UI/GameOver.tscn")
 
+# Passe à la scène de victoire en stockant les stats
 func _change_to_game_win() -> void:
 	var stats = game_model.recuperer_stats_finales()
 	GameData.stats_fin_de_partie = stats
 	get_tree().change_scene_to_file("res://Scenes/UI/GameWin.tscn")
 
 # --- SIGNAUX OUVERTURE BATIMENTS ---
+# Ouvre la fenêtre du bâtiment principal
 func _on_bat_principal_pressed() -> void: open_batiment("principal")
+# Ouvre la fenêtre du bâtiment recherche 1
 func _on_bat_rech_pousse_pressed() -> void: open_batiment("rech")
+# Ouvre la fenêtre du bâtiment recherche 2
 func _on_bat_rech_pousse_2_pressed() -> void: open_batiment("rech2")
+# Ouvre la fenêtre du bâtiment antenne
 func _on_antenne_market_pressed() -> void: open_batiment("antenne")
+# Ouvre la fenêtre du bâtiment infirmerie
 func _on_bat_infirmerie_pressed() -> void: open_batiment("infirmerie")
+# Ouvre la fenêtre du bâtiment restauration
 func _on_bat_restauration_pressed() -> void: open_batiment("restauration")
+# Ouvre la fenêtre du bâtiment stockage
 func _on_bat_stockage_pressed() -> void: open_batiment("stockage")
+# Ouvre la fenêtre du bâtiment temps marketing
 func _on_bat_temps_market_pressed() -> void: open_batiment("temps")
