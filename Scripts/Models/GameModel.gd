@@ -84,9 +84,9 @@ func passer_tour() -> int:
 	for key in batiments_data:
 		var b = batiments_data[key]
 		if b.reparation_restante > 0 or not b.etat or b.pv < 50:
-			barre_survie -= 0.8
+			barre_survie -= 0.7
 		else:
-			barre_survie += 0.8
+			barre_survie += 0.7
 	
 	barre_survie = clamp(barre_survie, 0, 100)
 	

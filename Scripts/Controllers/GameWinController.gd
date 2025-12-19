@@ -7,6 +7,7 @@ func _ready() -> void:
 	# --- STYLE DU TEXTE ---
 	score_label.add_theme_color_override("font_color", Color.BLACK) # Texte en NOIR
 	score_label.add_theme_font_size_override("font_size", 20)       # Taille 25
+	jouer_video_avec_delai_son()
 	
 	afficher_resultats()
 
@@ -51,3 +52,18 @@ func _on_restart_pressed() -> void:
 # Retourne au menu principal
 func _on_quit_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/UI/MainMenu.tscn")
+
+
+func _on_snipe_finished() -> void:
+	$Snipe.visible = false
+
+func _on_screen_crazy_finished() -> void:
+	$ScreenCrazy.visible = false
+
+func jouer_video_avec_delai_son():
+	var video = $snoopdog
+	video.volume_db = -80
+	video.visible = true
+	video.play()
+	await get_tree().create_timer(3.0).timeout
+	video.volume_db = 0
