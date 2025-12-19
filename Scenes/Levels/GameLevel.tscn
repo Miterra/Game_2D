@@ -616,6 +616,8 @@ offset_bottom = 95.0
 grow_horizontal = 0
 icon = ExtResource("4_mypyd")
 flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="Mois" type="Label" parent="."]
 offset_left = 24.0
