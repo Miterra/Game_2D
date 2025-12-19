@@ -85,6 +85,7 @@ amount = 400
 texture = ExtResource("8_euk5f")
 lifetime = 10.0
 preprocess = 0.5
+speed_scale = 0.2
 fixed_fps = 60
 initial_velocity_min = 178.66
 initial_velocity_max = 1000.0
