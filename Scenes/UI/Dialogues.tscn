@@ -15,7 +15,7 @@ script/source = "extends Node2D
 # --- Références aux objets de la scène (les nœuds) ---
 @onready var neigesol = $CanvasLayer/NeigeSol       # Le sol enneigé
 @onready var manchot = $CanvasLayer/manchot          # Le sprite animé du manchot
-@onready var btn_before = $CanvasLayer/btn_fleche_before # Bouton invisible flèche gauche
+@onready var btn_fleche_before: Button = $CanvasLayer/btn_fleche_before
 @onready var btn_next = $CanvasLayer/btn_fleche_next     # Bouton invisible flèche droite
 @onready var dialogue_label = $CanvasLayer/Text      # Label où s'affiche le texte
 @onready var terminer = $CanvasLayer/Terminer        # Bouton \"Terminer\" à la fin
@@ -91,6 +91,16 @@ func _on_btn_next_pressed():
 
 
 
+func _on_btn_fleche_before_pressed() -> void:
+	# Si on n'est pas encore au dernier texte
+	if current_index != 1:
+		current_index -= 1 # On passe au suivant
+		dialogue_label.text = Dialogues.text[current_index] # Met à jour le texte
+		manchot.frame = current_index-1 # Change l'expression du manchot
+		
+		# Affiche la flèche retour car on n'est plus au début
+
+
 
 # --- Gestion des touches Clavier (Flèches gauche/droite) ---
 func _input(event):
@@ -111,7 +121,7 @@ func _on_terminer_pressed() -> void:
 	# Cache toute l'interface
 	dialogue_label.visible = false
 	terminer.visible = false
-	btn_before.visible = false
+	btn_fleche_before.visible = false
 	btn_next.visible = false
 	fond_texte_blanc.visible = false
 	
@@ -342,22 +352,6 @@ rotation = 1.5707964
 scale = Vector2(0.6197995, 0.7567568)
 texture = ExtResource("8_r3w36")
 
-[node name="btn_fleche_next" type="Button" parent="CanvasLayer"]
-visibility_layer = 0
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -578.0
-offset_top = -308.0
-offset_right = 572.0
-offset_bottom = 343.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="Text" type="RichTextLabel" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -373,18 +367,32 @@ grow_vertical = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 32
 
-[node name="btn_fleche_before" type="Button" parent="CanvasLayer"]
-visible = false
+[node name="btn_fleche_next" type="Button" parent="CanvasLayer"]
 visibility_layer = 0
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 418.0
-offset_top = 274.0
-offset_right = 486.0
-offset_bottom = 320.0
+offset_left = 1.0
+offset_top = -323.0
+offset_right = 572.0
+offset_bottom = 374.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="btn_fleche_before" type="Button" parent="CanvasLayer"]
+visibility_layer = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -578.0
+offset_top = -321.0
+offset_bottom = 374.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -422,7 +430,6 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="Button" type="Button" parent="CanvasLayer"]
-visible = false
 offset_left = 1046.0
 offset_top = 421.0
 offset_right = 1136.0
@@ -431,5 +438,6 @@ icon = ExtResource("9_mn5k6")
 flat = true
 expand_icon = true
 
+[connection signal="pressed" from="CanvasLayer/btn_fleche_before" to="." method="_on_btn_fleche_before_pressed"]
 [connection signal="pressed" from="CanvasLayer/Terminer" to="." method="_on_terminer_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
