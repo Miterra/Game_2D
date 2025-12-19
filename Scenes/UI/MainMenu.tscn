@@ -98,7 +98,7 @@ label_settings = SubResource("LabelSettings_21xkr")
 layout_mode = 2
 
 [node name="GPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(-182, -358)
+position = Vector2(-336, -1089)
 amount = 400
 texture = ExtResource("8_euk5f")
 lifetime = 10.0

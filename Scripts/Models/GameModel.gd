@@ -12,7 +12,7 @@ var moisJour: int = 1
 var moisNuit: int = 0
 var is_night_mode: bool = false 
 
-var barre_survie: int = 35 
+var barre_survie: float = 35 
 var argent_genere_ce_tour: int = 0
 
 var batiments_data: Dictionary = BatimentsDB.get_default_data()
@@ -84,9 +84,9 @@ func passer_tour() -> int:
 	for key in batiments_data:
 		var b = batiments_data[key]
 		if b.reparation_restante > 0 or not b.etat or b.pv < 50:
-			barre_survie -= 1
+			barre_survie -= 0.8
 		else:
-			barre_survie += 1
+			barre_survie += 0.8
 	
 	barre_survie = clamp(barre_survie, 0, 100)
 	

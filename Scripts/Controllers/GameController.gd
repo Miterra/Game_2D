@@ -432,7 +432,7 @@ func verifier_etat_commandes():
 			label.text = "Aucune reparation a faire pour le moment."
 			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			label.add_theme_color_override("font_color", Color.BLACK)
-			label.add_theme_font_size_override("font_size", 40)
+			label.add_theme_font_size_override("font_size", 30)
 			commande_vbox.add_child(label)
 			if commande_vbox.has_node("fermer_commande"):
 				var btn_fermer = commande_vbox.get_node("fermer_commande")

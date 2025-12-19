@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bm7rxrisnhhcr" path="res://Assets/Sprites/UI/Argent.png" id="11_8xcuk"]
 [ext_resource type="Script" uid="uid://c15vhbcnckso5" path="res://Scripts/Views/SettingsView.gd" id="11_cs073"]
 [ext_resource type="Texture2D" uid="uid://ql83j3al1pup" path="res://Assets/Sprites/UI/bar.png" id="11_dp8ht"]
-[ext_resource type="Texture2D" uid="uid://bvysuc3qhvemd" path="res://Assets/Sprites/UI/Play.png" id="17_8xcuk"]
+[ext_resource type="Texture2D" uid="uid://bvysuc3qhvemd" path="res://Assets/Sprites/UI/Play.PNG" id="17_8xcuk"]
 [ext_resource type="Texture2D" uid="uid://vgebmsy4xhbh" path="res://Assets/Sprites/UI/quit_fins.png" id="18_msfb6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8xcuk"]
