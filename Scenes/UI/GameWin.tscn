@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://vgebmsy4xhbh" path="res://Assets/Sprites/UI/quit_fins.png" id="5_2eulo"]
 [ext_resource type="Texture2D" uid="uid://ckgiiopsxb3l7" path="res://Assets/Sprites/UI/fond_texte_blanc.png" id="5_ca6pr"]
 [ext_resource type="Shader" uid="uid://birixytw2cib0" path="res://Assets/Shaders/GameWin.gdshader" id="6_7v71e"]
-[ext_resource type="Texture2D" uid="uid://7y4fca5ggr0j" path="res://Assets/Sprites/UI/GameOver.png" id="7_8xk7m"]
+[ext_resource type="Texture2D" uid="uid://krvlq4187wa1" path="res://Assets/Sprites/UI/GameWin.png" id="7_8xk7m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8xk7m"]
 shader = ExtResource("6_7v71e")
@@ -24,16 +24,6 @@ texture = ExtResource("2_7v71e")
 material = SubResource("ShaderMaterial_8xk7m")
 offset_right = 1151.0
 offset_bottom = 650.0
-
-[node name="Game Over" type="Label" parent="."]
-visible = false
-offset_left = 538.0
-offset_top = 43.0
-offset_right = 1143.0
-offset_bottom = 143.0
-theme_override_colors/font_color = Color(0, 0.6719691, 0.15678415, 1)
-theme_override_font_sizes/font_size = 100
-text = "Mission reussi !"
 
 [node name="Restart" type="Button" parent="."]
 offset_left = 623.0
@@ -68,9 +58,9 @@ offset_top = 83.0
 offset_right = 389.0
 offset_bottom = 638.0
 
-[node name="GameOver" type="Sprite2D" parent="."]
-position = Vector2(791, 128)
-scale = Vector2(0.31143466, 0.2389323)
+[node name="GameWin" type="Sprite2D" parent="."]
+position = Vector2(809, 141)
+scale = Vector2(0.28630322, 0.44905198)
 texture = ExtResource("7_8xk7m")
 
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
