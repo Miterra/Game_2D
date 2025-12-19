@@ -23,13 +23,13 @@ func afficher_resultats() -> void:
 	
 	# Affichage des scores (Même format que la victoire)
 	texte += "Score Final : " + str(stats.score_total) + " pts\n"
-	texte += "--------------------------------\n"
+	texte += "-----------------\n"
 	texte += "Tours tenus : " + str(stats.tours_tenus) + " mois\n"
 	texte += "Argent restant : " + str(stats.argent_restant) + "€\n"
 	texte += "Argent investi : " + str(stats.argent_depense) + "€\n\n"
 	
 	# Liste des Survivants
-	texte += "--- Batiments Survivants (" + str(stats.liste_survivants.size()) + ") ---\n"
+	texte += " Batiments Survivants (" + str(stats.liste_survivants.size()) + ") \n"
 	if stats.liste_survivants.size() > 0:
 		for nom_bat in stats.liste_survivants:
 			texte += "+ " + nom_bat + "\n"
@@ -37,7 +37,7 @@ func afficher_resultats() -> void:
 		texte += "Aucun... C'est le neant complet.\n"
 	
 	# Liste des Détruits
-	texte += "\n--- Batiments Detruits (" + str(stats.liste_detruits.size()) + ") ---\n"
+	texte += "\n Batiments Detruits (" + str(stats.liste_detruits.size()) + ") \n"
 	if stats.liste_detruits.size() > 0:
 		for nom_bat in stats.liste_detruits:
 			texte += "- " + nom_bat + "\n"

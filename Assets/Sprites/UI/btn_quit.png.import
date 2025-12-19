@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cevfv5arm3fw7"
-path="res://.godot/imported/fleche_dialogue.jpg-7e2cfcb52db052c825f658822beb9d3c.ctex"
+uid="uid://bv7gx8k1lnayx"
+path="res://.godot/imported/btn_quit.png-af26b65b2f48e12b4ada73b316600abb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/fleche_dialogue.jpg"
-dest_files=["res://.godot/imported/fleche_dialogue.jpg-7e2cfcb52db052c825f658822beb9d3c.ctex"]
+source_file="res://Assets/Sprites/UI/btn_quit.png"
+dest_files=["res://.godot/imported/btn_quit.png-af26b65b2f48e12b4ada73b316600abb.ctex"]
 
 [params]
 

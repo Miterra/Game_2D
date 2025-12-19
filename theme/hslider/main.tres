@@ -22,7 +22,7 @@ texture_margin_bottom = 3.0
 expand_margin_top = 10.0
 expand_margin_bottom = 10.0
 region_rect = Rect2(8, 36, 134, 10)
-modulate_color = Color(1, 1, 1, 0.84313726)
+modulate_color = Color(1, 1, 1, 0.54901963)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wrqng"]
 texture = ExtResource("2_m5302")

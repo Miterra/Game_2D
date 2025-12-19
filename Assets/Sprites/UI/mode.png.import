@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvysuc3qhvemd"
-path="res://.godot/imported/Play.png-a2298d33403c0af9af5dc1a0c554f2d5.ctex"
+uid="uid://c82gywpse2rub"
+path="res://.godot/imported/mode.png-a4ba0c5ec71d22e6598d04bcf7f5844a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/Play.png"
-dest_files=["res://.godot/imported/Play.png-a2298d33403c0af9af5dc1a0c554f2d5.ctex"]
+source_file="res://Assets/Sprites/UI/mode.png"
+dest_files=["res://.godot/imported/mode.png-a4ba0c5ec71d22e6598d04bcf7f5844a.ctex"]
 
 [params]
 
@@ -36,5 +36,5 @@ process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
-process/size_limit=0
+process/size_limit=300
 detect_3d/compress_to=1

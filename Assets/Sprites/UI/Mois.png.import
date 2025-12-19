@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b25wpjf6flg5d"
-path="res://.godot/imported/Bouton_Normal.png-2e25b8d5c9c3691398f7e6a7f0a91746.ctex"
+uid="uid://8e32p433eny2"
+path="res://.godot/imported/Mois.png-94c288b47d07082eb2fc65e09c52f1a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/Bouton_Normal.png"
-dest_files=["res://.godot/imported/Bouton_Normal.png-2e25b8d5c9c3691398f7e6a7f0a91746.ctex"]
+source_file="res://Assets/Sprites/UI/Mois.png"
+dest_files=["res://.godot/imported/Mois.png-94c288b47d07082eb2fc65e09c52f1a3.ctex"]
 
 [params]
 

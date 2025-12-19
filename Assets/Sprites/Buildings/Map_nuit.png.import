@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2f8kqs1si2jy"
-path="res://.godot/imported/bouton_restart.png-07243b4478053f31c1e1a4f0bac9faa3.ctex"
+uid="uid://qkgrxuj6wye8"
+path="res://.godot/imported/Map_nuit.png-3baee32aeca6a0e076a53d749e50deea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/UI/bouton_restart.png"
-dest_files=["res://.godot/imported/bouton_restart.png-07243b4478053f31c1e1a4f0bac9faa3.ctex"]
+source_file="res://Assets/Sprites/Buildings/Map_nuit.png"
+dest_files=["res://.godot/imported/Map_nuit.png-3baee32aeca6a0e076a53d749e50deea.ctex"]
 
 [params]
 

@@ -3,9 +3,11 @@ extends Node2D
 # 1. RÉFÉRENCES UI
 @onready var all: Button = $all
 @onready var win_bar: ProgressBar = $WinBar
-@onready var mode: Label = $Mode
 @onready var argent_txt: Label = $Argent
 @onready var mois: Label = $Mois
+@onready var map_nuit: Sprite2D = $MapNuit
+@onready var notif_nuit: ColorRect = $NotifNuit
+@onready var notif_label: Label = $NotifNuit/Label
 
 # --- ANIMATIONS REPARATION (Luigi) ---
 @onready var luigi_reparation_principal: AnimatedSprite2D = $Luigi_reparation_principal
@@ -76,6 +78,11 @@ var batiments_ui = {}
 func _ready() -> void:
 	game_model = GameModel.new()
 	add_child(game_model)
+	
+	if map_nuit:
+		map_nuit.modulate.a = 0.0
+	if notif_nuit: notif_nuit.modulate.a = 0.0
+
 	
 	win_bar.min_value = 0
 	win_bar.max_value = 100
@@ -182,20 +189,64 @@ func set_anim_active(anim: AnimatedSprite2D, active: bool):
 	else:
 		anim.stop()
 
-# --- MISE A JOUR AFFICHAGE ---
-# Met à jour l'affichage global (argent, barre de survie, mode jour/nuit)
+
 func update_global_ui():
-	argent_txt.text = "Argent : " + str(game_model.argent) + "€"
+	# Mise à jour des textes de base
+	argent_txt.text = str(game_model.argent) + "€"
 	win_bar.value = game_model.barre_survie
 	
+	var tween = create_tween()
+	
 	if game_model.is_night_mode:
-		mode.text = "Mode Nuit (" + str(game_model.moisNuit) + "/6)"
-		mode.add_theme_color_override("font_color", Color(0, 0, 0.5))
+		# --- C'EST LA NUIT ---
+		# Assombrir le fond
+		if map_nuit: tween.tween_property(map_nuit, "modulate:a", 1.0, 1.5)
+		
+		# [CORRECTION] On remet la condition : Seulement au tout premier mois (0)
+		if game_model.moisNuit == 0:
+			lancer_alerte("ATTENTION : LA NUIT POLAIRE TOMBE !", Color("#4debea"))
+			
 	else:
-		mode.text = "Mode Jour (" + str(game_model.moisJour) + "/6)"
-		mode.add_theme_color_override("font_color", Color(1, 1, 0, 1))
+		# --- C'EST LE JOUR ---
+		# Eclaircir le fond
+		if map_nuit: tween.tween_property(map_nuit, "modulate:a", 0.0, 1.5)
+		
+		# [NOUVEAU] On remet la condition : Seulement au tout premier mois (0)
+		if game_model.moisJour == 0:
+			lancer_alerte("LE SOLEIL REVIENT ! HIVER SURVÉCU.", Color.GOLD)
+			
+		if game_model.tour_actuel == 25:
+			lancer_alerte("ALERTE MÉTÉO : BLIZZARD ÉTERNEL DÉTECTÉ !", Color(1, 0, 0))
 
-# Rafraîchit tous les libellés liés aux bâtiments
+
+func lancer_alerte(message: String, couleur_texte: Color = Color("#4debea")):
+	if notif_nuit: notif_nuit.visible = true 
+	if notif_label: notif_label.visible = true
+	if notif_label == null or notif_nuit == null:
+		return
+	# 1. On met le texte qu'on a reçu en paramètre
+	notif_label.text = message
+
+	# 2. On change la couleur du texte (Cyan pour nuit, Or pour jour...)
+	if notif_label.label_settings:
+		notif_label.label_settings.font_color = couleur_texte
+	else:
+		# Si vous n'utilisez pas LabelSettings mais les Theme Overrides :
+		notif_label.add_theme_color_override("font_color", couleur_texte)
+	
+	# 3. L'animation (Identique à avant)
+	var tween = create_tween()
+	
+	# Apparition
+	tween.tween_property(notif_nuit, "modulate:a", 1.0, 0.5).set_trans(Tween.TRANS_SINE)
+	
+	# Pause de 3 secondes
+	tween.tween_interval(1.0)
+	
+	# Disparition
+	tween.tween_property(notif_nuit, "modulate:a", 0.0, 0.5)
+
+	
 func _update_all_labels() -> void:
 	for key in batiments_ui:
 		var ui = batiments_ui[key]
@@ -417,10 +468,13 @@ func _on_fermer_detruit_pressed() -> void:
 # Ouvre le menu pause
 func _on_revenir_pressed() -> void:
 	menu_pause.visible = true
-
+	$Quitter.visible = true
+	$Reprendre.visible = true
 # Ferme le menu pause
 func _on_reprendre_pressed() -> void:
 	menu_pause.visible = false
+	$Quitter.visible = false
+	$Reprendre.visible = false
 
 # Retourne au menu principal
 func _on_quitter_pressed() -> void:

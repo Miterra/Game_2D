@@ -22,7 +22,7 @@ func afficher_resultats() -> void:
 	var texte = "FELICITATIONS ! MISSION REUSSI !\n\n"
 	
 	texte += "Score Final : " + str(stats.score_total) + " pts\n"
-	texte += "--------------------------------\n"
+	texte += "----\n"
 	texte += "Argent restant : " + str(stats.argent_restant) + "€\n"
 	texte += "Argent investi : " + str(stats.argent_depense) + "€\n\n"
 	

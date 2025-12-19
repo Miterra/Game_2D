@@ -69,6 +69,10 @@ func passer_tour() -> int:
 			print(b.nom + " est détruit !")
 		else:
 			var gain = b.gain_argent
+			if tour_actuel >= 26:
+				gain = int(gain / 2)
+				print("MALUS FROID : Revenus divisés pour " + b.nom)
+			
 			argent_genere_ce_tour += gain
 			print(b.nom + " génère " + str(gain) + "€")
 
@@ -87,7 +91,7 @@ func passer_tour() -> int:
 	barre_survie = clamp(barre_survie, 0, 100)
 	
 	tour_actuel += 1
-	print("------------------------------------------------")
+	print("-----------------")
 	print("FIN DU TOUR : " + str(tour_actuel))
 	
 	# 3. Gestion Jour/Nuit

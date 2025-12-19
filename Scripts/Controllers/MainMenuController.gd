@@ -19,7 +19,7 @@ func _on_btn_play_pressed() -> void:
 
 # Ouvre ou ferme la fenêtre des réglages
 func _on_btn_settings_pressed() -> void:
-	$SettingsWindows.visible = !$SettingsWindows.visible
+	$SettingsWindows.visible = true
 
 # Lance une partie en mode normal
 func _on_normal_pressed() -> void:
@@ -37,3 +37,7 @@ func _on_quit_pressed() -> void:
 	normal.visible = false
 	infini.visible = false
 	quit.visible = false
+
+
+func _on_quit_2_pressed() -> void:
+	$SettingsWindows.visible = false	

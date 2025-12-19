@@ -45,5 +45,6 @@ folder_colors={
 
 [gui]
 
+fonts/dynamic_fonts/use_oversampling=false
 theme/custom="uid://b2jcrb45rokxr"
-theme/custom_font="uid://baq8qhyplur26"
+theme/custom_font="uid://cgilgjgaqo801"

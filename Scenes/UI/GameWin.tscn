@@ -1,20 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8k2g73651cah"]
+[gd_scene load_steps=9 format=3 uid="uid://c8k2g73651cah"]
 
 [ext_resource type="Script" uid="uid://bo5vx6p2kdwjy" path="res://Scripts/Controllers/GameWinController.gd" id="1_hna4s"]
-[ext_resource type="Texture2D" uid="uid://b4w654jfn1xek" path="res://Assets/Sprites/Buildings/MAP_final.png" id="1_rcfek"]
-[ext_resource type="Texture2D" uid="uid://c2f8kqs1si2jy" path="res://Assets/Sprites/UI/bouton_restart.png" id="2_r38v5"]
-[ext_resource type="Texture2D" uid="uid://c5ooy67lixxlr" path="res://Assets/Sprites/UI/bouton_quit.png" id="3_hna4s"]
+[ext_resource type="Texture2D" uid="uid://dgkrojwqs5egn" path="res://Assets/Sprites/Buildings/Map_Jour.png" id="2_7v71e"]
+[ext_resource type="Texture2D" uid="uid://5g3gslitkgb2" path="res://Assets/Sprites/UI/Restart.png" id="4_8xk7m"]
+[ext_resource type="Texture2D" uid="uid://vgebmsy4xhbh" path="res://Assets/Sprites/UI/quit_fins.png" id="5_2eulo"]
 [ext_resource type="Texture2D" uid="uid://ckgiiopsxb3l7" path="res://Assets/Sprites/UI/fond_texte_blanc.png" id="5_ca6pr"]
+[ext_resource type="Shader" uid="uid://birixytw2cib0" path="res://Assets/Shaders/GameWin.gdshader" id="6_7v71e"]
+[ext_resource type="Texture2D" uid="uid://7y4fca5ggr0j" path="res://Assets/Sprites/UI/GameOver.png" id="7_8xk7m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8xk7m"]
+shader = ExtResource("6_7v71e")
+shader_parameter/force_du_flou = 2.5
 
 [node name="GameWin" type="Node2D"]
 script = ExtResource("1_hna4s")
 
-[node name="MapFinal" type="Sprite2D" parent="."]
-position = Vector2(575.49994, 323.5)
-scale = Vector2(0.45134816, 0.4510077)
-texture = ExtResource("1_rcfek")
+[node name="Map_jour" type="Sprite2D" parent="."]
+position = Vector2(576.00006, 324.50003)
+scale = Vector2(0.4186047, 0.42122394)
+texture = ExtResource("2_7v71e")
+
+[node name="FondFlou" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_8xk7m")
+offset_right = 1151.0
+offset_bottom = 650.0
 
 [node name="Game Over" type="Label" parent="."]
+visible = false
 offset_left = 538.0
 offset_top = 43.0
 offset_right = 1143.0
@@ -24,23 +36,23 @@ theme_override_font_sizes/font_size = 100
 text = "Mission reussi !"
 
 [node name="Restart" type="Button" parent="."]
-offset_left = 633.0
-offset_top = 165.0
-offset_right = 1021.0
-offset_bottom = 405.0
+offset_left = 623.0
+offset_top = 210.0
+offset_right = 1011.0
+offset_bottom = 450.0
 theme_override_font_sizes/font_size = 80
-icon = ExtResource("2_r38v5")
+icon = ExtResource("4_8xk7m")
 flat = true
 icon_alignment = 1
 expand_icon = true
 
 [node name="Quit" type="Button" parent="."]
-offset_left = 637.0
-offset_top = 426.0
-offset_right = 1013.0
-offset_bottom = 622.0
+offset_left = 622.0
+offset_top = 436.0
+offset_right = 998.0
+offset_bottom = 632.0
 theme_override_font_sizes/font_size = 80
-icon = ExtResource("3_hna4s")
+icon = ExtResource("5_2eulo")
 flat = true
 icon_alignment = 1
 expand_icon = true
@@ -51,10 +63,15 @@ scale = Vector2(0.6146723, 0.5290507)
 texture = ExtResource("5_ca6pr")
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_left = 84.0
-offset_top = 84.0
-offset_right = 491.0
-offset_bottom = 700.0
+offset_left = 54.0
+offset_top = 83.0
+offset_right = 389.0
+offset_bottom = 638.0
+
+[node name="GameOver" type="Sprite2D" parent="."]
+position = Vector2(791, 128)
+scale = Vector2(0.31143466, 0.2389323)
+texture = ExtResource("7_8xk7m")
 
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
